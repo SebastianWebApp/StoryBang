@@ -1,0 +1,301 @@
+html,body{
+    margin: 0px;
+    padding: 0px;
+    width: 100%;
+    height: 100%;
+}
+
+img{
+    height: 100%;
+    width: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+h1{
+    text-align: center;
+    font-size: 40px;
+    color: #d0671e;
+    margin-bottom: 0px;
+}
+
+h3{
+    margin-bottom: 5px;
+}
+
+p{
+    text-align: center;
+}
+
+
+
+input{
+    width: 100%;
+    padding: 8px;
+    border-radius: 5px;
+    box-sizing: border-box;
+    margin-bottom: 5px;
+}
+
+button{
+    width: 100%;
+    margin-top: 10px;
+    padding: 8px;
+    border-radius: 5px;
+    box-sizing: border-box;
+    border-color: #d0671e;
+    cursor: pointer;
+    background-color: white;
+}
+
+main{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+  #loading{
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    display: none;
+}
+
+#loading img{
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+#Image{
+    flex: 1;
+    height: 100%;
+    box-sizing: border-box;
+
+
+}
+
+.Content{
+  flex: 1;
+  height: 100%;
+  align-content: center;
+  margin-left: 40px;
+  margin-right: 40px;
+  box-sizing: border-box;
+  overflow-y: auto;
+}
+
+
+
+/* Configuración del Perfil */
+
+
+
+.F2_Centered{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+}
+
+.image-container {
+    display: inline-block; /* Para que las imágenes se adapten a su tamaño */
+}
+
+#Img_F2_Profile {
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 250px;
+    height: 250px;
+    border-radius: 100%;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+
+
+
+
+
+/* Estilo del contenido de la alerta */
+#Div_Notification{
+    display: none;
+}
+
+.card {
+    width: 330px;
+    height: 80px;
+    border-radius: 8px;
+    box-sizing: border-box;
+    padding: 10px 15px;
+    background-color: #ffffff;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    position: absolute;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    gap: 15px;
+    right: 0px;
+  }
+  .wave {
+    position: absolute;
+    transform: rotate(90deg);
+    left: -31px;
+    top: 32px;
+    width: 80px;
+    fill: #ffa30d3a;
+  }
+  .icon-container {
+    width: 35px;
+    height: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #ffa30d48;
+    border-radius: 50%;
+    margin-left: 8px;
+  }
+  .icon {
+    width: 17px;
+    height: 17px;
+    color: #db970e;
+  }
+  .message-text-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    flex-grow: 1;
+  }
+  .message-text,
+  .sub-text {
+    margin: 0;
+    cursor: default;
+  }
+  .message-text {
+    color: #db970e;
+    font-size: 17px;
+    font-weight: 700;
+  }
+  .sub-text {
+    font-size: 14px;
+    color: #555;
+  }
+  .cross-icon {
+    width: 18px;
+    height: 18px;
+    color: #555;
+    cursor: pointer;
+  }
+  
+/* Fin Cuadro Alerta */
+
+
+
+/* Estilo Cuadro Alerta Notificacion */
+
+
+ /* Estilo del fondo de la alerta */
+ .alert-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    display: none; /* Oculto por defecto */
+}
+
+/* Estilo del contenido de la alerta */
+.alert-box {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 50%;
+    text-align: center;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+    max-height: 300px;
+    min-width: 200px;
+}
+
+.alert-text {
+    margin-bottom: 10px;
+    font-size: 16px;
+    color: #333;
+    user-select: text; /* Permitir selección de texto */
+    text-align: left;
+}
+
+.alert-button {
+    padding: 10px 20px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.alert-button:hover {
+    background-color: #0056b3;
+}
+
+
+.header {
+    display: flex;
+    align-items: center;
+    grid-gap: 1rem;
+    gap: 1rem;
+    margin-bottom: 10px;
+}
+  
+.icon {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 9999px;
+    background-color: rgba(96, 165, 250, 1);
+    padding: 0.5rem;
+    color: rgba(255, 255, 255, 1);
+    margin-left: 0px;
+}
+  
+.icon svg {
+    height: 1rem;
+    width: 1rem;
+}
+/* Fin Cuadro Alerta Notificacion*/
+
+
+
+
+@media (max-width: 1000px) {
+
+    #Image{
+        display: none;
+    }
+}
+
+
+
+@media (max-height: 450px) {
+
+    html,body{
+        height: auto;
+    }
+
+    #Image{
+        height: 450px;
+    }
+}

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generador de Imágenes</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Generador de Imágenes</h1>
+        </header>
+        
+        <main>
+            <div class="input-section">
+                <input type="text" id="character-name" placeholder="Nombre del personaje" class="name-input">
+            </div>
+            
+            <div class="image-sections">
+                <div class="upload-section">
+                    <h2>Subir Imagen</h2>
+                    <div class="upload-area" id="upload-area">
+                        <img src="/src/upload.png" alt="Upload" id="upload-icon">
+                        <p>Arrastra tu imagen aquí o haz clic para seleccionar</p>
+                        <input type="file" id="file-input" accept="image/*" hidden>
+                    </div>
+                </div>
+                
+                <div class="generated-section">
+                    <h2>Imagen Generada</h2>
+                    <div class="generated-area" id="generated-area">
+                        <img src="/src/loading.png" alt="Loading" id="generated-image" hidden>
+                        <p>La imagen generada aparecerá aquí</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="gallery-section">
+                <h2>Personajes Creados</h2>
+                <div class="gallery" id="character-gallery">
+                    <!-- Las imágenes se cargarán dinámicamente aquí -->
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="index.js"></script>
+</body>
+</html>
+
+
+
+
+

@@ -1,0 +1,21 @@
+Correr con go run main.go
+
+
+Para ejecutar
+
+curl -X POST http://localhost:8081/soap \
+  -H "Content-Type: text/xml" \
+  -d '<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+  <soap:Body>
+    <EncryptRequest xmlns="http://encrypt.com/">
+      <phone>0991234567</phone>
+      <password>mysecretpass</password>
+    </EncryptRequest>
+  </soap:Body>
+</soap:Envelope>'
+
+
+El patrón Command es un patrón de diseño de comportamiento que encapsula 
+una petición (comando) como un objeto, permitiendo parametrizar clientes 
+con diferentes solicitudes, desencadenarlas, deshacerlas o almacenarlas 
+para su ejecución posterior.

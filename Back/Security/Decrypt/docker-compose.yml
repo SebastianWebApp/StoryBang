@@ -1,0 +1,14 @@
+version: "3.9"
+services:
+
+  decrypt:
+    build: ./
+    container_name: decrypt
+    image: sebastianwebapp/story_bang_decrypt:latest
+    ports:
+      - "4006:4006"  
+    
+    environment:
+      - RACK_ENV=production
+      
+    restart: always # Reinicio del microservicio en caso de fallo
