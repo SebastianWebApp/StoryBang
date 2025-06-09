@@ -1,13 +1,13 @@
 class InstanceConfig {
   constructor() {
     this.IPs = [
-      "eipalloc-082335f0f96830068",
-      "eipalloc-0451da9b93d2eb514",
-      "eipalloc-025f82701bf3249bb",
-      "eipalloc-0060e34bc96a6d275",
-      "eipalloc-007486b62d49bad4f",
-      "arn:aws:elasticloadbalancing:us-east-1:137134155643:targetgroup/Encrypt/6e86686db9a17736",
-      "arn:aws:elasticloadbalancing:us-east-1:137134155643:targetgroup/Decrypt/114fe224bbdf492d"
+      "eipalloc-09e64f4fb319a36cb",
+      "eipalloc-038350a108b99614d",
+      "eipalloc-05a5d393dc6482d39",
+      "eipalloc-09feafc7f5101d409",
+      "eipalloc-0634b05b86f457a0d",
+      "arn:aws:elasticloadbalancing:us-east-1:168562793459:targetgroup/Encrypt/03fde7ca8ff21f9e",
+      "arn:aws:elasticloadbalancing:us-east-1:168562793459:targetgroup/Decrypt/7e50e9d06d835270"
     ];
     this.Names = ["DB_User", "DB_Code", "Bull_User", "Messages_user", "Kafka", "Encrypt", "Decrypt"];
     this.Instance = [
@@ -231,7 +231,7 @@ class InstanceConfig {
           - "9092:9092"
         environment:
           KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-          KAFKA_ADVERTISED_HOST_NAME: 13.219.123.126
+          KAFKA_ADVERTISED_HOST_NAME: 54.243.52.244
           KAFKA_ADVERTISED_PORT: 9092
           KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092
           KAFKA_BROKER_ID: 1
@@ -337,8 +337,8 @@ class InstanceConfig {
       InstanceType: this.Instance[index],
       MinCount: 1,
       MaxCount: 1,
-      KeyName: "Distibuida",
-      SecurityGroupIds: ["sg-0366e9949d2cf7ef9"],
+      KeyName: "Distribuida",
+      SecurityGroupIds: ["sg-04371dba8d4161b49"],
       TagSpecifications: [
         {
           ResourceType: "instance",
