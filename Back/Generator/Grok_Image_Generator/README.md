@@ -1,6 +1,4 @@
-
-
-
+# GROK Image Generator Service
           
 # Image Generator Service
 

@@ -2,10 +2,10 @@
 
 
           
-# Image Generator Service
+# GROK Text Generator Service
 
 ## Overview
-This service is part of a microservices architecture that generates images based on user prompts using GROK technology. It implements a queue-based system for processing image generation requests with JWT authentication.
+This service is part of a microservices architecture that generates text content using GROK technology. It implements a queue-based system for processing text generation requests with JWT authentication.
 
 ## Technologies Used
 - Express.js - Web framework
@@ -13,11 +13,11 @@ This service is part of a microservices architecture that generates images based
 - Socket.io - Real-time notifications
 - Redis - Queue backend
 - JWT - Authentication
-- GROK - Image generation
+- GROK - Text generation
 - Jest - Unit testing
 
 ## Features
-- Asynchronous image generation using queue system
+- Asynchronous text generation using queue system
 - JWT-based authentication
 - Real-time notifications for job status
 - Error handling and session management
@@ -27,20 +27,21 @@ This service is part of a microservices architecture that generates images based
 ```env
 PORT=<server_port>
 PORT_MESSAGES_USERS=<notification_service_port>
-GROK_API=<grok_api_endpoint>
+GROK_API_KEY=<your_grok_api_key>
+GROK_API_URL=<grok_api_endpoint>
 ```
 
 ## Queue Process Flow
 1. Receives job with Token and Prompt data
 2. Validates JWT token
-3. Generates image using GROK service
+3. Generates text content using GROK service
 4. Notifies user of success/failure through WebSocket
 
 ## Request Schema
 ```json
 {
     "Token": "string (JWT token)",
-    "Prompt": "string (image generation prompt)",
+    "Prompt": "string (text generation prompt)",
     "Id": "string (unique identifier for notification)"
 }
 ```
@@ -50,7 +51,7 @@ GROK_API=<grok_api_endpoint>
 {
     "success": "boolean",
     "data": {
-        "image": "string (base64 encoded image)"
+        "content": "string (generated text)"
     },
     "error": "string (error message if any)"
 }
@@ -60,7 +61,7 @@ GROK_API=<grok_api_endpoint>
 The service includes comprehensive unit tests using Jest framework. Tests cover:
 - Token validation
 - Queue processing
-- Image generation
+- Text generation
 - Error handling
 - WebSocket notifications
 
@@ -84,13 +85,13 @@ npm test
 ## Services Used
 - NotificationService - Handles WebSocket notifications
 - JWTService - Manages token validation
-- GROKService - Handles image generation
+- GROKService - Handles text generation
 - Redis - Queue management configuration
 
 ## Usage
-The service listens for image generation requests and processes them through a Bull queue. Each request must include:
+The service listens for text generation requests and processes them through a Bull queue. Each request must include:
 - Valid JWT token
-- Image generation prompt
+- Text generation prompt
 
 Responses are sent back to the client through WebSocket notifications.
         
