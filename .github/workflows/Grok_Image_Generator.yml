@@ -1,11 +1,11 @@
-name: StoryBang-Image_Generator
+name: StoryBang-Grok_Image_Generator
 
 on:
   push:
     branches:
       - Prod  # Cambia según sea necesario
     paths:
-      - 'Back/Generator/Image_Generator/**'  # Solo activa el workflow si hay cambios en esta carpeta
+      - 'Back/Generator/Grok_Image_Generator/**'  # Solo activa el workflow si hay cambios en esta carpeta
 
 jobs:
   build-and-push:
@@ -13,7 +13,7 @@ jobs:
 
     defaults:
       run:
-        working-directory: Back/Generator/Image_Generator  # Todos los comandos correrán desde esta carpeta
+        working-directory: Back/Generator/Grok_Image_Generator  # Todos los comandos correrán desde esta carpeta
 
     steps:
       # Checkout the repository code
