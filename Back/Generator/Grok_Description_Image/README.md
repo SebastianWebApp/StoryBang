@@ -1,11 +1,7 @@
+# GROK Image Description Service
 
-
-
-          
-# GROK Text Generator Service
-
-## Overview
-This service is part of a microservices architecture that generates text content using GROK technology. It implements a queue-based system for processing text generation requests with JWT authentication.
+## General Description
+This service is part of a microservices architecture that generates image descriptions using GROK technology. It implements a queue-based system to process image description requests with JWT authentication.
 
 ## Technologies Used
 - Express.js - Web framework
@@ -13,13 +9,13 @@ This service is part of a microservices architecture that generates text content
 - Socket.io - Real-time notifications
 - Redis - Queue backend
 - JWT - Authentication
-- GROK - Text generation
+- GROK - Image description generation
 - Jest - Unit testing
 
 ## Features
-- Asynchronous text generation using queue system
+- Asynchronous image description generation using a queue system
 - JWT-based authentication
-- Real-time notifications for job status
+- Real-time job status notifications
 - Error handling and session management
 - Comprehensive unit test coverage
 
@@ -31,17 +27,11 @@ GROK_API_KEY=<your_grok_api_key>
 GROK_API_URL=<grok_api_endpoint>
 ```
 
-## Queue Process Flow
-1. Receives job with Token and Prompt data
-2. Validates JWT token
-3. Generates text content using GROK service
-4. Notifies user of success/failure through WebSocket
-
 ## Request Schema
 ```json
 {
     "Token": "string (JWT token)",
-    "Prompt": "string (text generation prompt)",
+    "Prompt": "string (image to describe)",
     "Id": "string (unique identifier for notification)"
 }
 ```
@@ -51,17 +41,17 @@ GROK_API_URL=<grok_api_endpoint>
 {
     "success": "boolean",
     "data": {
-        "content": "string (generated text)"
+        "description": "string (generated image description)"
     },
     "error": "string (error message if any)"
 }
 ```
 
-## Unit Testing
-The service includes comprehensive unit tests using Jest framework. Tests cover:
+## Unit Tests
+The service includes comprehensive unit tests using Jest. The tests cover:
 - Token validation
 - Queue processing
-- Text generation
+- Description generation
 - Error handling
 - WebSocket notifications
 
@@ -72,7 +62,7 @@ npm test
 
 ## Error Handling
 - Session expiration notifications
-- Job processing error notifications
+- Processing error notifications
 - Queue process error management
 
 ## Dependencies
@@ -80,18 +70,17 @@ npm test
 - bull
 - dotenv
 - socket.io-client
-- jest (dev dependency)
+- jest (development dependency)
 
 ## Services Used
 - NotificationService - Handles WebSocket notifications
 - JWTService - Manages token validation
-- GROKService - Handles text generation
+- GROKService - Handles description generation
 - Redis - Queue management configuration
 
 ## Usage
-The service listens for text generation requests and processes them through a Bull queue. Each request must include:
+The service listens for image description requests and processes them through a Bull queue. Each request must include:
 - Valid JWT token
-- Text generation prompt
+- Image to describe
 
-Responses are sent back to the client through WebSocket notifications.
-        
+Responses are sent to the client via WebSocket notifications.
