@@ -254,7 +254,7 @@ class InstanceConfig {
       zookeeper-data:
       zookeeper-datalog:
       kafka-data:
-    EOF
+EOF
     
     # Step 10: Deploy Docker Compose stack
     echo "Iniciando el stack de Docker Compose..."
@@ -333,7 +333,7 @@ class InstanceConfig {
 
   getInstanceParams(index) {
     return {
-      ImageId: "ami-084568db4383264d4",
+      ImageId: "ami-0731becbf832f281e",
       InstanceType: this.Instance[index],
       MinCount: 1,
       MaxCount: 1,
