@@ -3,29 +3,28 @@ import OpenAI from 'openai';
 
 dotenv.config();
 
-var API_GROK = process.env.API_GROK;
+const API_GROK = process.env.API_GROK;
 
 export class GROKService {   
-    async ImageGrok(Image) {
-        
+   
+    async GenerateText(prompt) {
         const client = new OpenAI({
             baseURL: 'https://api.x.ai/v1',
             apiKey: API_GROK
         });
-  
-        const response = await client.images.generate({
-            model: 'grok-2-image-1212',
-            prompt: Image,
-            n: 1 
+
+        const response = await client.chat.completions.create({
+            model: 'grok-3', // Model for text
+            messages: [
+                {
+                    role: 'user',
+                    content: prompt
+                }
+            ],
+            max_tokens: 1000 // Adjust as necessary
         });
 
-        const imageUrl = response.data[0].url;
-        
-        const imageResponse = await fetch(imageUrl);
-        const imageArrayBuffer = await imageResponse.arrayBuffer();
-        const imageBuffer = Buffer.from(imageArrayBuffer);
-        const generatedImageBase64 = imageBuffer.toString('base64');
-        return generatedImageBase64;
-          
+        const generatedText = response.choices[0].message.content;
+        return generatedText;
     }
 }

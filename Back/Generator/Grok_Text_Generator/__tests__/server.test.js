@@ -14,7 +14,7 @@ describe("Image Generator", () => {
         jwtService = new JWTService(); // Initialize JWTService
         jwtService.verifyToken = jest.fn(); // Mock verifyToken
         grokService = new GROKService(); // Initialize GROKService
-        grokService.generateImage = jest.fn(); // Mock generateImage
+        grokService.GenerateText = jest.fn(); // Mock GenerateText
     });
 
     // This runs after each test to reset any mocks that were used
@@ -23,8 +23,8 @@ describe("Image Generator", () => {
     });
 
     // Group of tests related to GROKService
-    describe("Generate Image", () => {
-        test("The image was generated successfully", async () => {
+    describe("Generate Text", () => {
+        test("The text was generated successfully", async () => {
             
             // Mock expected behaviors
             const mockJobData = {
@@ -34,17 +34,17 @@ describe("Image Generator", () => {
             }
 
             jwtService.verifyToken.mockResolvedValue(true);            
-            grokService.generateImage.mockResolvedValue(true);
+            grokService.GenerateText.mockResolvedValue(true);
 
             // Call logic (assumed from context)
             const tokenValid = await jwtService.verifyToken(mockJobData.Token);
             expect(tokenValid).toBe(true);
 
-            const imageGenerated = await grokService.generateImage(mockJobData.Prompt);
+            const imageGenerated = await grokService.GenerateText(mockJobData.Prompt);
             expect(imageGenerated).toBe(true);
         });
 
-        test("The image was not generated successfully", async () => {
+        test("The text was not generated successfully", async () => {
             // Mock expected behaviors
             const mockJobData = {
                 Id: '123',
@@ -53,13 +53,13 @@ describe("Image Generator", () => {
             }
 
             jwtService.verifyToken.mockResolvedValue(true);
-            grokService.generateImage.mockRejectedValue(new Error("Image generation failed"));
+            grokService.GenerateText.mockRejectedValue(new Error("Image generation failed"));
 
             // Call logic (assumed from context)
             const tokenValid = await jwtService.verifyToken(mockJobData.Token);
             expect(tokenValid).toBe(true);
 
-            await expect(grokService.generateImage(mockJobData.Prompt)).rejects.toThrow("Image generation failed");    
+            await expect(grokService.GenerateText(mockJobData.Prompt)).rejects.toThrow("Image generation failed");    
         })
     });
 

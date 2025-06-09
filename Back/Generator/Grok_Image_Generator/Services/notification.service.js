@@ -6,7 +6,7 @@ export class NotificationService {
     async notify(userId, status, message) {
         try {
             this.socket.emit("Profile", {
-                Id: userId + "_Image_Generator",
+                Id: userId + "_Grok_Image_Generator",
                 Status: status,
                 Message: message
             });

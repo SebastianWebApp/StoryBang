@@ -20,7 +20,7 @@ const grokService = new GROKService();
 
 
 // Create Delete User Queue
-const Image_GeneratorQueue = new Queue("Image_Generator", { redis: redisOptions });
+const Image_GeneratorQueue = new Queue("Grok_Text_Generator", { redis: redisOptions });
 
 Image_GeneratorQueue.process(async (job) => {
     try {    
@@ -31,11 +31,10 @@ Image_GeneratorQueue.process(async (job) => {
             return;
         }
 
-        // Generate Image
-        const Image = await grokService.ImageGrok(job.data.Prompt);
+        const Content = await grokService.GenerateText(job.data.Prompt);
 
         // Send Image
-        await notificationService.notify(job.data.Id, true, Image);
+        await notificationService.notify(job.data.Id, true, Content);
 
     } catch (error) {
         await notificationService.notify(job.data.Id, false, "Error processing job");
