@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Character Creator</title>
+    <link rel="stylesheet" href="/css/character_creator.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Character Creator</h1>
+        </header>
+        
+        <main>
+            <div class="input-section">
+                <input type="text" id="character-name" placeholder="Character name" class="name-input">
+            </div>
+            
+            <div class="image-sections">
+                <div class="upload-section">
+                    <h2>Upload Image</h2>
+                    <div class="upload-area" id="upload-area">
+                        <img src="/src/character.jpg" alt="Upload" id="upload-icon">
+                        <input type="file" id="file-input" accept="image/*" hidden>
+                    </div>
+                    <p>Drag your image here or click to select</p>
+
+                </div>
+                
+                <div class="generated-section">
+                    <h2>Generated Image</h2>
+                    <div class="generated-area" id="generated-area">
+                        <img src="/src/loading.png" alt="Loading" id="generated-image" hidden>
+                    </div>                   
+
+                    <div class="button-container">
+                        <button id="create-character" class="action-button">Create Character</button>
+                        <button id="delete-character" class="action-button">Delete Character</button>
+                    </div>
+    
+                </div>                
+            </div>                   
+
+            <div class="gallery-section">
+                <h2>Created Characters</h2>
+                <div class="gallery" id="character-gallery">
+                    <!-- Images will be loaded dynamically here -->
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="/js/character_creator.js"></script>
+</body>
+</html>

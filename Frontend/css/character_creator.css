@@ -83,8 +83,9 @@ header h1 {
 
 .upload-area img,
 .generated-area img {
-    width: 64px;
-    height: 64px;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 .gallery-section {
@@ -128,4 +129,56 @@ header h1 {
 h2 {
     color: #2c3e50;
     margin-bottom: 20px;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+.action-button {
+    padding: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+}
+
+#create-character {
+    background-color: #4CAF50;
+    color: white;
+}
+
+#create-character:hover {
+    background-color: #45a049;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+#delete-character {
+    background-color: #f44336;
+    color: white;
+}
+
+#delete-character:hover {
+    background-color: #da190b;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.action-button:active {
+    transform: translateY(0);
+    box-shadow: none;
+}
+
+p{
+    text-align: center;
+    margin-top: 10px;
 }

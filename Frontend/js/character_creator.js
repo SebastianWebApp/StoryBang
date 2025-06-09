@@ -91,6 +91,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const mockCharacters = [
         { name: 'Personaje 1', image: '/src/img_post.png' },
         { name: 'Personaje 2', image: '/src/img_post.png' },
+        { name: 'Personaje 3', image: '/src/img_post.png' },
+        { name: 'Personaje 1', image: '/src/img_post.png' },
+        { name: 'Personaje 2', image: '/src/img_post.png' },
         { name: 'Personaje 3', image: '/src/img_post.png' }
     ];
     

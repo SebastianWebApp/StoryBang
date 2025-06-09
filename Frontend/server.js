@@ -48,9 +48,18 @@ app.get("/forgot_password", (req, res) => {
 
 
 // ------------------------ Home ---------------------------------------
-app.get("/home",JWT, (req, res) => {
+app.get("/home", (req, res) => {
+    res.sendFile(path.join(__dirname, "views", "home.html"));
+});
+
+app.get("/user_profile",JWT, (req, res) => {
     res.sendFile(path.join(__dirname, "views", "user_profile.html"));
 });
+
+app.get("/character_creator", (req, res) => {
+    res.sendFile(path.join(__dirname, "views", "character_creator.html"));
+});
+
 
 
 // ---------------------- Expired Session ------------------------------
