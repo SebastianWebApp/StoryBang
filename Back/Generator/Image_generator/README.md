@@ -1,145 +1,96 @@
-```markdown
-# Delete User Microservice
 
-A microservice for handling user deletion operations using Bull queue for job processing and real-time notifications.
+
+
+          
+# Image Generator Service
+
+## Overview
+This service is part of a microservices architecture that generates images based on user prompts using GROK technology. It implements a queue-based system for processing image generation requests with JWT authentication.
+
+## Technologies Used
+- Express.js - Web framework
+- Bull - Queue management
+- Socket.io - Real-time notifications
+- Redis - Queue backend
+- JWT - Authentication
+- GROK - Image generation
+- Jest - Unit testing
 
 ## Features
+- Asynchronous image generation using queue system
+- JWT-based authentication
+- Real-time notifications for job status
+- Error handling and session management
+- Comprehensive unit test coverage
 
-- Asynchronous user deletion using Bull queue
-- JWT token verification
-- Real-time notifications via Socket.IO
-- Error handling and session validation
-- Database integration
+## Environment Variables
+```env
+PORT=<server_port>
+PORT_MESSAGES_USERS=<notification_service_port>
+GROK_API=<grok_api_endpoint>
+```
 
-## Technologies
+## Queue Process Flow
+1. Receives job with Token and Prompt data
+2. Validates JWT token
+3. Generates image using GROK service
+4. Notifies user of success/failure through WebSocket
 
-- Node.js
-- Express.js
-- Bull (Redis-based queue)
-- Socket.IO
-- JSON Web Tokens (JWT)
-
-## Dependencies
-
+## Request Schema
 ```json
 {
-  "express": "Web framework",
-  "bull": "Queue management",
-  "dotenv": "Environment configuration",
-  "socket.io-client": "Real-time communication"
+    "Token": "string (JWT token)",
+    "Prompt": "string (image generation prompt)",
+    "Id": "string (unique identifier for notification)"
 }
 ```
 
-## Configuration
-
-The service uses environment variables for configuration:
-
-```env
-PORT                  # Service port number
-PORT_MESSAGES_USERS   # Socket.IO server port for notifications
-```
-
-Additional configuration files:
-- `Config/redis.config.js`: Redis connection options
-- `Database/connect.js`: Database connection configuration
-
-## Services
-
-### 1. NotificationService
-Handles real-time notifications to clients using Socket.IO
-
-### 2. UserService
-Manages user deletion operations in the database
-
-### 3. JWTService
-Handles JWT token verification
-
-## Queue Processing
-
-The service uses a Bull queue named "Delete_User" for processing deletion requests:
-
-1. Verifies JWT token validity
-2. Deletes user if token is valid
-3. Sends real-time notification about operation status
-
-### Job Data Structure
-
-```javascript
+## Response Schema
+```json
 {
-    Token: "jwt_token",
-    Id: "user_id"
+    "success": "boolean",
+    "data": {
+        "image": "string (base64 encoded image)"
+    },
+    "error": "string (error message if any)"
 }
 ```
 
-## Error Handling
+## Unit Testing
+The service includes comprehensive unit tests using Jest framework. Tests cover:
+- Token validation
+- Queue processing
+- Image generation
+- Error handling
+- WebSocket notifications
 
-The service handles various scenarios:
-
-- Invalid/expired JWT tokens
-- Database operation failures
-- General processing errors
-
-All errors are communicated back to the client via Socket.IO notifications.
-
-## Running the Service
-
-1. Install dependencies:
-   ```bash
-   npm install
-   ```
-
-2. Set up environment variables in `.env`
-
-3. Start the service:
-   ```bash
-   npm start
-   ```
-
-The service will be available at `http://localhost:{PORT}`
-
-## Docker Support
-
-The service includes Docker configuration files:
-- `Dockerfile`
-- `docker-compose.yml`
-- `.dockerignore`
-
-## Testing
-
-The service includes Jest configuration for testing:
-- `jest.config.js`
-- `babel.config.json`
-
-Run tests with:
+To run tests:
 ```bash
 npm test
 ```
 
-## Project Structure
+## Error Handling
+- Session expiration notifications
+- Job processing error notifications
+- Queue process error management
 
-```
-├── Config/           # Configuration files
-├── Controllers/      # Request handlers
-├── Database/         # Database connection and models
-├── Services/         # Business logic services
-├── __tests__/        # Test files
-├── server.js         # Main application file
-└── package.json      # Project metadata and dependencies
-```
+## Dependencies
+- express
+- bull
+- dotenv
+- socket.io-client
+- jest (dev dependency)
 
-## Contributing
+## Services Used
+- NotificationService - Handles WebSocket notifications
+- JWTService - Manages token validation
+- GROKService - Handles image generation
+- Redis - Queue management configuration
 
-1. Fork the repository
-2. Create your feature branch
-3. Commit your changes
-4. Push to the branch
-5. Create a new Pull Request
+## Usage
+The service listens for image generation requests and processes them through a Bull queue. Each request must include:
+- Valid JWT token
+- Image generation prompt
 
-## Security Considerations
-
-1. Ensure secure environment variables in production
-2. Implement rate limiting for production use
-3. Use secure Redis configuration
-4. Monitor queue performance and failures
-5. Implement proper logging for production environments
-```
+Responses are sent back to the client through WebSocket notifications.
+        

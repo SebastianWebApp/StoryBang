@@ -14,8 +14,8 @@ export class GROKService {
         });
   
         const response = await client.images.generate({
-          model: 'grok-2-image-1212',
-          prompt: Image,
+            model: 'grok-2-image-1212',
+            prompt: Image,
             n: 1 
         });
 

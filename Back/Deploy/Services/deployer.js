@@ -47,7 +47,7 @@ class Deployer {
 
     var cont = 0;
     var cont2 = 1;
-
+    var List = [8,8]
     try {
 
       for (let i = 0; i < this.config.Scripts.length; i++) {
@@ -57,7 +57,7 @@ class Deployer {
           this.elbManager = new ELBManager(Config.awsRegion, Config.credentials(cont2));
           cont++;
         }
-        else if (cont == 8) {
+        else if (cont == List[cont2 - 1]) {
           cont = 0;
         }
 
