@@ -15,7 +15,7 @@ export class GROKService {
   
         const response = await client.images.generate({
             model: 'grok-2-image-1212',
-            prompt: Image,
+            prompt: "Generate an image in the style of Studio Ghibli: soft colors, warm lighting, expressive anime-style eyes, hand-drawn look, and whimsical, gentle atmosphere. "+Image,
             n: 1 
         });
 

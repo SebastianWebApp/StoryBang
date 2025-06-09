@@ -6,7 +6,7 @@ import cookieParser from "cookie-parser";
 import { fileURLToPath, pathToFileURL } from "url";
 import { JWT } from "./Services/read_jwt.js";
 import router_create_account from "./Routers/routers_create_account.js";
-
+import router_generator from "./Routers/routers_generator.js";
 
 // Enable connection with the .env file
 dotenv.config();
@@ -71,6 +71,8 @@ app.get("/expired_session", (req, res) => {
 
 // // ---------------------- Gateway ------------------------------
 app.use("/api/create_account", router_create_account);
+app.use("/api/router_generator", router_generator);
+
 
 
 app.use((req, res) => {

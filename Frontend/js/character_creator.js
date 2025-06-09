@@ -1,3 +1,9 @@
+import { messages_user } from '/js/messages_user.js';  
+const socket = io(messages_user); // Utiliza la IP de tu máquina en la red local
+var Type = "";
+let Base64Image;
+const Id = "1234567890"
+
 document.addEventListener('DOMContentLoaded', () => {
     const uploadArea = document.getElementById('upload-area');
     const fileInput = document.getElementById('file-input');
@@ -40,37 +46,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 uploadArea.appendChild(img);
                 img.style.width = '100%';
                 img.style.height = '100%';
-                img.style.objectFit = 'contain';
-                
-                // Aquí iría la lógica para generar la imagen
-                generateImage(file);
+                img.style.objectFit = 'contain';  
+                Base64Image = e.target.result;              
             };
             reader.readAsDataURL(file);
         }
     }
-    
-    async function generateImage(file) {
-        // Mostrar loading
-        generatedImage.src = '/src/loading.png';
-        generatedImage.hidden = false;
-        
-        try {
-            // Aquí iría la llamada a tu API para generar la imagen
-            // Por ahora solo simulamos una espera
-            await new Promise(resolve => setTimeout(resolve, 2000));
-            
-            // Simular una imagen generada
-            generatedImage.src = '/src/img_post.png';
-            
-            // Agregar a la galería
-            if (characterName.value) {
-                addToGallery(generatedImage.src, characterName.value);
-            }
-        } catch (error) {
-            console.error('Error generando la imagen:', error);
-        }
-    }
-    
+       
     function addToGallery(imageSrc, name) {
         const item = document.createElement('div');
         item.className = 'gallery-item';
@@ -101,3 +83,114 @@ document.addEventListener('DOMContentLoaded', () => {
         addToGallery(char.image, char.name);
     });
 });
+
+
+document.getElementById('btn_generated_image').addEventListener('click', async() => {    
+
+    if(Base64Image === undefined || Base64Image === null || Base64Image === ""){
+        Notification("Please select an image");
+        return;
+    }  
+
+    try {
+
+        await socket.emit('joinRoom', Id+"_Grok_Description_Image");
+        Type = "Grok_Description_Image";
+
+        const Request = await fetch(`api/router_generator/Grok_Description_Image`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                Id: Id,
+                Prompt: Base64Image     
+            })
+        });
+
+        const Server_Response = await Request.json();
+    
+        Notification(Server_Response.Response);
+
+    } catch (error) {
+        Notification("Try again");     
+    }
+        
+});
+
+
+async function Grok_Image_Generator (Prompt) {
+
+    try {
+
+        await socket.emit('joinRoom', Id+"_Grok_Image_Generator");
+        Type = "Grok_Image_Generator";
+
+        const Request = await fetch(`api/router_generator/Grok_Image_Generator`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                Id: Id,
+                Prompt: Prompt     
+            })
+        });
+
+        const Server_Response = await Request.json();
+
+        if(Server_Response.Status == false){
+            return Grok_Image_Generator(Prompt); // Retry if there's an error
+        }
+    
+        Notification(Server_Response.Response);
+
+    } catch (error) {
+        return Grok_Image_Generator(Prompt); // Retry if there's an error
+    }
+
+}
+
+
+
+
+socket.on('Profile_Response', async (data) => { 
+        
+    if(data.Status == true && Type == "Grok_Description_Image"){
+
+        document.getElementById("generated_image").src = "../src/loading.png";
+        document.getElementById("generated_image").style.display = "inline-block";
+        Grok_Image_Generator(data.Message);
+
+
+    }
+    else if(data.Status == false && Type == "Grok_Description_Image"){
+        Notification(data.Message);
+        return;
+    }
+
+    else if(data.Status == true && Type == "Grok_Image_Generator"){
+
+        document.getElementById("generated_image").src = data.Message;
+
+        // Agregar la imagen generada a la galería
+        // addToGallery(data.Message, characterName.value || 'Nuevo Personaje');
+
+    }
+    else if(data.Status == false && Type == "Grok_Image_Generator"){
+        Notification(data.Message);
+        return;
+    }
+
+});
+
+
+async function Notification(Text){
+    scrollTo(0, 0);
+
+    document.getElementById("Div_Notification").style.display = "inline-flex";
+    document.getElementById("Notification").innerHTML = Text;  
+
+    await new Promise(resolve => setTimeout(resolve, 1000)); // Espera 10 segundos
+    document.getElementById("Div_Notification").style.display = "none";
+}

@@ -83,8 +83,7 @@ header h1 {
 
 .upload-area img,
 .generated-area img {
-    width: 100%;
-    height: 100%;
+    width: 70%;
     object-fit: cover;
 }
 
@@ -162,6 +161,16 @@ h2 {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
+#btn_generated_image {
+    background-color: #3498db;
+    color: white;
+}
+#btn_generated_image:hover {
+    background-color: #2980b9;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
 #delete-character {
     background-color: #f44336;
     color: white;
@@ -182,3 +191,80 @@ p{
     text-align: center;
     margin-top: 10px;
 }
+
+
+/* Estilo del contenido de la alerta */
+#Div_Notification{
+    display: none;
+}
+
+.card {
+    width: 330px;
+    height: 80px;
+    border-radius: 8px;
+    box-sizing: border-box;
+    padding: 10px 15px;
+    background-color: #ffffff;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    position: absolute;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    gap: 15px;
+    right: 0px;
+  }
+  .wave {
+    position: absolute;
+    transform: rotate(90deg);
+    left: -31px;
+    top: 32px;
+    width: 80px;
+    fill: #ffa30d3a;
+  }
+  .icon-container {
+    width: 35px;
+    height: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #ffa30d48;
+    border-radius: 50%;
+    margin-left: 8px;
+  }
+  .icon {
+    width: 17px;
+    height: 17px;
+    color: #db970e;
+  }
+  .message-text-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    flex-grow: 1;
+  }
+  .message-text,
+  .sub-text {
+    margin: 0;
+    cursor: default;
+  }
+  .message-text {
+    color: #db970e;
+    font-size: 17px;
+    font-weight: 700;
+  }
+  .sub-text {
+    font-size: 14px;
+    color: #555;
+  }
+  .cross-icon {
+    width: 18px;
+    height: 18px;
+    color: #555;
+    cursor: pointer;
+  }
+  
+/* Fin Cuadro Alerta */
+
+

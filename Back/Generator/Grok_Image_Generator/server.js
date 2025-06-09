@@ -34,7 +34,7 @@ Image_GeneratorQueue.process(async (job) => {
         const Image = await grokService.ImageGrok(job.data.Prompt);
 
         // Send Image
-        await notificationService.notify(job.data.Id, true, Image);
+        await notificationService.notify(job.data.Id, true, "data:image/jpeg;base64,"+Image);
 
     } catch (error) {
         await notificationService.notify(job.data.Id, false, "Error processing job");
