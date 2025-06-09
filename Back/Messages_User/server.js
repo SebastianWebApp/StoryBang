@@ -11,7 +11,8 @@ const server = createServer(app);
 const io = new Server(server, {
     cors: {
         methods: ["GET", "POST"],
-        allowedHeaders: ["Content-Type"]
+        allowedHeaders: ["Content-Type"],
+        maxHttpBufferSize: 5 * 1024 * 1024, // 5 MB limit for messages (adjust according to needs)
     }
 });
 
