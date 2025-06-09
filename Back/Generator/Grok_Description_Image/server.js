@@ -19,9 +19,10 @@ const jwtService = new JWTService();
 const grokService = new GROKService();
 
 
-const Text_GeneratorQueue = new Queue("Grok_Text_Generator", { redis: redisOptions });
 
-Text_GeneratorQueue.process(async (job) => {
+const Description_ImageQueue = new Queue("Grok_Description_Image", { redis: redisOptions });
+
+Description_ImageQueue.process(async (job) => {
     try {    
         // Verify JWT Token        
         const isValidToken = await jwtService.verifyToken(job.data.Token);
@@ -30,9 +31,9 @@ Text_GeneratorQueue.process(async (job) => {
             return;
         }
 
-        const Content = await grokService.GenerateText(job.data.Prompt);
+        const Content = await grokService.Description_Image(job.data.Prompt);
 
-        // Send Text
+        // Send Description Image
         await notificationService.notify(job.data.Id, true, Content);
 
     } catch (error) {

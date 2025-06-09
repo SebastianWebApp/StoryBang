@@ -27,4 +27,5 @@ export class GROKService {
         const generatedText = response.choices[0].message.content;
         return generatedText;
     }
+
 }

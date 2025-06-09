@@ -19,7 +19,6 @@ const jwtService = new JWTService();
 const grokService = new GROKService();
 
 
-// Create Delete User Queue
 const Image_GeneratorQueue = new Queue("Grok_Image_Generator", { redis: redisOptions });
 
 Image_GeneratorQueue.process(async (job) => {
