@@ -3,7 +3,7 @@ name: StoryBang-Image_Generator
 on:
   push:
     branches:
-      - Desarrollo  # Cambia según sea necesario
+      - Prod  # Cambia según sea necesario
     paths:
       - 'Back/Generator/Image_Generator/**'  # Solo activa el workflow si hay cambios en esta carpeta
 

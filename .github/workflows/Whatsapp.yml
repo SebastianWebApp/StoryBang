@@ -3,7 +3,7 @@ name: StoryBang-Whatsapp
 on:
   push:
     branches:
-      - Desarrollo  # Cambia según sea necesario
+      - Prod  # Cambia según sea necesario
     paths:
       - 'Back/Login/Whatsapp/**'  # Solo activa el workflow si hay cambios en esta carpeta
 
