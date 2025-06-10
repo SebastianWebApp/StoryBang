@@ -7,10 +7,12 @@ class InstanceConfig {
       "eipalloc-09feafc7f5101d409",
       "eipalloc-0634b05b86f457a0d",
       "arn:aws:elasticloadbalancing:us-east-1:168562793459:targetgroup/Encrypt/03fde7ca8ff21f9e",
-      "arn:aws:elasticloadbalancing:us-east-1:168562793459:targetgroup/Decrypt/7e50e9d06d835270"
+      "arn:aws:elasticloadbalancing:us-east-1:168562793459:targetgroup/Decrypt/7e50e9d06d835270",
+      "arn:aws:elasticloadbalancing:us-east-1:168562793459:targetgroup/Whatsapp/4627f9c669384ca7"
     ];
-    this.Names = ["DB_User", "DB_Code", "Bull_User", "Messages_user", "Kafka", "Encrypt", "Decrypt"];
+    this.Names = ["DB_User", "DB_Code", "Bull_User", "Messages_user", "Kafka", "Encrypt", "Decrypt", "Whatsapp"];
     this.Instance = [
+      "t2.micro",
       "t2.micro",
       "t2.micro",
       "t2.micro",
@@ -19,8 +21,8 @@ class InstanceConfig {
       "t2.micro",
       "t2.micro"
     ];
-    this.Type = ["Elastic", "Elastic", "Elastic", "Elastic", "Elastic", "Balancer", "Balancer"];
-    this.Port_Target = [0, 0, 0, 0, 0, 4005, 4006];
+    this.Type = ["Elastic", "Elastic", "Elastic", "Elastic", "Elastic", "Balancer", "Balancer", "Balancer"];
+    this.Port_Target = [0, 0, 0, 0, 0, 4005, 4006, 4002];
     this.Scripts = [
       `#!/bin/bash
     
@@ -328,6 +330,39 @@ EOF
         sebastianwebapp/story_bang_decrypt:latest
         
         `,
+
+    `#!/bin/bash
+    
+    # Actualizar el sistema
+    sudo apt update -y && sudo apt upgrade -y
+    
+    # Instalar Docker
+    sudo apt install -y docker.io
+    
+    # Iniciar y habilitar Docker
+    sudo systemctl start docker
+    sudo systemctl enable docker
+    
+    # Agregar el usuario al grupo Docker para evitar usar sudo con cada comando Docker
+    sudo usermod -aG docker $USER
+    
+    # Configurar permisos para el socket Docker
+    sudo chmod 666 /var/run/docker.sock
+    
+        
+    # Contenedor story_bang_whatsapp
+    docker pull sebastianwebapp/story_bang_whatsapp:latest
+    
+    docker stop story_bang_whatsapp || true
+    docker rm story_bang_whatsapp || true
+    
+    docker run -d --name story_bang_whatsapp \
+        -p 4002:4002 \
+        --restart always \
+        sebastianwebapp/story_bang_whatsapp:latest
+        
+        `,
+    
     ];
   }
 

@@ -2,3 +2,5 @@ npm install --save-dev jest @babel/core @babel/preset-env babel-jest
 npm install --save-dev @types/jest
 npm install --save-dev socket.io-client
 npm install --save-dev @babel/plugin-transform-modules-commonjs
+
+ssh-keygen -R ec2-54-87-200-202.compute-1.amazonaws.com 
