@@ -26,6 +26,27 @@ const userService = new UserService(connectToDB);
 const decryptionService = new DecryptionService(process.env.PORT_DECRYPT);
 const jwtService = new JWTService();
 
+
+import { io } from "socket.io-client";
+
+
+
+socket.on("connect", () => {
+  console.log("Conectado al servidor");
+  socket.emit("joinRoom", "testRoom");
+  socket.emit("Profile", { Id: "testRoom", Message: "Hola", Status: true });
+});
+
+socket.on("Profile_Response", (data) => {
+  console.log("Respuesta recibida:", data);
+});
+
+socket.on("connect_error", (err) => {
+  console.error("Error de conexión:", err);
+});
+
+
+
 // Configurar cola de lectura de usuario
 const ReadUserQueue = new Queue("Read_User", { redis: redisOptions });
 
