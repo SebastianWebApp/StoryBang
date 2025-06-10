@@ -45,7 +45,18 @@ io.on("connection", (socket) => {
     console.log(`Client disconnected: ${socket.id}`);
   });
 });
+// Manejo de errores de socket
+io.on("connect_error", (error) => {
+  console.error("Connection error:", error);
+});
 
+io.on("disconnect", (reason) => {
+  console.log("Disconnected:", reason);
+  // Intenta reconectar si la desconexión no fue intencional
+  if (reason === "io server disconnect") {
+      io.connect();
+  }
+});
 
 // Iniciar servidor
 server.listen(process.env.PORT, () => {
