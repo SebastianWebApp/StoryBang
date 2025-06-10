@@ -1,10 +1,10 @@
-export class DecryptionService {
-    constructor(decryptUrl) {
-        this.decryptUrl = decryptUrl;
-    }
+import dotenv from "dotenv";
 
-    async decrypt(phone, password) {
-        const response = await fetch(this.decryptUrl, {
+dotenv.config();
+
+export class DecryptionService {
+    static async decryptData(phone, password) {
+        const response = await fetch(process.env.PORT_DECRYPT, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -18,10 +18,13 @@ export class DecryptionService {
                         }
                     }
                     `,
-                variables: { phone, password }
+                variables: {
+                    phone,
+                    password
+                }
             })
         });
 
-        return response.json();
+        return await response.json();
     }
 }

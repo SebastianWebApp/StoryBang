@@ -1,130 +1,76 @@
-```markdown
-# Read_User Microservice
+# User Verification Service
 
-## Description
-The Read_User microservice is a system for reading and retrieving user profiles, implementing a Bull Queue system for asynchronous request processing. The service includes secure decryption of sensitive data and real-time notifications.
+This service is part of a distributed system that manages user verification through asynchronous processing using Bull queues and secure decryption of sensitive data.
 
 ## Features
-- Asynchronous processing with Bull Queue
-- JWT token verification
-- Secure decryption of user data
-- User profile mapping
-- Real-time notifications with Socket.IO
-- Database integration
+
+- Asynchronous verification processing via Bull  
+- JWT token validation to ensure security  
+- Real-time notification system for immediate feedback  
+- Integration with Redis for efficient queue management  
+- Secure decryption of sensitive user data
 
 ## Technologies Used
-- Node.js
-- Express.js
-- Bull (for job queues)
-- Socket.IO (for real-time notifications)
-- Redis (for Bull Queue)
-- JWT (for authentication)
 
-## Integrated Services
-- NotificationService: Handles real-time notifications
-- UserService: Manages user data and database queries
-- DecryptionService: Decrypts sensitive data
-- UserMapper: Transforms user data
-- JWTService: Verifies tokens
+- **Node.js**  
+- **Express.js**  
+- **Bull** (for queue processing)  
+- **Redis**  
+- **JWT** (JSON Web Tokens)
 
 ## Configuration
-1. Create a `.env` file in the project root:
-```plaintext
-PORT=3000
-PORT_MESSAGES_USERS=3001
-PORT_DECRYPT=3002
 
-# Redis Configuration
-REDIS_HOST=localhost
-REDIS_PORT=6379
+### Environment Variables
 
-# Database Configuration
-DB_HOST=localhost
-DB_USER=usuario
-DB_PASSWORD=contraseña
-DB_DATABASE=nombre_base_datos
-```
+Create a `.env` file with the following variables:
 
-## Project Structure
-```
-Read_User/
+```env
+PORT=<service_port>
+# Additional required variables for Redis and external services
+REDIS_HOST=<redis_host>
+REDIS_PORT=<redis_port>
+JWT_SECRET=<jwt_secret_key>
+ENCRYPTION_SERVICE_URL=<decryption_service_url>
+Installation
+npm install
+Execution
+npm start
+Workflow
+1.	Reception of verification requests through a Bull queue
+2.	JWT token validation to authenticate the user
+3.	Decryption of the user's sensitive data
+4.	Verification of the user's information
+5.	Real-time notifications sent with the process result
+Project Structure
 ├── Config/
-│   └── redis.config.js
+│   └── redis.config.js         # Redis configuration
 ├── Controllers/
-│   └── test_connection.js
+│   └── test_connection.js      # Connection testing
 ├── Database/
-│   └── connect.js
+│   └── connect.js              # Database connection
 ├── Services/
-│   ├── notification.service.js
-│   ├── user.service.js
-│   ├── decryption.service.js
-│   ├── user.mapper.js
-│   └── jwt.service.js
-├── __tests__/
-├── server.js
-├── Dockerfile
-└── docker-compose.yml
-```
-
-## Workflow
-1. Receive user profile read request
-2. Verify JWT token
-3. Retrieve user from database
-4. Decrypt sensitive data
-5. Map user profile
-6. Notify result
-
-## Error Handling
-- Expired or invalid session/token
-- User not found
-- Decryption errors
-- General processing errors
-
-## Installation and Execution
-
-### Local
-1. Install dependencies:
-   ```bash
-   npm install
-   ```
-
-2. Start the server:
-   ```bash
-   npm start
-   ```
-
-### Docker
-1. Build the image:
-   ```bash
-   docker build -t read-user .
-   ```
-
-2. Run with Docker Compose:
-   ```bash
-   docker-compose up
-   ```
-
-## Testing
-```bash
+│   ├── decryption.service.js   # Decryption service
+│   ├── jwt.service.js          # JWT management service
+│   ├── notification.service.js # Notification service
+│   ├── user.service.js         # User logic service
+│   └── verification.service.js # Verification logic
+├── .env                        # Environment variables
+└── server.js                   # Main entry point
+Error Handling
+The service handles the following error cases:
+•	Invalid or expired JWT tokens
+•	Failures in data decryption
+•	Errors in user information verification
+•	Communication issues with external services
+Each error is communicated to the user through the notification system.
+Docker
+The service is containerized and can be run with Docker:
+docker-compose up
+Testing
+To run the tests:
 npm test
-```
-
-## Security
-- JWT token verification
-- Secure decryption of sensitive data
-- Environment variables for sensitive configurations
-- Secure handling of personal information
-
-## Contribution
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
-## Development Notes
-- Implements queue pattern for asynchronous processing
-- Uses modular services for better maintainability
-- Robust error handling and notification system
-- Data mapping for consistent response format
-```
+Security
+•	JWT validation for all requests
+•	Secure decryption of sensitive data
+•	Responsible and safe handling of user information
+•	Real-time notifications about the verification process status
