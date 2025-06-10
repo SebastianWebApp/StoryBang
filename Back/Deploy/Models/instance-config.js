@@ -9,10 +9,19 @@ class InstanceConfig {
       "arn:aws:elasticloadbalancing:us-east-1:168562793459:targetgroup/Encrypt/03fde7ca8ff21f9e",
       "arn:aws:elasticloadbalancing:us-east-1:168562793459:targetgroup/Decrypt/7e50e9d06d835270",
       "eipalloc-09b0e6223b679c2f3",
-      "arn:aws:elasticloadbalancing:us-east-1:168562793459:targetgroup/Whatsapp/4627f9c669384ca7"
+      "eipalloc-01f2e6fbcbda75140"
     ];
-    this.Names = ["DB_User", "DB_Code", "Bull_User", "Messages_user", "Kafka", "Encrypt", "Decrypt","JWT", "Whatsapp"];
-    this.Instance = [
+    this.Names = ["DB_User", "DB_Code", "Bull_User", "Messages_user", "Kafka", "Encrypt", "Decrypt","JWT",
+       "Whatsapp", "Create_User", "Delete_User", "Password_Recovery", "Read_User", "Update_User", "Verification", "Verify_User"];
+    
+       this.Instance = [
+      "t2.micro",
+      "t2.micro",
+      "t2.micro",
+      "t2.micro",
+      "t2.micro",
+      "t2.micro",
+      "t2.micro",
       "t2.micro",
       "t2.micro",
       "t2.micro",
@@ -23,8 +32,8 @@ class InstanceConfig {
       "t2.micro",
       "t2.micro"
     ];
-    this.Type = ["Elastic", "Elastic", "Elastic", "Elastic", "Elastic", "Balancer", "Balancer", "Elastic", "Balancer"];
-    this.Port_Target = [0, 0, 0, 0, 0, 4005, 4006, 0, 4002];
+    this.Type = ["Elastic", "Elastic", "Elastic", "Elastic", "Elastic", "Balancer", "Balancer", "Elastic", "Elastic", "Balancer", "Balancer", "Balancer", "Balancer", "Balancer", "Balancer", "Balancer"];
+    this.Port_Target = [0, 0, 0, 0, 0, 4005, 4006, 0, 0, 4004, 4011, 4010, 4007, 4008, 4001, 4009];
     this.SecurityGroupIds = [
       "sg-04371dba8d4161b49",
       "sg-04371dba8d4161b49",
@@ -33,7 +42,16 @@ class InstanceConfig {
       "sg-04371dba8d4161b49",
       "sg-04371dba8d4161b49",
       "sg-04371dba8d4161b49",
-      "sg-0b41dd15864a8060f"];
+      "sg-0b41dd15864a8060f",
+      "sg-sg-0b4f12b159b7ed947",
+      "sg-sg-0b4f12b159b7ed947",
+      "sg-sg-0b4f12b159b7ed947",
+      "sg-sg-0b4f12b159b7ed947",
+      "sg-sg-0b4f12b159b7ed947",
+      "sg-sg-0b4f12b159b7ed947",
+      "sg-sg-0b4f12b159b7ed947",
+      "sg-sg-0b4f12b159b7ed947"
+    ];
     this.Scripts = [
       `#!/bin/bash
     
@@ -374,38 +392,264 @@ EOF
         
         `,
 
-    //      `#!/bin/bash
+         `#!/bin/bash
     
-    // # Actualizar el sistema
-    // sudo apt update -y && sudo apt upgrade -y
+    # Actualizar el sistema
+    sudo apt update -y && sudo apt upgrade -y
     
-    // # Instalar Docker
-    // sudo apt install -y docker.io
+    # Instalar Docker
+    sudo apt install -y docker.io
     
-    // # Iniciar y habilitar Docker
-    // sudo systemctl start docker
-    // sudo systemctl enable docker
+    # Iniciar y habilitar Docker
+    sudo systemctl start docker
+    sudo systemctl enable docker
     
-    // # Agregar el usuario al grupo Docker para evitar usar sudo con cada comando Docker
-    // sudo usermod -aG docker $USER
+    # Agregar el usuario al grupo Docker para evitar usar sudo con cada comando Docker
+    sudo usermod -aG docker $USER
     
-    // # Configurar permisos para el socket Docker
-    // sudo chmod 666 /var/run/docker.sock
+    # Configurar permisos para el socket Docker
+    sudo chmod 666 /var/run/docker.sock
     
         
-    // # Contenedor story_bang_whatsapp
-    // docker pull sebastianwebapp/story_bang_whatsapp:latest
+    # Contenedor story_bang_whatsapp
+    docker pull sebastianwebapp/story_bang_whatsapp:latest
     
-    // docker stop story_bang_whatsapp || true
-    // docker rm story_bang_whatsapp || true
+    docker stop story_bang_whatsapp || true
+    docker rm story_bang_whatsapp || true
     
-    // docker run -d --name story_bang_whatsapp \
-    //     -p 4002:4002 \
-    //     --restart always \
-    //     sebastianwebapp/story_bang_whatsapp:latest
+    docker run -d --name story_bang_whatsapp \
+        -p 4002:4002 \
+        --restart always \
+        sebastianwebapp/story_bang_whatsapp:latest
         
-    //     `,
+        `,
     
+   `#!/bin/bash
+    
+    # Actualizar el sistema
+    sudo apt update -y && sudo apt upgrade -y
+    
+    # Instalar Docker
+    sudo apt install -y docker.io
+    
+    # Iniciar y habilitar Docker
+    sudo systemctl start docker
+    sudo systemctl enable docker
+    
+    # Agregar el usuario al grupo Docker para evitar usar sudo con cada comando Docker
+    sudo usermod -aG docker $USER
+    
+    # Configurar permisos para el socket Docker
+    sudo chmod 666 /var/run/docker.sock
+    
+        
+    # Contenedor story_bang_create_user
+    docker pull sebastianwebapp/story_bang_create_user:latest
+    
+    docker stop story_bang_create_user || true
+    docker rm story_bang_create_user || true
+    
+    docker run -d --name story_bang_create_user \
+        -p 4004:4004 \
+        --restart always \
+        sebastianwebapp/story_bang_create_user:latest
+        
+        `,
+
+
+    `#!/bin/bash
+    
+    # Actualizar el sistema
+    sudo apt update -y && sudo apt upgrade -y
+    
+    # Instalar Docker
+    sudo apt install -y docker.io
+    
+    # Iniciar y habilitar Docker
+    sudo systemctl start docker
+    sudo systemctl enable docker
+    
+    # Agregar el usuario al grupo Docker para evitar usar sudo con cada comando Docker
+    sudo usermod -aG docker $USER
+    
+    # Configurar permisos para el socket Docker
+    sudo chmod 666 /var/run/docker.sock
+    
+        
+    # Contenedor story_bang_delete_user
+    docker pull sebastianwebapp/story_bang_delete_user:latest
+    
+    docker stop story_bang_delete_user || true
+    docker rm story_bang_delete_user || true
+    
+    docker run -d --name story_bang_delete_user \
+        -p 4011:4011 \
+        --restart always \
+        sebastianwebapp/story_bang_delete_user:latest
+        
+        `,
+
+    `#!/bin/bash
+    
+    # Actualizar el sistema
+    sudo apt update -y && sudo apt upgrade -y
+    
+    # Instalar Docker
+    sudo apt install -y docker.io
+    
+    # Iniciar y habilitar Docker
+    sudo systemctl start docker
+    sudo systemctl enable docker
+    
+    # Agregar el usuario al grupo Docker para evitar usar sudo con cada comando Docker
+    sudo usermod -aG docker $USER
+    
+    # Configurar permisos para el socket Docker
+    sudo chmod 666 /var/run/docker.sock
+    
+        
+    # Contenedor story_bang_recover_password
+    docker pull sebastianwebapp/story_bang_recover_password:latest
+    
+    docker stop story_bang_recover_password || true
+    docker rm story_bang_recover_password || true
+    
+    docker run -d --name story_bang_recover_password \
+        -p 4010:4010 \
+        --restart always \
+        sebastianwebapp/story_bang_recover_password:latest
+        
+        `,
+
+
+    `#!/bin/bash
+    
+    # Actualizar el sistema
+    sudo apt update -y && sudo apt upgrade -y
+    
+    # Instalar Docker
+    sudo apt install -y docker.io
+    
+    # Iniciar y habilitar Docker
+    sudo systemctl start docker
+    sudo systemctl enable docker
+    
+    # Agregar el usuario al grupo Docker para evitar usar sudo con cada comando Docker
+    sudo usermod -aG docker $USER
+    
+    # Configurar permisos para el socket Docker
+    sudo chmod 666 /var/run/docker.sock
+    
+        
+    # Contenedor story_bang_read_user
+    docker pull sebastianwebapp/story_bang_read_user:latest
+    
+    docker stop story_bang_read_user || true
+    docker rm story_bang_read_user || true
+    
+    docker run -d --name story_bang_read_user \
+        -p 4007:4007 \
+        --restart always \
+        sebastianwebapp/story_bang_read_user:latest
+        
+        `,
+
+    `#!/bin/bash
+    
+    # Actualizar el sistema
+    sudo apt update -y && sudo apt upgrade -y
+    
+    # Instalar Docker
+    sudo apt install -y docker.io
+    
+    # Iniciar y habilitar Docker
+    sudo systemctl start docker
+    sudo systemctl enable docker
+    
+    # Agregar el usuario al grupo Docker para evitar usar sudo con cada comando Docker
+    sudo usermod -aG docker $USER
+    
+    # Configurar permisos para el socket Docker
+    sudo chmod 666 /var/run/docker.sock
+    
+        
+    # Contenedor story_bang_update_user
+    docker pull sebastianwebapp/story_bang_update_user:latest
+    
+    docker stop story_bang_update_user || true
+    docker rm story_bang_update_user || true
+    
+    docker run -d --name story_bang_update_user \
+        -p 4008:4008 \
+        --restart always \
+        sebastianwebapp/story_bang_update_user:latest
+        
+        `,  
+        
+    `#!/bin/bash
+    
+    # Actualizar el sistema
+    sudo apt update -y && sudo apt upgrade -y
+    
+    # Instalar Docker
+    sudo apt install -y docker.io
+    
+    # Iniciar y habilitar Docker
+    sudo systemctl start docker
+    sudo systemctl enable docker
+    
+    # Agregar el usuario al grupo Docker para evitar usar sudo con cada comando Docker
+    sudo usermod -aG docker $USER
+    
+    # Configurar permisos para el socket Docker
+    sudo chmod 666 /var/run/docker.sock
+    
+        
+    # Contenedor story_bang_verification
+    docker pull sebastianwebapp/story_bang_verification:latest
+    
+    docker stop story_bang_verification || true
+    docker rm story_bang_verification || true
+    
+    docker run -d --name story_bang_verification \
+        -p 4001:4001 \
+        --restart always \
+        sebastianwebapp/story_bang_verification:latest
+        
+        `,  
+
+     `#!/bin/bash
+    
+    # Actualizar el sistema
+    sudo apt update -y && sudo apt upgrade -y
+    
+    # Instalar Docker
+    sudo apt install -y docker.io
+    
+    # Iniciar y habilitar Docker
+    sudo systemctl start docker
+    sudo systemctl enable docker
+    
+    # Agregar el usuario al grupo Docker para evitar usar sudo con cada comando Docker
+    sudo usermod -aG docker $USER
+    
+    # Configurar permisos para el socket Docker
+    sudo chmod 666 /var/run/docker.sock
+    
+        
+    # Contenedor story_bang_verify_user
+    docker pull sebastianwebapp/story_bang_verify_user:latest
+    
+    docker stop story_bang_verify_user || true
+    docker rm story_bang_verify_user || true
+    
+    docker run -d --name story_bang_verify_user \
+        -p 4009:4009 \
+        --restart always \
+        sebastianwebapp/story_bang_verify_user:latest
+        
+        `,  
+
     ];
   }
 
