@@ -4,7 +4,10 @@ export class NotificationService {
     }
 
     async notify(userId, status, message) {
-        console.log("User Profile:", userId);
+        if (!this.socket) {
+            console.error("Socket connection is not established.");
+            return;
+        }
 
         try {
             this.socket.emit('Profile', {
