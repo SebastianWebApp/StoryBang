@@ -4,7 +4,7 @@ export class UserMapper {
             Phone: decryptedData.data.decrypt.phone,
             Password: decryptedData.data.decrypt.password,
             Name: userData.Name,
-            Image: userData.Image
+            Image: "userData.Image"
         };
     }
 }
