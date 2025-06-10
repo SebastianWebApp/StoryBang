@@ -12,9 +12,9 @@ const io = new Server(server, {
     cors: {
         methods: ["GET", "POST"],
         allowedHeaders: ["Content-Type"],
-        maxHttpBufferSize: 10 * 1024 * 1024, // 5 MB limit for messages (adjust according to needs)
     }
 });
+        // maxHttpBufferSize: 10 * 1024 * 1024, // 5 MB limit for messages (adjust according to needs)
 
 // Manejo simple de eventos de Socket.IO
 io.on("connection", (socket) => {
