@@ -36,12 +36,15 @@ export class NotificationService {
                 });
             }
 
+            console.log("Enviando notificación al usuario:", userId, "Estado:", status, "Mensaje:", message);
 
             this.socket.emit('Profile', {
                 Id: userId + "_Read_User",
                 Status: status,
                 Message: message
             });
+
+            console.log("Notificación enviada correctamente");
         } catch (error) {
             console.log("Communication server error");
                     console.log("User Profile:");
