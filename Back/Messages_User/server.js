@@ -18,46 +18,17 @@ const io = new Server(server, {
     }
 });        
 
-// // Manejo simple de eventos de Socket.IO
-// io.on("connection", (socket) => {
-//     // Unirse a una sala
-//     socket.on("joinRoom", (room) => socket.join(room));
-//     console.log(`User connected`);
-//     // Enviar mensaje a una sala
-//     socket.on("Profile", ({ Id, Message, Status }) => {
-//         console.log(`Profile event received for Id: ${Id}, Status: ${Message}`);
-//         socket.broadcast.to(Id).emit("Profile_Response", { Message, Status });
-//     });
-// });
-
-
-io.on("connection", (socket) => {
-  console.log(`New client connected: ${socket.id}`);
-  socket.on("joinRoom", (room) => {
-    socket.join(room);
-    console.log(`Socket ${socket.id} joined room ${room}`);
-  });
-  socket.on("Profile", ({ Id, Message, Status }) => {
-    console.log(`Profile event received for Id: ${Id}, Status: ${Message}`);
-    socket.broadcast.to(Id).emit("Profile_Response", { Message, Status });
-  });
-  socket.on("disconnect", () => {
-    console.log(`Client disconnected: ${socket.id}`);
-  });
-});
-// Manejo de errores de socket
-io.on("connect_error", (error) => {
-  console.error("Connection error:", error);
-});
-
-io.on("disconnect", (reason) => {
-  console.log("Disconnected:", reason);
-  // Intenta reconectar si la desconexión no fue intencional
-  if (reason === "io server disconnect") {
-      io.connect();
-  }
-});
-
+// Manejo simple de eventos de Socket.IO
+ io.on("connection", (socket) => {
+     // Unirse a una sala
+     socket.on("joinRoom", (room) => socket.join(room));
+     console.log(`User connected`);
+     // Enviar mensaje a una sala
+     socket.on("Profile", ({ Id, Message, Status }) => {
+         console.log(`Profile event received for Id: ${Id}, Status: ${Message}`);
+         socket.broadcast.to(Id).emit("Profile_Response", { Message, Status });
+     });
+ });
 // Iniciar servidor
 server.listen(process.env.PORT, () => {
     console.log(`Server running at http://localhost:${process.env.PORT}`);
