@@ -31,9 +31,7 @@ const ReadUserQueue = new Queue("Read_User", { redis: redisOptions });
 
 ReadUserQueue.process(async (job) => {
     try {    
-
-        console.log("Processing job:", job.data);
-
+        
         // Verify JWT Token        
         const isValidToken = await jwtService.verifyToken(job.data.Token);
         if (!isValidToken) {
@@ -42,6 +40,7 @@ ReadUserQueue.process(async (job) => {
         }
         const users = await userService.findUserById(job.data.Id);
 
+        console.log("Processing job:", job.data);
         if (users.length > 0) {
             try {
                 const decryptedData = await decryptionService.decrypt(
