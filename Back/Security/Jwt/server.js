@@ -7,8 +7,8 @@ import cookieParser from 'cookie-parser';
 dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT || 3000;
-const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY || 'default_secret_key';
+const PORT = process.env.PORT;
+const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY;
 
 app.use(cors({
     origin: process.env.CORS_ORIGIN,

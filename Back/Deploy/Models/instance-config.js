@@ -8,10 +8,12 @@ class InstanceConfig {
       "eipalloc-0634b05b86f457a0d",
       "arn:aws:elasticloadbalancing:us-east-1:168562793459:targetgroup/Encrypt/03fde7ca8ff21f9e",
       "arn:aws:elasticloadbalancing:us-east-1:168562793459:targetgroup/Decrypt/7e50e9d06d835270",
+      "eipalloc-09b0e6223b679c2f3",
       "arn:aws:elasticloadbalancing:us-east-1:168562793459:targetgroup/Whatsapp/4627f9c669384ca7"
     ];
-    this.Names = ["DB_User", "DB_Code", "Bull_User", "Messages_user", "Kafka", "Encrypt", "Decrypt", "Whatsapp"];
+    this.Names = ["DB_User", "DB_Code", "Bull_User", "Messages_user", "Kafka", "Encrypt", "Decrypt","JWT", "Whatsapp"];
     this.Instance = [
+      "t2.micro",
       "t2.micro",
       "t2.micro",
       "t2.micro",
@@ -21,8 +23,17 @@ class InstanceConfig {
       "t2.micro",
       "t2.micro"
     ];
-    this.Type = ["Elastic", "Elastic", "Elastic", "Elastic", "Elastic", "Balancer", "Balancer", "Balancer"];
-    this.Port_Target = [0, 0, 0, 0, 0, 4005, 4006, 4002];
+    this.Type = ["Elastic", "Elastic", "Elastic", "Elastic", "Elastic", "Balancer", "Balancer", "Elastic", "Balancer"];
+    this.Port_Target = [0, 0, 0, 0, 0, 4005, 4006, 0, 4002];
+    this.SecurityGroupIds = [
+      "sg-04371dba8d4161b49",
+      "sg-04371dba8d4161b49",
+      "sg-04371dba8d4161b49",
+      "sg-04371dba8d4161b49",
+      "sg-04371dba8d4161b49",
+      "sg-04371dba8d4161b49",
+      "sg-04371dba8d4161b49",
+      "sg-0b41dd15864a8060f"];
     this.Scripts = [
       `#!/bin/bash
     
@@ -350,18 +361,50 @@ EOF
     sudo chmod 666 /var/run/docker.sock
     
         
-    # Contenedor story_bang_whatsapp
-    docker pull sebastianwebapp/story_bang_whatsapp:latest
+    # Contenedor story_bang_jwt
+    docker pull sebastianwebapp/story_bang_jwt:latest
     
-    docker stop story_bang_whatsapp || true
-    docker rm story_bang_whatsapp || true
+    docker stop story_bang_jwt || true
+    docker rm story_bang_jwt || true
     
-    docker run -d --name story_bang_whatsapp \
-        -p 4002:4002 \
+    docker run -d --name story_bang_jwt \
+        -p 4012:4012 \
         --restart always \
-        sebastianwebapp/story_bang_whatsapp:latest
+        sebastianwebapp/story_bang_jwt:latest
         
         `,
+
+    //      `#!/bin/bash
+    
+    // # Actualizar el sistema
+    // sudo apt update -y && sudo apt upgrade -y
+    
+    // # Instalar Docker
+    // sudo apt install -y docker.io
+    
+    // # Iniciar y habilitar Docker
+    // sudo systemctl start docker
+    // sudo systemctl enable docker
+    
+    // # Agregar el usuario al grupo Docker para evitar usar sudo con cada comando Docker
+    // sudo usermod -aG docker $USER
+    
+    // # Configurar permisos para el socket Docker
+    // sudo chmod 666 /var/run/docker.sock
+    
+        
+    // # Contenedor story_bang_whatsapp
+    // docker pull sebastianwebapp/story_bang_whatsapp:latest
+    
+    // docker stop story_bang_whatsapp || true
+    // docker rm story_bang_whatsapp || true
+    
+    // docker run -d --name story_bang_whatsapp \
+    //     -p 4002:4002 \
+    //     --restart always \
+    //     sebastianwebapp/story_bang_whatsapp:latest
+        
+    //     `,
     
     ];
   }
@@ -373,7 +416,7 @@ EOF
       MinCount: 1,
       MaxCount: 1,
       KeyName: "Distribuida",
-      SecurityGroupIds: ["sg-04371dba8d4161b49"],
+      SecurityGroupIds: [this.SecurityGroupIds[index]],
       TagSpecifications: [
         {
           ResourceType: "instance",

@@ -47,20 +47,24 @@ class Deployer {
 
     var cont = 0;
     var cont2 = 1;
-    var List = [7]
+    var List = [6,0]
     try {
 
-      for (let i = 0; i < this.config.Scripts.length; i++) {
-
+      for (let i = 0; i < this.config.Scripts.length; i++) {        
+        
         if (cont == 0) {
           this.ec2Manager = new EC2Manager(Config.awsRegion, Config.credentials(cont2));
-          this.elbManager = new ELBManager(Config.awsRegion, Config.credentials(cont2));
+          this.elbManager = new ELBManager(Config.awsRegion, Config.credentials(cont2));          
+        }        
+
+        if (cont == List[cont2 - 1]) {
+          cont = 0;
+          cont2++;
+        }
+        else {
           cont++;
         }
-        else if (cont == List[cont2 - 1]) {
-          cont = 0;
-        }
-
+              
         await this.deployInstance(i);       
       }
       console.log("Instancias creadas y IPs asignadas.");
