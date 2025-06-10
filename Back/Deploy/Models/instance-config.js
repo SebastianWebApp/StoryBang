@@ -9,7 +9,14 @@ class InstanceConfig {
       "arn:aws:elasticloadbalancing:us-east-1:168562793459:targetgroup/Encrypt/03fde7ca8ff21f9e",
       "arn:aws:elasticloadbalancing:us-east-1:168562793459:targetgroup/Decrypt/7e50e9d06d835270",
       "eipalloc-09b0e6223b679c2f3",
-      "eipalloc-01f2e6fbcbda75140"
+      "eipalloc-01f2e6fbcbda75140",
+      "arn:aws:elasticloadbalancing:us-east-1:847108888921:targetgroup/Create-User/2d5e32cc7adcc551",
+      "arn:aws:elasticloadbalancing:us-east-1:847108888921:targetgroup/Delete-User/ade847a3d9b01b60",
+      "arn:aws:elasticloadbalancing:us-east-1:847108888921:targetgroup/Password-Recovery/cc40b1ac26e83d67",
+      "arn:aws:elasticloadbalancing:us-east-1:847108888921:targetgroup/Read-User/93ff84c7ddfc0721",
+      "arn:aws:elasticloadbalancing:us-east-1:847108888921:targetgroup/Update-User/845aae6ae459b5fa",
+      "arn:aws:elasticloadbalancing:us-east-1:847108888921:targetgroup/Verification/6ca7c9b032774eff",
+      "arn:aws:elasticloadbalancing:us-east-1:847108888921:targetgroup/Verify-User/e3cf93a123ee2327"
     ];
     this.Names = ["DB_User", "DB_Code", "Bull_User", "Messages_user", "Kafka", "Encrypt", "Decrypt","JWT",
        "Whatsapp", "Create_User", "Delete_User", "Password_Recovery", "Read_User", "Update_User", "Verification", "Verify_User"];
@@ -43,14 +50,14 @@ class InstanceConfig {
       "sg-04371dba8d4161b49",
       "sg-04371dba8d4161b49",
       "sg-0b41dd15864a8060f",
-      "sg-sg-0b4f12b159b7ed947",
-      "sg-sg-0b4f12b159b7ed947",
-      "sg-sg-0b4f12b159b7ed947",
-      "sg-sg-0b4f12b159b7ed947",
-      "sg-sg-0b4f12b159b7ed947",
-      "sg-sg-0b4f12b159b7ed947",
-      "sg-sg-0b4f12b159b7ed947",
-      "sg-sg-0b4f12b159b7ed947"
+      "sg-0b4f12b159b7ed947",
+      "sg-0b4f12b159b7ed947",
+      "sg-0b4f12b159b7ed947",
+      "sg-0b4f12b159b7ed947",
+      "sg-0b4f12b159b7ed947",
+      "sg-0b4f12b159b7ed947",
+      "sg-0b4f12b159b7ed947",
+      "sg-0b4f12b159b7ed947"
     ];
     this.Scripts = [
       `#!/bin/bash
