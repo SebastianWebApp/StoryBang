@@ -20,7 +20,6 @@ const io = new Server(server, {
 io.on("connection", (socket) => {
     // Unirse a una sala
     socket.on("joinRoom", (room) => socket.join(room));
-    console.log(`User connected: ${socket.id}`);
     // Enviar mensaje a una sala
     socket.on("Profile", ({ Id, Message, Status }) => {
         console.log(`Profile event received for Id: ${Id}, Status: ${Message}`);
