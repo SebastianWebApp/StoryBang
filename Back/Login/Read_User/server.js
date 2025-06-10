@@ -49,6 +49,7 @@ ReadUserQueue.process(async (job) => {
                 );
 
                 const userProfile = UserMapper.toUserProfile(users[0], decryptedData);
+                console.log("Decrypted user profile:", userProfile);
                 await notificationService.notify(job.data.Id, true, userProfile);
             } catch (error) {
                 await notificationService.notify(job.data.Id, false, "Error decrypting your information");
