@@ -4,6 +4,8 @@ export class NotificationService {
     }
 
     async notify(userId, status, message) {
+        console.log("User Profile:", userId);
+
         try {
             this.socket.emit('Profile', {
                 Id: userId + "_Read_User",
@@ -12,6 +14,8 @@ export class NotificationService {
             });
         } catch (error) {
             console.log("Communication server error");
+                    console.log("User Profile:");
+
         }
     }
 }
