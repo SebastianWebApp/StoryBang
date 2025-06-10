@@ -1,6 +1,10 @@
 export class NotificationService {
     constructor(socket) {
         this.socket = socket;
+        // Escuchar eventos para monitorear la conexión
+        this.socket.on("connect", () => console.log("Socket conectado:", this.socket.id));
+        this.socket.on("disconnect", (reason) => console.log("Socket desconectado:", reason));
+        this.socket.on("connect_error", (error) => console.error("Error de conexión al servidor de notificaciones:", error));
     }
 
     async notify(userId, status, message) {
