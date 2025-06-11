@@ -4,6 +4,14 @@ var Type = "";
 let Base64Image;
 const Id = "1234567890"
 
+// let Id = localStorage.getItem("Id");
+
+// if(Id == null || Id == ""){
+//     localStorage.removeItem('Id');
+//     window.location.href = "/expired_session";
+// }
+
+
 document.addEventListener('DOMContentLoaded', () => {
     const uploadArea = document.getElementById('upload-area');
     const fileInput = document.getElementById('file-input');
@@ -172,7 +180,6 @@ socket.on('Profile_Response', async (data) => {
         document.getElementById("generated_image").style.display = "inline-block";
         Grok_Image_Generator(data.Message);
 
-
     }
     else if(data.Status == false && Type == "Grok_Description_Image"){
         Notification(data.Message);
@@ -182,7 +189,6 @@ socket.on('Profile_Response', async (data) => {
     else if(data.Status == true && Type == "Grok_Image_Generator"){
 
         document.getElementById("generated_image").src = data.Message;
-
         document.getElementById("create_character").style.display = "inline-block";
         
 

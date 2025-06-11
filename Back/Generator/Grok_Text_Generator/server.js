@@ -30,7 +30,7 @@ Text_GeneratorQueue.process(async (job) => {
             return;
         }
 
-        const Content = await grokService.GenerateText(job.data.Prompt);
+        const Content = await grokService.GenerateText(job.data.Prompt, job.data.Tokens, job.data.Temperature, job.data.Top_p, job.data.Presence_penalty, job.data.Frequency_penalty);
 
         // Send Text
         await notificationService.notify(job.data.Id, true, Content);

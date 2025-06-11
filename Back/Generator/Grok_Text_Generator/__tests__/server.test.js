@@ -30,7 +30,12 @@ describe("Image Generator", () => {
             const mockJobData = {
                 Id: '123',
                 Token: 'valid.token.123',
-                Prompt: 'A cute cat'
+                Prompt: 'A cute cat',
+                Tokens: 100,
+                Temperature: 0.7,
+                Top_p: 0.9,
+                Presence_penalty: 0.1,
+                Frequency_penalty: 0.1   
             }
 
             jwtService.verifyToken.mockResolvedValue(true);            
@@ -40,7 +45,7 @@ describe("Image Generator", () => {
             const tokenValid = await jwtService.verifyToken(mockJobData.Token);
             expect(tokenValid).toBe(true);
 
-            const imageGenerated = await grokService.GenerateText(mockJobData.Prompt);
+            const imageGenerated = await grokService.GenerateText(mockJobData.Prompt, mockJobData.Tokens, mockJobData.Temperature, mockJobData.Top_p, mockJobData.Presence_penalty, mockJobData.Frequency_penalty);
             expect(imageGenerated).toBe(true);
         });
 
@@ -49,7 +54,12 @@ describe("Image Generator", () => {
             const mockJobData = {
                 Id: '123',
                 Token: 'valid.token.123',
-                Prompt: 'A cute cat'
+                Prompt: 'A cute cat',
+                Tokens: 100,
+                Temperature: 0.7,
+                Top_p: 0.9,
+                Presence_penalty: 0.1,
+                Frequency_penalty: 0.1
             }
 
             jwtService.verifyToken.mockResolvedValue(true);
@@ -59,7 +69,7 @@ describe("Image Generator", () => {
             const tokenValid = await jwtService.verifyToken(mockJobData.Token);
             expect(tokenValid).toBe(true);
 
-            await expect(grokService.GenerateText(mockJobData.Prompt)).rejects.toThrow("Image generation failed");    
+            await expect(grokService.GenerateText(mockJobData.Prompt, mockJobData.Tokens, mockJobData.Temperature, mockJobData.Top_p, mockJobData.Presence_penalty, mockJobData.Frequency_penalty)).rejects.toThrow("Image generation failed");    
         })
     });
 
