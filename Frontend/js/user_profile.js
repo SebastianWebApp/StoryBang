@@ -7,6 +7,11 @@ let Base64Image;
 
 let Id = localStorage.getItem("Id");
 var Type = "";
+var retryAttempts = 0;
+const maxRetries = 5;
+var responseReceived = false;
+var retryInterval = 5000; // 5 seconds
+var message_information = true;
 
 if(Id == null || Id == ""){
     localStorage.removeItem('Id');
@@ -40,8 +45,20 @@ async function Read_User(){
             return Read_User();
         }
         
-        Notification(Server_Response.Response);
-
+        if(message_information){
+            Notification(Server_Response.Response);
+            message_information = false;
+        }
+        
+        setTimeout(() => {
+            if(!responseReceived && retryAttempts < maxRetries) {
+                retryAttempts++;
+                Read_User(); // Retry the request
+            }else if (retryAttempts >= maxRetries){
+                Notification("Error loading information, we will try again.");
+                location.reload();
+            }
+        }, retryInterval);
 
     } catch (error) {
 
@@ -203,6 +220,9 @@ document.getElementById("Btn_Delete_User").addEventListener("click", async () =>
 socket.on('Profile_Response', async (data) => { 
         
     if(data.Status && Type == "Read_User"){
+
+        responseReceived = true;
+
         document.getElementById("main").style.display = "flex";
         document.getElementById("loading").style.display = "none";
 
