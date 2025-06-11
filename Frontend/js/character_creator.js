@@ -183,6 +183,9 @@ socket.on('Profile_Response', async (data) => {
 
         document.getElementById("generated_image").src = data.Message;
 
+        document.getElementById("create_character").style.display = "inline-block";
+        
+
         // Agregar la imagen generada a la galería
         // addToGallery(data.Message, characterName.value || 'Nuevo Personaje');
 

@@ -150,12 +150,13 @@ h2 {
     text-transform: uppercase;
 }
 
-#create-character {
+#create_character {
     background-color: #4CAF50;
     color: white;
+    display: none;
 }
 
-#create-character:hover {
+#create_character:hover {
     background-color: #45a049;
     transform: translateY(-2px);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -171,12 +172,13 @@ h2 {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-#delete-character {
+#delete_character {
     background-color: #f44336;
     color: white;
+    display: none;
 }
 
-#delete-character:hover {
+#delete_character:hover {
     background-color: #da190b;
     transform: translateY(-2px);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
