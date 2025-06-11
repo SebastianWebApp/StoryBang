@@ -10,7 +10,7 @@ var Type = "";
 var retryAttempts = 0;
 const maxRetries = 5;
 var responseReceived = false;
-var retryInterval = 5000; // 5 seconds
+var retryInterval = 3000; // 3 seconds
 var message_information = true;
 
 if(Id == null || Id == ""){
