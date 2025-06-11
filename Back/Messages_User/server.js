@@ -20,7 +20,7 @@ const io = new Server(server, {
  io.on("connection", (socket) => {
      socket.on("joinRoom", (room) => socket.join(room));
      socket.on("Profile", ({ Id, Message, Status }) => {
-         socket.broadcast.to(Id).emit("Profile_Response", { Message, Status });
+         io.to(Id).emit("Profile_Response", { Message, Status });
      });
  });
 
