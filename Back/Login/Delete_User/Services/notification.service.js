@@ -5,9 +5,6 @@ export class NotificationService {
 
     async notify(userId, status, message) {
         try {
-
-            this.socket.emit('joinRoom', userId + "_Delete_User");
-
             this.socket.emit("Profile", {
                 Id: userId + "_Delete_User",
                 Status: status,

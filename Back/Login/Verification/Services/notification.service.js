@@ -8,7 +8,6 @@ export class NotificationService {
     static async sendNotification(Id_User, Status, Message) {
 
         try {
-            socket.emit('joinRoom', Id_User + "_Verification");
             socket.emit('Profile', {
                 Id: Id_User+"_Verification",
                 Status: Status,
