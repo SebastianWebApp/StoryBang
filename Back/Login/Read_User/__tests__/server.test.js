@@ -1,16 +1,20 @@
 const { UserService } = require('../Services/user.service.js');
 const { JWTService } = require('../Services/jwt.service.js');
 const { DecryptionService } = require('../Services/decryption.service.js');
+const { UserMapper } = require('../Services/user.mapper.js');
 
 // Mock the dependencies
 jest.mock('../Services/user.service.js');
 jest.mock('../Services/jwt.service.js');
 jest.mock('../Services/decryption.service.js');
+jest.mock('../Services/user.mapper.js');
 
 describe('Read User', () => {
     let userService;
     let jwtService;
     let decryptionService;
+    let userMapper;
+    let mockDB;
 
     beforeEach(() => {
         // Set up mocks before each test
@@ -18,7 +22,10 @@ describe('Read User', () => {
 
         // Manually mock the methods of each service
         jwtService = new JWTService();
-        jwtService.verifyToken = jest.fn();     
+        jwtService.verifyToken = jest.fn();
+
+        userMapper = new UserMapper();
+        userMapper.toUserProfile = jest.fn();        
 
         decryptionService = new DecryptionService();
         decryptionService.decrypt = jest.fn();
@@ -35,8 +42,7 @@ describe('Read User', () => {
     test('User read successfully', async () => {
         const mockJobData = {
             Id: '123',
-            Password: 'vp1o3d12',
-            Token: 'valid-token'
+            Token: 'valid-token',
         };
 
         // Mock expected behaviors
@@ -50,7 +56,13 @@ describe('Read User', () => {
         decryptionService.decrypt.mockResolvedValue({
             decryptPhone: '0987579898',
             decryptPassword: 'vp1o3d12'
-        });   
+        });       
+        userMapper.toUserProfile.mockResolvedValue({
+            Phone: '0987579898',
+            Password: 'vp1o3d12',
+            Name: 'John Doe',
+            Image: 'image-url'
+        });
 
         // Call logic (assumed from context)
         const tokenValid = await jwtService.verifyToken(mockJobData.Token);
@@ -63,10 +75,9 @@ describe('Read User', () => {
 
         const descyptedData = await decryptionService.decrypt(findUserById.Phone, findUserById.Password);
         expect(decryptionService.decrypt).toHaveBeenCalledWith(findUserById.Phone, findUserById.Password);
-
-        if( descyptedData.decryptPassword === mockJobData.Password) {
-            console.log(`User ${findUserById.Name} found with phone ${descyptedData.decryptPhone} and password ${descyptedData.decryptPassword}`);
-        } 
+        
+        const userProfile = userMapper.toUserProfile(findUserById, descyptedData);
+        expect(userMapper.toUserProfile).toHaveBeenCalledWith(findUserById, descyptedData);
     });
 
     test('Invalid or expired token', async () => {

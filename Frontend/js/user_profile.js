@@ -12,7 +12,6 @@ if(Id == null || Id == ""){
     localStorage.removeItem('Id');
     window.location.href = "/expired_session";
 }
-
 Read_User();
 
 async function Read_User(){
@@ -45,6 +44,7 @@ async function Read_User(){
 
 
     } catch (error) {
+
         return Read_User();
     }
 
@@ -200,8 +200,8 @@ document.getElementById("Btn_Delete_User").addEventListener("click", async () =>
 
 
 
-socket.on('Profile_Response', async (data) => {   
-    
+socket.on('Profile_Response', async (data) => { 
+        
     if(data.Status && Type == "Read_User"){
         document.getElementById("main").style.display = "flex";
         document.getElementById("loading").style.display = "none";

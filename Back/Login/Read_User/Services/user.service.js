@@ -1,8 +1,10 @@
-import connectToDB from "../Database/connect.js";
-
 export class UserService {
-    static async findUserById(id) {
-        const [rows] = await connectToDB.query("CALL ReadRecord(?)", [id]);
+    constructor(db) {
+        this.db = db;
+    }
+
+    async findUserById(userId) {
+        const [rows] = await this.db.query("CALL ReadRecord(?)", [userId]);
         return rows[0];
     }
 }

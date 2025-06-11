@@ -1,31 +1,63 @@
 import express from "express";
 import Queue from "bull";
 import dotenv from "dotenv";
+import { io } from "socket.io-client";
 import Test_Connection from "./Controllers/test_connection.js";
-import { redisConfig } from "./Config/redis.config.js";
-import { VerificationService } from "./Services/verification.service.js";
-import {JWTService} from "./Services/jwt.service.js";
+import connectToDB from "./Database/connect.js";
+import { redisOptions } from "./Config/redis.config.js";
 import { NotificationService } from "./Services/notification.service.js";
+import { UserService } from "./Services/user.service.js";
+import { DecryptionService } from "./Services/decryption.service.js";
+import { UserMapper } from "./Services/user.mapper.js";
+import {JWTService} from "./Services/jwt.service.js";
 
 dotenv.config();
 const PORT = process.env.PORT;
+const PORT_MESSAGES_USERS = process.env.PORT_MESSAGES_USERS;
+
 Test_Connection();
 
 const app = express();
 
-// Initialize verification queue
-const verifyUserQueue = new Queue("Read_User", { redis: redisConfig });
+// Inicializar servicios
+const socket = io(PORT_MESSAGES_USERS);
+const notificationService = new NotificationService(socket);
+const userService = new UserService(connectToDB);
+const decryptionService = new DecryptionService(process.env.PORT_DECRYPT);
 const jwtService = new JWTService();
 
-// Process verification jobs
-verifyUserQueue.process(async (job) => {
-    // Verify JWT Token        
+// Configurar cola de lectura de usuario
+const ReadUserQueue = new Queue("Read_User", { redis: redisOptions });
+
+ReadUserQueue.process(async (job) => {
+    try {    
+        
+        // Verify JWT Token        
         const isValidToken = await jwtService.verifyToken(job.data.Token);
         if (!isValidToken) {
-            await NotificationService.sendNotification(job.data.Id, false, "Session expired. Please log in again.");
+            await notificationService.notify(job.data.Id, false, "Session expired. Please log in again.");
             return;
         }
-    await VerificationService.verifyUser(job.data);
+        const users = await userService.findUserById(job.data.Id);
+
+        if (users.length > 0) {
+            try {
+                const decryptedData = await decryptionService.decrypt(
+                    users[0].Phone,
+                    users[0].Password
+                );
+
+                const userProfile = UserMapper.toUserProfile(users[0], decryptedData);
+                await notificationService.notify(job.data.Id, true, userProfile);
+            } catch (error) {
+                await notificationService.notify(job.data.Id, false, "Error decrypting your information");
+            }
+        } else {
+            await notificationService.notify(job.data.Id, false, "The user does not exist");
+        }
+    } catch (error) {
+        await notificationService.notify(job.data.Id, false, "Error processing job");
+    }
 });
 
 app.listen(PORT, () => {
