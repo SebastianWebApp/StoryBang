@@ -8,7 +8,7 @@ dotenv.config();
 const app = express();
 const server = createServer(app);
 const io = new Server(server, {
-    maxHttpBufferSize: 50 * 1024 * 1024, // 50 MB limit for messages (adjust according to needs)
+    maxHttpBufferSize: 1e8, // 100 MB
     cors: {
         origin: ["*"], 
         methods: ["GET", "POST"],

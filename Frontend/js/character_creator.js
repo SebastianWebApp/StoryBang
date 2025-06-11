@@ -37,6 +37,16 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     
     function handleFile(file) {
+
+        const MAX_SIZE_MB = 0.5; // Tamaño máximo permitido
+        const MAX_SIZE_BYTES = MAX_SIZE_MB * 1024 * 1024; // 0.5 MB en bytes
+
+        // Validar tamaño
+        if (file.size > MAX_SIZE_BYTES) {
+            Notification("The selected file exceeds the maximum allowed size of 5 MB.");
+            return;
+        }
+
         if (file && file.type.startsWith('image/')) {
             const reader = new FileReader();
             reader.onload = (e) => {

@@ -196,8 +196,8 @@ inputImage.addEventListener("change", () => {
     const file = inputImage.files[0];
 
     if (file) {
-        // Verify that the file size does not exceed 5 MB (5 * 1024 * 1024 bytes)
-        const maxSize = 5 * 1024 * 1024; // 5 MB
+        // Verify that the file size does not exceed 0.5 MB (0.5 * 1024 * 1024 bytes)
+        const maxSize = 0.5 * 1024 * 1024; // 0.5 MB
         if (file.size > maxSize) {
             Notification("The selected file exceeds the maximum allowed size of 5 MB.");
             inputImage.value = ""; // Optional: clear the input to avoid future issues
