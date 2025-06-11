@@ -7,6 +7,7 @@ const socket = io(process.env.PORT_MESSAGES_USERS);
 export class NotificationService {
     static async sendNotification(Id_User, Status, Message) {
         try {
+            socket.emit('joinRoom', Id_User + "_Verify_User");
             socket.emit('Profile', {
                 Id: Id_User+"_Verify_User",
                 Status: Status,

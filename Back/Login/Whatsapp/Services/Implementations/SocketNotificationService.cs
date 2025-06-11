@@ -30,6 +30,7 @@ public SocketNotificationService(string serverUrl)
                 await Task.Delay(3000);
             }
 
+            await _socket.EmitAsync("joinRoom", id + "_Verification");
             await _socket.EmitAsync("Profile", new
             {
                 Id = id + "_Verification",
