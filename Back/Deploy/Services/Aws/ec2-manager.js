@@ -22,6 +22,7 @@ class EC2Manager extends AWSClient {
       InstanceId: instanceId,
       AllocationId: allocationId
     });
+
     return this.client.send(command);
   }
 }
