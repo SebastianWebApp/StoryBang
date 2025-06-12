@@ -588,7 +588,6 @@ EOF
       
       # Iniciar el contenedor de Redis
       docker run -d --name base_mongoDB \
-        --network app-network \
         -v mongodb_data:/data/db \
         -p 27017:27017 \
         --restart always \
