@@ -175,12 +175,11 @@ async function Grok_Image_Generator (Prompt) {
 socket.on('Profile_Response', async (data) => { 
         
     if(data.Status == true && Type == "Grok_Description_Image"){
-
         document.getElementById("generated_image").src = "../src/loading.png";
         document.getElementById("generated_image").style.display = "inline-block";
         Grok_Image_Generator(data.Message);
-
     }
+    
     else if(data.Status == false && Type == "Grok_Description_Image"){
         Notification(data.Message);
         return;
