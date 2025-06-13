@@ -1,20 +1,21 @@
 import { messages_user } from '/js/messages_user.js';  
 const socket = io(messages_user); // Utiliza la IP de tu máquina en la red local
+let Id = localStorage.getItem("Id");
 var Type = "";
 let Base64Image;
 let Description = "";
 let Image = "";
 let Image_Real = "";
-let Last_Id;
 let Id_Character;
+let List_Character = [];
+let Filter = {
+    User_Id: Id
+};
 
-var retryAttempts = 0;
-const maxRetries = 5;
 var responseReceived = false;
 var retryInterval = 3000; // 5 seconds
 var message_information = true;
 
-let Id = localStorage.getItem("Id");
 if(Id == null || Id == ""){
     localStorage.removeItem('Id');
     window.location.href = "/expired_session";
@@ -36,9 +37,7 @@ async function Read_Character(){
             },
             body: JSON.stringify({
                 Id: Id,
-                Filter: {
-                    User_Id: Id             
-                }
+                Filter: Filter
             })
         });
 
@@ -55,13 +54,10 @@ async function Read_Character(){
         }
         
         setTimeout(() => {
-            if(!responseReceived && retryAttempts < maxRetries) {
-                retryAttempts++;
+            if(!responseReceived) {
                 Read_Character(); // Retry the request
-            }else if (retryAttempts >= maxRetries){
-                Notification("Error loading information, we will try again.");
-                location.reload();
             }
+
         }, retryInterval);
 
     } catch (error) {
@@ -295,21 +291,36 @@ function addToGallery(imageReal ,imageSrc, name, Id_Character) {
 socket.on('Profile_Response', async (data) => { 
 
      if(data.Status && Type == "Read_Character"){
-
+        
         responseReceived = true;
-
-        document.getElementById("container").style.display = "block";
-        document.getElementById("loading").style.display = "none";
 
         for (let i = 0; i < data.Message.length; i++) {
             const character = data.Message[i];
             const imageSrc = character.Image ;
             const name = character.Name;
             const imageReal = character.Image_Real;
-            Id_Character = character.Id; 
+            Id_Character = character._id; 
 
-            addToGallery(imageReal,imageSrc, name, Id_Character);
+            
+
+            if(!List_Character.includes(Id_Character)){
+                List_Character.push(Id_Character);
+                addToGallery(imageReal,imageSrc, name, Id_Character);
+            }
+
         }
+
+
+
+        if(data.Message.length == 2){
+            Filter._id = {$lt: Id_Character};
+            return Read_Character();
+        }
+        else{
+            document.getElementById("container").style.display = "block";
+            document.getElementById("loading").style.display = "none";
+        }
+
 
     }
     else if (data.Status == false && Type == "Read_Character") {
