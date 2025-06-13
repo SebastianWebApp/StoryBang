@@ -6,7 +6,7 @@ export class UserService {
             
         const result = await Mongo_Character.find(Filter)
         .sort({ createdAt: -1 }) // Descending order by date (most recent first).
-        .limit(3); // Limit to 5 results.
+        .limit(1); // Limit to 5 results.
 
         return result;    
 

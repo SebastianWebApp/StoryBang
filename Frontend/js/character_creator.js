@@ -12,9 +12,12 @@ let Filter = {
     User_Id: Id
 };
 
+var retryAttempts = 0;
+const maxRetries = 5;
 var responseReceived = false;
 var retryInterval = 3000; // 5 seconds
 var message_information = true;
+
 
 if(Id == null || Id == ""){
     localStorage.removeItem('Id');
@@ -53,22 +56,25 @@ async function Read_Character(){
             message_information = false;
         }
         
+           
         setTimeout(() => {
-            if(!responseReceived) {
+            if(!responseReceived && retryAttempts < maxRetries) {
+                retryAttempts++;
                 Read_Character(); // Retry the request
+            }else if (retryAttempts >= maxRetries){
+                Notification("Error loading information, we will try again.");
+                location.reload();
             }
-
         }, retryInterval);
 
     } catch (error) {
 
-        return Read_User();
+        return Read_Character();
     }
 
     
 
 }
-
 
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -134,7 +140,6 @@ document.addEventListener('DOMContentLoaded', () => {
               
 });
 
-
 document.getElementById('btn_generated_image').addEventListener('click', async() => {    
 
     if(Base64Image === undefined || Base64Image === null || Base64Image === ""){
@@ -172,39 +177,6 @@ document.getElementById('btn_generated_image').addEventListener('click', async()
     }
         
 });
-
-
-async function Grok_Image_Generator (Prompt) {
-
-    try {
-
-        await socket.emit('joinRoom', Id+"_Grok_Image_Generator");
-        Type = "Grok_Image_Generator";
-
-        const Request = await fetch(`api/router_generator/Grok_Image_Generator`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                Id: Id,
-                Prompt: Prompt     
-            })
-        });
-
-        const Server_Response = await Request.json();
-
-        if(Server_Response.Status == false){
-            return Grok_Image_Generator(Prompt); // Retry if there's an error
-        }
-    
-        Notification(Server_Response.Response);
-
-    } catch (error) {
-        return Grok_Image_Generator(Prompt); // Retry if there's an error
-    }
-
-}
 
 document.getElementById('create_character').addEventListener('click', async() => {
 
@@ -258,6 +230,72 @@ document.getElementById('create_character').addEventListener('click', async() =>
     }
 });
 
+document.getElementById('delete_character').addEventListener('click', async() => {
+    if(Id_Character === undefined || Id_Character === null || Id_Character === ""){
+        Notification("Please select a character to delete");
+        return;
+    }
+    try {
+        await socket.emit('joinRoom', Id+"_Delete_Character");
+        Type = "Delete_Character";
+        const Request = await fetch(`api/router_character/Delete_Character`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                Id: Id,
+                Id_Character: Id_Character
+            })
+        });
+        const Server_Response = await Request.json();
+        Notification(Server_Response.Response);
+
+         if(Server_Response.Status == true){
+            document.getElementById("loading").style.display = "inline-block";     
+            document.getElementById("container").style.display = "none";                  
+        }   
+
+        
+    } catch (error) {
+        Notification("Failed to delete character. Please try again.");
+    }
+});
+
+
+
+async function Grok_Image_Generator (Prompt) {
+
+    try {
+
+        await socket.emit('joinRoom', Id+"_Grok_Image_Generator");
+        Type = "Grok_Image_Generator";
+
+        const Request = await fetch(`api/router_generator/Grok_Image_Generator`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                Id: Id,
+                Prompt: Prompt     
+            })
+        });
+
+        const Server_Response = await Request.json();
+
+        if(Server_Response.Status == false){
+            return Grok_Image_Generator(Prompt); // Retry if there's an error
+        }
+    
+        Notification(Server_Response.Response);
+
+    } catch (error) {
+        return Grok_Image_Generator(Prompt); // Retry if there's an error
+    }
+
+}
+
 
 function addToGallery(imageReal ,imageSrc, name, Id_Character) {
         const gallery = document.getElementById('character-gallery');
@@ -301,8 +339,6 @@ socket.on('Profile_Response', async (data) => {
             const imageReal = character.Image_Real;
             Id_Character = character._id; 
 
-            
-
             if(!List_Character.includes(Id_Character)){
                 List_Character.push(Id_Character);
                 addToGallery(imageReal,imageSrc, name, Id_Character);
@@ -310,9 +346,7 @@ socket.on('Profile_Response', async (data) => {
 
         }
 
-
-
-        if(data.Message.length == 2){
+        if(data.Message.length == 1){
             Filter._id = {$lt: Id_Character};
             return Read_Character();
         }
@@ -361,6 +395,15 @@ socket.on('Profile_Response', async (data) => {
        return;
     }
     else if(data.Status == false && Type == "Create_Character"){
+        Notification(data.Message);        
+        document.getElementById("loading").style.display = "none";            
+        document.getElementById("container").style.display = "block";
+    }
+    else if(data.Status == true && Type == "Delete_Character"){
+        location.reload(); // Reload the page to show the updated character list
+        return;
+    }
+    else if(data.Status == false && Type == "Delete_Character"){
         Notification(data.Message);        
         document.getElementById("loading").style.display = "none";            
         document.getElementById("container").style.display = "block";
