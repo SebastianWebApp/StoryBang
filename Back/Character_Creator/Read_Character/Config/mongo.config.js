@@ -12,6 +12,7 @@ const Character_Schema = new Schema(
     Name: { type: String, required: true },
     Description: { type: String, required: true },
     Image: { type: String, required: true },
+    Image_Real: { type: String, required: true },
     User_Id: { type: String, required: true },
   },
   {

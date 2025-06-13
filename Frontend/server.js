@@ -7,6 +7,7 @@ import { fileURLToPath, pathToFileURL } from "url";
 import { JWT } from "./Services/read_jwt.js";
 import router_create_account from "./Routers/routers_create_account.js";
 import router_generator from "./Routers/routers_generator.js";
+import router_character from "./Routers/routers_character.js";
 
 // Enable connection with the .env file
 dotenv.config();
@@ -48,7 +49,7 @@ app.get("/forgot_password", (req, res) => {
 
 
 // ------------------------ Home ---------------------------------------
-app.get("/home", (req, res) => {
+app.get("/home",JWT, (req, res) => {
     res.sendFile(path.join(__dirname, "views", "home.html"));
 });
 
@@ -56,7 +57,7 @@ app.get("/user_profile",JWT, (req, res) => {
     res.sendFile(path.join(__dirname, "views", "user_profile.html"));
 });
 
-app.get("/character_creator", (req, res) => {
+app.get("/character_creator",JWT , (req, res) => {
     res.sendFile(path.join(__dirname, "views", "character_creator.html"));
 });
 
@@ -72,7 +73,7 @@ app.get("/expired_session", (req, res) => {
 // // ---------------------- Gateway ------------------------------
 app.use("/api/create_account", router_create_account);
 app.use("/api/router_generator", router_generator);
-
+app.use("/api/router_character", router_character);
 
 
 app.use((req, res) => {

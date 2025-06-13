@@ -27,7 +27,8 @@ describe("character_process Services", () => {
                 Token: 'valid-token',
                 Name: 'Test User',
                 Description: 'This is a test user',
-                Image: 'profile.jpg'                
+                Image: 'profile.jpg',
+                Image_Real: 'profile_real.jpg' // Added Image_Real for completeness           
             };
 
 
@@ -46,7 +47,8 @@ describe("character_process Services", () => {
                 Token: 'valid-token',
                 Name: 'Test User',
                 Description: 'This is a test user',
-                Image: 'profile.jpg'                
+                Image: 'profile.jpg',
+                Image_Real: 'profile_real.jpg' // Added Image_Real for completeness               
             };
 
             userService.character_process = jest.fn().mockRejectedValue(new Error("Error deleting")); // Mock failure

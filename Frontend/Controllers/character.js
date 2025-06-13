@@ -30,7 +30,8 @@ export const Create_Character = async (req, res) => {
                 Token: Security.Response,
                 Name: req.body.Name,
                 Description: req.body.Description,
-                Image: req.body.Image
+                Image: req.body.Image,
+                Image_Real: req.body.Image_Real
             },
             {
                 attempts: 1,           // Retry up to 1 times in case of failure
@@ -146,49 +147,6 @@ export const Read_Character = async (req, res) => {
 };
 
 
-export const Read_Id_Character = async (req, res) => {
-
-    try {
-
-        var Security = await Security_JWT(req, res);
-        if (!Security.Status) { 
-            return res.status(400).json({
-                Response: "Failed to create security. Please try again.",
-                Status: false
-            });
-        }
-
-        const ProcessQueue = new Queue("Read_Id_Character", { redis: redisOptions });
-
-        const job = await ProcessQueue.add(
-            {
-                Id: req.body.Id,
-                Token: Security.Response,
-                Id_Character: req.body.Id_Character
-            },
-            {
-                attempts: 1,           // Retry up to 1 times in case of failure
-                // backoff: 2000,         // Wait 2 seconds between attempts
-                removeOnComplete: true, // Remove completed job from Redis
-                removeOnFail: true      // Remove job that exceeds attempts and fails
-            }
-        );
-
-        res.status(200).json({
-            Response: "Please wait a moment",
-            Status: true
-        });
-
-        return;
-        
-    } catch (error) {
-        res.status(500).json({
-            Response: "Failed to add job to queue. Please try again later.",
-            Status: false
-        });
-    }
-    
-};
 
 
 export const Update_Character = async (req, res) => {
@@ -212,7 +170,8 @@ export const Update_Character = async (req, res) => {
                 Id_Character: req.body.Id_Character,
                 Name: req.body.Name,
                 Description: req.body.Description,
-                Image: req.body.Image
+                Image: req.body.Image,
+                Image_Real: req.body.Image_Real
             },
             {
                 attempts: 1,           // Retry up to 1 times in case of failure

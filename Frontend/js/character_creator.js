@@ -2,22 +2,82 @@ import { messages_user } from '/js/messages_user.js';
 const socket = io(messages_user); // Utiliza la IP de tu máquina en la red local
 var Type = "";
 let Base64Image;
-const Id = "1234567890"
+let Description = "";
+let Image = "";
+let Image_Real = "";
+let Last_Id;
+let Id_Character;
 
-// let Id = localStorage.getItem("Id");
+var retryAttempts = 0;
+const maxRetries = 5;
+var responseReceived = false;
+var retryInterval = 3000; // 5 seconds
+var message_information = true;
 
-// if(Id == null || Id == ""){
-//     localStorage.removeItem('Id');
-//     window.location.href = "/expired_session";
-// }
+let Id = localStorage.getItem("Id");
+if(Id == null || Id == ""){
+    localStorage.removeItem('Id');
+    window.location.href = "/expired_session";
+}
+
+
+Read_Character();
+
+async function Read_Character(){
+
+    await socket.emit('joinRoom', Id+"_Read_Character");
+    Type = "Read_Character";
+
+    try {
+        const Request = await fetch(`api/router_character/Read_Character`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                Id: Id,
+                Filter: {
+                    User_Id: Id             
+                }
+            })
+        });
+
+
+        const Server_Response = await Request.json();
+
+        if(Server_Response.Status == false){
+            return Read_Character();
+        }
+        
+        if(message_information){
+            Notification(Server_Response.Response);
+            message_information = false;
+        }
+        
+        setTimeout(() => {
+            if(!responseReceived && retryAttempts < maxRetries) {
+                retryAttempts++;
+                Read_Character(); // Retry the request
+            }else if (retryAttempts >= maxRetries){
+                Notification("Error loading information, we will try again.");
+                location.reload();
+            }
+        }, retryInterval);
+
+    } catch (error) {
+
+        return Read_User();
+    }
+
+    
+
+}
+
 
 
 document.addEventListener('DOMContentLoaded', () => {
     const uploadArea = document.getElementById('upload-area');
     const fileInput = document.getElementById('file-input');
-    const generatedImage = document.getElementById('generated-image');
-    const characterName = document.getElementById('character-name');
-    const gallery = document.getElementById('character-gallery');
     
     // Manejar la subida de archivos
     uploadArea.addEventListener('click', () => {
@@ -60,6 +120,7 @@ document.addEventListener('DOMContentLoaded', () => {
             reader.onload = (e) => {
                 const img = document.createElement('img');
                 img.src = e.target.result;
+                img.id = 'uploaded_image';
                 uploadArea.innerHTML = '';
                 uploadArea.appendChild(img);
                 img.style.width = '100%';
@@ -68,38 +129,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 Base64Image = e.target.result;              
             };
             reader.readAsDataURL(file);
+            document.getElementById("generated_image").src = "/src/loading.png";
+            document.getElementById("btn_generated_image").style.display = "inline-block";
+            document.getElementById("delete_character").style.display = "none";
+            document.getElementById("Inp_character_name").value = "";
         }
     }
-       
-    function addToGallery(imageSrc, name) {
-        const item = document.createElement('div');
-        item.className = 'gallery-item';
-        
-        const img = document.createElement('img');
-        img.src = imageSrc;
-        
-        const nameLabel = document.createElement('div');
-        nameLabel.className = 'character-name';
-        nameLabel.textContent = name;
-        
-        item.appendChild(img);
-        item.appendChild(nameLabel);
-        gallery.insertBefore(item, gallery.firstChild);
-    }
-    
-    // Cargar personajes existentes (simulado)
-    const mockCharacters = [
-        { name: 'Personaje 1', image: '/src/img_post.png' },
-        { name: 'Personaje 2', image: '/src/img_post.png' },
-        { name: 'Personaje 3', image: '/src/img_post.png' },
-        { name: 'Personaje 1', image: '/src/img_post.png' },
-        { name: 'Personaje 2', image: '/src/img_post.png' },
-        { name: 'Personaje 3', image: '/src/img_post.png' }
-    ];
-    
-    mockCharacters.forEach(char => {
-        addToGallery(char.image, char.name);
-    });
+              
 });
 
 
@@ -129,6 +165,11 @@ document.getElementById('btn_generated_image').addEventListener('click', async()
         const Server_Response = await Request.json();
     
         Notification(Server_Response.Response);
+
+        if(Server_Response.Status == true){
+            document.getElementById("loading").style.display = "inline-block"; 
+            document.getElementById("container").style.display = "none";           
+        }
 
     } catch (error) {
         Notification("Try again");     
@@ -169,37 +210,150 @@ async function Grok_Image_Generator (Prompt) {
 
 }
 
+document.getElementById('create_character').addEventListener('click', async() => {
 
+    const characterName = document.getElementById('Inp_character_name').value;
+
+    if(characterName === undefined || characterName === null || characterName === ""){
+        Notification("Please enter a character name");
+        return;
+    }
+    if(Image === undefined || Image === null || Image === ""){
+        Notification("Please generate an image for the character");
+        return;
+    }
+    if(Description === undefined || Description === null || Description === ""){
+        Notification("Please generate a description for the character");
+        return;
+    }
+
+    try {
+
+        await socket.emit('joinRoom', Id+"_Create_Character");
+
+        Type = "Create_Character";
+
+        const Request = await fetch(`api/router_character/Create_Character`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                Id: Id,
+                Name: characterName,
+                Description: Description,
+                Image: Image,
+                Image_Real: Image_Real
+            })
+        });
+
+        const Server_Response = await Request.json();
+
+        Notification(Server_Response.Response);
+
+        if(Server_Response.Status == true){
+            document.getElementById("loading").style.display = "inline-block";     
+            document.getElementById("container").style.display = "none";                  
+        }       
+        
+
+    } catch (error) {
+        Notification("Failed to create character. Please try again.");
+    }
+});
+
+
+function addToGallery(imageReal ,imageSrc, name, Id_Character) {
+        const gallery = document.getElementById('character-gallery');
+
+        const item = document.createElement('div');
+        item.className = 'gallery-item';
+
+        item.onclick = () => {
+            document.getElementById("Inp_character_name").value = name;
+            document.getElementById("generated_image").src = imageSrc;
+            document.getElementById("delete_character").style.display = "inline-block";
+            document.getElementById("btn_generated_image").style.display = "none";
+            document.getElementById("create_character").style.display = "none";
+            document.getElementById("uploaded_image").src = imageReal;
+            Id_Character = Id_Character;
+        };
+        
+        const img = document.createElement('img');
+        img.src = imageSrc;
+        
+        const nameLabel = document.createElement('div');
+        nameLabel.className = 'character-name';
+        nameLabel.textContent = name;
+        
+        item.appendChild(img);
+        item.appendChild(nameLabel);
+        gallery.insertBefore(item, gallery.firstChild);
+}
 
 
 socket.on('Profile_Response', async (data) => { 
+
+     if(data.Status && Type == "Read_Character"){
+
+        responseReceived = true;
+
+        document.getElementById("container").style.display = "block";
+        document.getElementById("loading").style.display = "none";
+
+        for (let i = 0; i < data.Message.length; i++) {
+            const character = data.Message[i];
+            const imageSrc = character.Image ;
+            const name = character.Name;
+            const imageReal = character.Image_Real;
+            Id_Character = character.Id; 
+
+            addToGallery(imageReal,imageSrc, name, Id_Character);
+        }
+
+    }
+    else if (data.Status == false && Type == "Read_Character") {
+        return Read_Character();
+    }
         
-    if(data.Status == true && Type == "Grok_Description_Image"){
-        document.getElementById("generated_image").src = "../src/loading.png";
-        document.getElementById("generated_image").style.display = "inline-block";
+    else if(data.Status == true && Type == "Grok_Description_Image"){       
+        Description = data.Message;
         Grok_Image_Generator(data.Message);
     }
     
     else if(data.Status == false && Type == "Grok_Description_Image"){
+        document.getElementById("loading").style.display = "none";   
+        document.getElementById("container").style.display = "block";         
         Notification(data.Message);
         return;
     }
 
     else if(data.Status == true && Type == "Grok_Image_Generator"){
 
+        Image = data.Message;
+        Image_Real = Base64Image;
         document.getElementById("generated_image").src = data.Message;
         document.getElementById("create_character").style.display = "inline-block";
-        
-
-        // Agregar la imagen generada a la galería
-        // addToGallery(data.Message, characterName.value || 'Nuevo Personaje');
+        document.getElementById("loading").style.display = "none";  
+        document.getElementById("container").style.display = "block";          
 
     }
     else if(data.Status == false && Type == "Grok_Image_Generator"){
         Notification(data.Message);
+        document.getElementById("loading").style.display = "none";            
+        document.getElementById("container").style.display = "block";
         return;
     }
 
+    else if(data.Status == true && Type == "Create_Character"){
+       location.reload(); // Reload the page to show the new character
+       return;
+    }
+    else if(data.Status == false && Type == "Create_Character"){
+        Notification(data.Message);        
+        document.getElementById("loading").style.display = "none";            
+        document.getElementById("container").style.display = "block";
+    }
 });
 
 

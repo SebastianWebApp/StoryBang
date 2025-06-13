@@ -10,6 +10,10 @@
 </head>
 <body>
 
+    <div id="loading">
+        <img src="/src/loading.png">
+    </div>
+
      <!-- Contenedor de la alerta -->
     <div class="card" id="Div_Notification">
             <svg class="wave" viewBox="0 0 1440 320" xmlns="http://www.w3.org/2000/svg">
@@ -40,7 +44,7 @@
                     
     </div>
 
-    <div class="container">
+    <div class="container" id="container">
         <header>
             <h1>Character Creator</h1>
         </header>
@@ -54,7 +58,7 @@
                 <div class="upload-section">
                     <h2>Upload Image</h2>
                     <div class="upload-area" id="upload-area">
-                        <img src="/src/character.jpg" alt="Upload" id="upload-icon">
+                        <img src="/src/character.jpg" alt="Upload" id="uploaded_image">
                         <input type="file" id="file-input" accept="image/*" hidden>
                     </div>
                     <div class="button-container">
@@ -65,7 +69,7 @@
                 <div class="generated-section">
                     <h2>Generated Image</h2>
                     <div class="generated-area" id="generated-area">
-                        <img src="/src/loading.png" alt="Loading" id="generated_image" hidden>
+                        <img src="/src/loading.png" alt="Loading" id="generated_image">
                     </div>                   
 
                     <div class="button-container">
