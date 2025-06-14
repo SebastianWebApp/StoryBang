@@ -4,6 +4,7 @@ let Id = localStorage.getItem("Id");
 var Type = "";
 let List_Character = [];
 let List_Description = [];
+let List_Name = [];
 let List_Selected = [];
 let Filter = {
     User_Id: Id
@@ -93,6 +94,7 @@ function addToGallery(imageSrc, name, Character, Description) {
                 var posicion = List_Selected.indexOf(Character);
                 List_Selected.splice(posicion, 1);
                 List_Description.splice(posicion, 1);  
+                List_Name.splice(posicion, 1);
                 item.classList.toggle('selected');                          
                 
             }
@@ -104,6 +106,7 @@ function addToGallery(imageSrc, name, Character, Description) {
                 else{
                     List_Selected.push(Character);
                     List_Description.push(Description);
+                    List_Name.push(name);
                     item.classList.toggle('selected');            
                 }                
             }
@@ -142,22 +145,115 @@ document.getElementById("generateHistory").addEventListener('click', async() => 
 
     var audience = document.getElementById("audience").value;
     var genre = document.getElementById("genre").value;
+    var Textarea_Promt = document.getElementById("Textarea_Promt").value;
+    var lenght_story = document.getElementById("lenght_story").value;
     const isInteractiveSelected = document.getElementById('interactive').checked;
     const selectedValues = getSelectedValues();
-
+    var Prompt = "";
 
     if(selectedModel == "" ){
         Notification("Select a model");
         return;
     }
 
+    if(isInteractiveSelected){
 
-    console.log(selectedModel);
-    console.log(audience);
-    console.log(genre);
-    console.log(isInteractiveSelected);
-    console.log(selectedValues);   
-    console.log(List_Description)
+        Prompt = `Create a complete and finished story for ${audience} with the following conditions:
+
+Main characters:
+${List_Name}
+
+Story genre: ${genre}
+
+Values to learn: ${selectedValues}
+
+Additional instructions: ${Textarea_Promt}
+
+Each paragraph should be a coherent reading block or "chunk".
+
+The story should consist of ${lenght_story} paragraphs, each approximately 200 tokens in length.
+
+At certain points in the story, important decisions must be made. When a decision is presented:
+
+You must show both options with their corresponding labels:
+[Option 1]: The protagonist's first decision with its consequence.
+[Option 2]: The protagonist's second decision with its consequence.
+
+After showing both options, you must generate two separate paragraphs, one for each decision:
+[Option 1 Content]: Paragraph that continues if option 1 is chosen.
+[Option 2 Content]: Paragraph that continues if option 2 is chosen.
+
+You must not show both branches at the same time later in the story.
+Once a decision is made, the story must continue only with the chosen option and leave the other option unfinished.
+
+Always use the following labels to structure the story:
+[Title]: General title of the story.
+[Content]: Before each paragraph in the story.
+[Option 1] and [Option 2]: Only where there are decisions, before each possible path.
+[Option 1 Content]: Before the following paragraph if Option 1 is chosen.
+[Option 2 Content]: Before the following paragraph if Option 2 is chosen. `;
+
+
+    }
+    else{
+
+        Prompt = `Create a complete and finished story for ${audience} with the following conditions:
+
+Main characters:
+${List_Name}
+
+Story genre: ${genre}
+
+Values to learn: ${selectedValues}
+
+Additional instructions: ${Textarea_Promt}
+
+Each paragraph should be a coherent reading block or "chunk".
+
+The story should consist of ${lenght_story} paragraphs, each approximately 200 tokens in length.
+
+The story must have a well-defined beginning, middle, and end.  
+Use the following tags to structure the story:  
+[Title]: General title of the story.  
+[Content]: Before each paragraph of the story.`;
+    
+    }
+
+
+
+    try {
+
+        await socket.emit('joinRoom', Id+"_Grok_Text_Generator");
+
+        Type = "Grok_Text_Generator";
+
+        const Request = await fetch(`api/router_generator/Grok_Text_Generator`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                Id: Id,
+                Prompt: Prompt,
+                Audience: audience
+            })
+        });
+
+        const Server_Response = await Request.json();
+
+        Notification(Server_Response.Response);
+
+        if(Server_Response.Status == true){
+            document.getElementById("loading").style.display = "inline-block";     
+            document.getElementById("container").style.display = "none";                  
+        }       
+        
+
+    } catch (error) {
+        Notification("Failed to create character. Please try again.");
+    }
+
+
 
 });
 
@@ -197,6 +293,14 @@ socket.on('Profile_Response', async (data) => {
     }
     else if (data.Status == false && Type == "Read_Character") {
         return Read_Character();
+    }
+    else if (data.Status && Type == "Grok_Text_Generator"){
+        console.log(data.Message)
+    }
+    else if (data.Status == false && Type == "Grok_Text_Generator"){
+        Notification(data.Message);
+        document.getElementById("container").style.display = "flex";
+        document.getElementById("loading").style.display = "none";
     }
    
 });

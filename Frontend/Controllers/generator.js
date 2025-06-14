@@ -120,11 +120,7 @@ export const Grok_Text_Generator = async (req, res) => {
                 Id: req.body.Id,
                 Prompt: req.body.Prompt,
                 Token: Security.Response,
-                Tokens: req.body.Tokens,
-                Temperature: req.body.Temperature,
-                Top_p: req.body.Top_p,
-                Presence_penalty: req.body.Presence_penalty,
-                Frequency_penalty: req.body.Frequency_penalty
+                Audience: req.body.Audience
             },
             {
                 attempts: 1,           // Retry up to 1 times in case of failure
