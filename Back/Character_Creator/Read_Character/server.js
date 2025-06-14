@@ -33,7 +33,6 @@ Process_Queue.process(async (job) => {
             return;
         }
         const result = await userService.character_process(job.data.Filter);
-        console.log("Job processed successfully:", result);
         await notificationService.notify(job.data.Id, true, result);    
     } catch (error) {
         await notificationService.notify(job.data.Id, false, "Error processing job");

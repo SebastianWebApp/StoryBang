@@ -222,6 +222,7 @@ input:checked + .slider:before {
     font-size: 18px;
     cursor: pointer;
     transition: background 0.3s;
+    margin-top: 20px;
 }
 
 .create-btn:hover {

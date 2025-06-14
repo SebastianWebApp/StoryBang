@@ -171,7 +171,7 @@ Additional instructions: ${Textarea_Promt}
 
 Each paragraph should be a coherent reading block or "chunk".
 
-The story should consist of ${lenght_story} paragraphs, each approximately 200 tokens in length.
+The story should consist of ${lenght_story} paragraphs, each approximately 100 tokens in length.
 
 At certain points in the story, important decisions must be made. When a decision is presented:
 
@@ -210,7 +210,7 @@ Additional instructions: ${Textarea_Promt}
 
 Each paragraph should be a coherent reading block or "chunk".
 
-The story should consist of ${lenght_story} paragraphs, each approximately 200 tokens in length.
+The story should consist of ${lenght_story} paragraphs, each approximately 100 tokens in length.
 
 The story must have a well-defined beginning, middle, and end.  
 Use the following tags to structure the story:  
@@ -295,7 +295,9 @@ socket.on('Profile_Response', async (data) => {
         return Read_Character();
     }
     else if (data.Status && Type == "Grok_Text_Generator"){
-        console.log(data.Message)
+        document.getElementById("P_Text").innerText = data.Message;
+        document.getElementById("container").style.display = "flex";
+        document.getElementById("loading").style.display = "none";
     }
     else if (data.Status == false && Type == "Grok_Text_Generator"){
         Notification(data.Message);
