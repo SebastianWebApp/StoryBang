@@ -1,145 +1,165 @@
-```markdown
-# Delete User Microservice
+# Delete Character Service
 
-A microservice for handling user deletion operations using Bull queue for job processing and real-time notifications.
+The Delete Character service is a microservice component for removing character data in the StoryBang platform.
+
+## System Architecture
+
+```mermaid
+graph TD
+    A[Client] -->|Delete Request| B[Bull Queue]
+    B --> C[Delete Character Service]
+    C --> D[JWT Validation]
+    C --> E[Database Operation]
+    C --> F[Socket Notification]
+    E --> G[(MongoDB)]
+```
 
 ## Features
 
-- Asynchronous user deletion using Bull queue
-- JWT token verification
-- Real-time notifications via Socket.IO
-- Error handling and session validation
-- Database integration
+- Queue-based character deletion
+- JWT authentication validation
+- Real-time operation status notifications
+- Secure deletion confirmation
+- Audit logging of deletions
 
-## Technologies
+## Technical Requirements
 
-- Node.js
-- Express.js
-- Bull (Redis-based queue)
+- Node.js >= 18
+- Redis server
+- MongoDB
 - Socket.IO
-- JSON Web Tokens (JWT)
-
-## Dependencies
-
-```json
-{
-  "express": "Web framework",
-  "bull": "Queue management",
-  "dotenv": "Environment configuration",
-  "socket.io-client": "Real-time communication"
-}
-```
+- Bull Queue
 
 ## Configuration
 
-The service uses environment variables for configuration:
-
+### Environment Variables
 ```env
-PORT                  # Service port number
-PORT_MESSAGES_USERS   # Socket.IO server port for notifications
+PORT=4015
+PORT_MESSAGES_USERS=4003
+MONGODB_URI=mongodb://localhost:27017/storybang
+REDIS_HOST=localhost
+REDIS_PORT=6379
+JWT_SECRET=your_secret_key
 ```
 
-Additional configuration files:
-- `Config/redis.config.js`: Redis connection options
-- `Database/connect.js`: Database connection configuration
+## API Structure
 
-## Services
-
-### 1. NotificationService
-Handles real-time notifications to clients using Socket.IO
-
-### 2. UserService
-Manages user deletion operations in the database
-
-### 3. JWTService
-Handles JWT token verification
-
-## Queue Processing
-
-The service uses a Bull queue named "Delete_User" for processing deletion requests:
-
-1. Verifies JWT token validity
-2. Deletes user if token is valid
-3. Sends real-time notification about operation status
-
-### Job Data Structure
-
-```javascript
-{
-    Token: "jwt_token",
-    Id: "user_id"
+### Queue Job Payload
+```typescript
+interface DeleteJobData {
+    Id: string;         // User ID
+    Token: string;      // JWT token
+    CharacterId: string // Character to delete
 }
 ```
 
+### Response Format
+```typescript
+interface DeleteResponse {
+    success: boolean;
+    message: string;
+    deletedCharacter?: object;
+}
+```
+
+## Installation and Setup
+
+1. **Install Dependencies**
+```bash
+npm install
+```
+
+2. **Start Redis Server**
+```bash
+redis-server
+```
+
+3. **Launch Service**
+```bash
+npm start
+```
+
+## Service Components
+
+### Main Server Structure
+````javascript
+import express from "express";
+import Queue from "bull";
+import { io } from "socket.io-client";
+import { DeleteCharacterService } from "./Services/delete.service.js";
+import { JWTService } from "./Services/jwt.service.js";
+
+const deleteQueue = new Queue("Delete_Character", redisOptions);
+const deleteService = new DeleteCharacterService();
+const jwtService = new JWTService();
+````
+
 ## Error Handling
 
-The service handles various scenarios:
+The service handles various error scenarios:
+- Invalid JWT tokens
+- Character not found
+- Unauthorized deletion attempts
+- Database connection issues
+- Queue processing failures
 
-- Invalid/expired JWT tokens
-- Database operation failures
-- General processing errors
+## Directory Structure
+```
+Delete_Character/
+├── Config/
+│   └── redis.config.js
+├── Database/
+│   └── connect.js
+├── Services/
+│   ├── delete.service.js
+│   ├── notification.service.js
+│   └── jwt.service.js
+├── server.js
+├── .env
+└── README.md
+```
 
-All errors are communicated back to the client via Socket.IO notifications.
+## Service Flow
 
-## Running the Service
-
-1. Install dependencies:
-   ```bash
-   npm install
-   ```
-
-2. Set up environment variables in `.env`
-
-3. Start the service:
-   ```bash
-   npm start
-   ```
-
-The service will be available at `http://localhost:{PORT}`
-
-## Docker Support
-
-The service includes Docker configuration files:
-- `Dockerfile`
-- `docker-compose.yml`
-- `.dockerignore`
+1. Receives delete request via Bull Queue
+2. Validates JWT token
+3. Checks user permissions
+4. Executes character deletion
+5. Sends confirmation notification
+6. Logs deletion event
 
 ## Testing
 
-The service includes Jest configuration for testing:
-- `jest.config.js`
-- `babel.config.json`
-
-Run tests with:
+Run the test suite:
 ```bash
 npm test
 ```
 
-## Project Structure
+Example test cases:
+- Valid character deletion
+- Invalid token handling
+- Non-existent character
+- Permission validation
 
-```
-├── Config/           # Configuration files
-├── Controllers/      # Request handlers
-├── Database/         # Database connection and models
-├── Services/         # Business logic services
-├── __tests__/        # Test files
-├── server.js         # Main application file
-└── package.json      # Project metadata and dependencies
-```
+## Security Measures
+
+- JWT validation for all requests
+- User permission verification
+- Audit logging of deletions
+- Secure database operations
+
+## Monitoring
+
+The service provides monitoring through:
+- Queue status metrics
+- Operation logs
+- Real-time socket notifications
+- Error tracking
 
 ## Contributing
 
 1. Fork the repository
-2. Create your feature branch
-3. Commit your changes
-4. Push to the branch
-5. Create a new Pull Request
-
-## Security Considerations
-
-1. Ensure secure environment variables in production
-2. Implement rate limiting for production use
-3. Use secure Redis configuration
-4. Monitor queue performance and failures
-5. Implement proper logging for production environments
-```
+2. Create feature branch (`git checkout -b feature/DeleteFeature`)
+3. Commit changes (`git commit -m 'Add DeleteFeature'`)
+4. Push to branch (`git push origin feature/DeleteFeature`)
+5. Create Pull Request

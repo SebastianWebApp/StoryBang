@@ -7,6 +7,6 @@ COPY . .
 
 RUN npm install
 
-EXPOSE 4020
+EXPOSE 4018
 
 CMD ["npm","start"]

@@ -1,145 +1,183 @@
-```markdown
-# Delete User Microservice
+# Create Character Service
 
-A microservice for handling user deletion operations using Bull queue for job processing and real-time notifications.
+A microservice for handling character creation in the StoryBang platform.
+
+## Architecture Diagram
+
+```mermaid
+graph TD
+    A[Client] -->|Creation Request| B[Bull Queue]
+    B --> C[Create Character Service]
+    C --> D[JWT Validation]
+    C --> E[Character Generation]
+    C --> F[Database Storage]
+    C --> G[Socket Notification]
+    F --> H[(MongoDB)]
+```
 
 ## Features
 
-- Asynchronous user deletion using Bull queue
-- JWT token verification
-- Real-time notifications via Socket.IO
-- Error handling and session validation
-- Database integration
+- Queue-based character creation
+- Real-time notifications
+- JWT authentication
+- Secure data storage
+- Input validation
+- Character template support
 
-## Technologies
+## Technical Stack
 
 - Node.js
-- Express.js
-- Bull (Redis-based queue)
+- Express
+- Bull Queue
+- MongoDB
 - Socket.IO
-- JSON Web Tokens (JWT)
+- Redis
+- JWT Authentication
 
-## Dependencies
-
-```json
-{
-  "express": "Web framework",
-  "bull": "Queue management",
-  "dotenv": "Environment configuration",
-  "socket.io-client": "Real-time communication"
-}
-```
-
-## Configuration
-
-The service uses environment variables for configuration:
+## Environment Setup
 
 ```env
-PORT                  # Service port number
-PORT_MESSAGES_USERS   # Socket.IO server port for notifications
+PORT=4016
+PORT_MESSAGES_USERS=4003
+MONGODB_URI=mongodb://localhost:27017/storybang
+REDIS_HOST=localhost
+REDIS_PORT=6379
+JWT_SECRET=your_secret_key
 ```
 
-Additional configuration files:
-- `Config/redis.config.js`: Redis connection options
-- `Database/connect.js`: Database connection configuration
+## API Structure
 
-## Services
-
-### 1. NotificationService
-Handles real-time notifications to clients using Socket.IO
-
-### 2. UserService
-Manages user deletion operations in the database
-
-### 3. JWTService
-Handles JWT token verification
-
-## Queue Processing
-
-The service uses a Bull queue named "Delete_User" for processing deletion requests:
-
-1. Verifies JWT token validity
-2. Deletes user if token is valid
-3. Sends real-time notification about operation status
-
-### Job Data Structure
-
-```javascript
-{
-    Token: "jwt_token",
-    Id: "user_id"
+### Queue Job Data Format
+```typescript
+interface CreateCharacterJob {
+    Id: string;           // User ID
+    Token: string;        // JWT token
+    CharacterData: {
+        name: string;
+        type: string;
+        attributes: object;
+        description: string;
+    }
 }
+```
+
+### Response Format
+```typescript
+interface CreateResponse {
+    success: boolean;
+    message: string;
+    character?: object;
+}
+```
+
+## Installation
+
+1. Install dependencies:
+```bash
+npm install
+```
+
+2. Configure Redis:
+```bash
+redis-server
+```
+
+3. Start service:
+```bash
+npm start
+```
+
+## Service Flow
+
+1. Receives creation request through Bull Queue
+2. Validates JWT token
+3. Processes character data
+4. Generates unique character ID
+5. Stores in database
+6. Sends confirmation notification
+
+## Directory Structure
+
+```
+Create_Character/
+├── Config/
+│   └── redis.config.js
+├── Database/
+│   └── connect.js
+├── Services/
+│   ├── create.service.js
+│   ├── notification.service.js
+│   └── jwt.service.js
+├── Models/
+│   └── character.model.js
+├── server.js
+├── .env
+└── README.md
 ```
 
 ## Error Handling
 
-The service handles various scenarios:
+- Invalid token errors
+- Duplicate character names
+- Database connection issues
+- Invalid character data
+- Queue processing errors
 
-- Invalid/expired JWT tokens
-- Database operation failures
-- General processing errors
+## Character Model
 
-All errors are communicated back to the client via Socket.IO notifications.
+```javascript
+{
+    userId: String,
+    name: String,
+    type: String,
+    attributes: Object,
+    description: String,
+    createdAt: Date,
+    updatedAt: Date,
+    status: String
+}
+```
 
-## Running the Service
+## Security Measures
 
-1. Install dependencies:
-   ```bash
-   npm install
-   ```
-
-2. Set up environment variables in `.env`
-
-3. Start the service:
-   ```bash
-   npm start
-   ```
-
-The service will be available at `http://localhost:{PORT}`
-
-## Docker Support
-
-The service includes Docker configuration files:
-- `Dockerfile`
-- `docker-compose.yml`
-- `.dockerignore`
+- JWT validation
+- Input sanitization
+- Rate limiting
+- Data encryption
+- Access control
 
 ## Testing
-
-The service includes Jest configuration for testing:
-- `jest.config.js`
-- `babel.config.json`
 
 Run tests with:
 ```bash
 npm test
 ```
 
-## Project Structure
+Test coverage includes:
+- Character creation
+- Token validation
+- Data validation
+- Error handling
 
-```
-├── Config/           # Configuration files
-├── Controllers/      # Request handlers
-├── Database/         # Database connection and models
-├── Services/         # Business logic services
-├── __tests__/        # Test files
-├── server.js         # Main application file
-└── package.json      # Project metadata and dependencies
-```
+## Monitoring
+
+Service monitoring includes:
+- Queue status
+- Creation metrics
+- Error logging
+- Performance tracking
 
 ## Contributing
 
-1. Fork the repository
-2. Create your feature branch
-3. Commit your changes
-4. Push to the branch
-5. Create a new Pull Request
+1. Fork repository
+2. Create feature branch
+3. Implement changes
+4. Submit pull request
 
-## Security Considerations
+## Best Practices
 
-1. Ensure secure environment variables in production
-2. Implement rate limiting for production use
-3. Use secure Redis configuration
-4. Monitor queue performance and failures
-5. Implement proper logging for production environments
-```
+- Input validation
+- Error logging
+- Queue monitoring
+- Database indexing
+- Cache management
