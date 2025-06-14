@@ -61,6 +61,10 @@ app.get("/character_creator",JWT , (req, res) => {
     res.sendFile(path.join(__dirname, "views", "character_creator.html"));
 });
 
+app.get("/story_creator", (req, res) => {
+    res.sendFile(path.join(__dirname, "views", "story_creator.html"));
+});
+
 
 
 // ---------------------- Expired Session ------------------------------

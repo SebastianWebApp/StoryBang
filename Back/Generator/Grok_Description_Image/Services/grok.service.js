@@ -27,7 +27,7 @@ export class GROKService {
                     },
                     {
                         type: "text",
-                        text: "Describe a person in detail, focusing especially on their facial features. Include characteristics such as face shape, eye color and type, nose shape, lips, eyebrows, skin tone, and any distinctive features (such as freckles, scars, or common expressions). If relevant, also mention hair (color, texture, length) and general complexion. Make sure the description is vivid, accurate, and evokes a clear image of the person. Limit description to a maximum of 300 tokens.",
+                        text: "Describe a person in detail, focusing especially on their facial features. Include characteristics such as face shape, eye color and type, nose shape, lips, eyebrows, skin tone, and any distinctive features (such as freckles, scars, or common expressions). If relevant, also mention hair (color, texture, length) and general complexion. Make sure the description is vivid, accurate, and evokes a clear image of the person. Limit description to a maximum of 200 tokens.",
                     },
                 ],
             },

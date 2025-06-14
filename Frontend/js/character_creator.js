@@ -297,7 +297,7 @@ async function Grok_Image_Generator (Prompt) {
 }
 
 
-function addToGallery(imageReal ,imageSrc, name, Id_Character) {
+function addToGallery(imageReal ,imageSrc, name, Character) {
         const gallery = document.getElementById('character-gallery');
 
         const item = document.createElement('div');
@@ -310,7 +310,7 @@ function addToGallery(imageReal ,imageSrc, name, Id_Character) {
             document.getElementById("btn_generated_image").style.display = "none";
             document.getElementById("create_character").style.display = "none";
             document.getElementById("uploaded_image").src = imageReal;
-            Id_Character = Id_Character;
+            Id_Character = Character;
         };
         
         const img = document.createElement('img');
@@ -337,7 +337,7 @@ socket.on('Profile_Response', async (data) => {
             const imageSrc = character.Image ;
             const name = character.Name;
             const imageReal = character.Image_Real;
-            Id_Character = character._id; 
+            var Id_Character = character._id; 
 
             if(!List_Character.includes(Id_Character)){
                 List_Character.push(Id_Character);
