@@ -18,7 +18,7 @@ const verifyUserQueue = new Queue("Verify_User", { redis: redisConfig });
 const jwtService = new JWTService();
 
 // Process verification jobs
-verifyUserQueue.process(async (job) => {
+verifyUserQueue.process(5, async (job) => {
     // Verify JWT Token        
         const isValidToken = await jwtService.verifyToken(job.data.Token);
         if (!isValidToken) {

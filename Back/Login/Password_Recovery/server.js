@@ -33,7 +33,7 @@ const jwtService = new JWTService();
 // Configurar cola de recuperación de contraseña
 const RecoverPasswordQueue = new Queue("Recover_Password", { redis: redisOptions });
 
-RecoverPasswordQueue.process(async (job) => {
+RecoverPasswordQueue.process(5, async (job) => {
     try {    
         // Verify JWT Token        
         const isValidToken = await jwtService.verifyToken(job.data.Token);

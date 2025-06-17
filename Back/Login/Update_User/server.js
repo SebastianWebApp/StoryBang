@@ -28,7 +28,7 @@ const jwtService = new JWTService();
 // Configurar cola de actualización de usuario
 const UpdateUserQueue = new Queue("Update_User", { redis: redisOptions });
 
-UpdateUserQueue.process(async (job) => {
+UpdateUserQueue.process(5, async (job) => {
     try {
         // Verify JWT Token        
         const isValidToken = await jwtService.verifyToken(job.data.Token);

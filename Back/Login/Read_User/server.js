@@ -29,7 +29,7 @@ const jwtService = new JWTService();
 // Configurar cola de lectura de usuario
 const ReadUserQueue = new Queue("Read_User", { redis: redisOptions });
 
-ReadUserQueue.process(async (job) => {
+ReadUserQueue.process(5, async (job) => {
     try {    
         
         // Verify JWT Token        

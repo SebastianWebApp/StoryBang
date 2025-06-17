@@ -21,7 +21,7 @@ const grokService = new GROKService();
 
 const Text_GeneratorQueue = new Queue("Grok_Text_Generator", { redis: redisOptions });
 
-Text_GeneratorQueue.process(async (job) => {
+Text_GeneratorQueue.process(5, async (job) => {
     try {    
         // Verify JWT Token        
         const isValidToken = await jwtService.verifyToken(job.data.Token);

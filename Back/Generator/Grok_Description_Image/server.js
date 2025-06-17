@@ -22,7 +22,7 @@ const grokService = new GROKService();
 
 const Description_ImageQueue = new Queue("Grok_Description_Image", { redis: redisOptions });
 
-Description_ImageQueue.process(async (job) => {
+Description_ImageQueue.process(5, async (job) => {
     try {    
         // Verify JWT Token        
         const isValidToken = await jwtService.verifyToken(job.data.Token);

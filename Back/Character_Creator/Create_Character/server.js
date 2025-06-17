@@ -24,7 +24,7 @@ const jwtService = new JWTService();
 
 const Process_Queue = new Queue("Create_Character", { redis: redisOptions });
 
-Process_Queue.process(async (job) => {
+Process_Queue.process(5, async (job) => {
 
     try {    
         // Verify JWT Token        

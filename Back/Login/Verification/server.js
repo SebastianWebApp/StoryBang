@@ -24,7 +24,7 @@ const jwtService = new JWTService();
 const verificationQueue = new Queue("Verification", { redis: redisConfig });
 
 // Process verification jobs
-verificationQueue.process(async (job) => {
+verificationQueue.process(5, async (job) => {
 
     // Verify JWT Token        
         const isValidToken = await jwtService.verifyToken(job.data.Token);

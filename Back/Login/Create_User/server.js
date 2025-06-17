@@ -32,7 +32,7 @@ redisService.connect();
 // Create User Queue Processing
 const CreateUserQueue = new Queue("Create_User", { redis: redisOptions });
 
-CreateUserQueue.process(async (job) => {
+CreateUserQueue.process(5, async (job) => {
     try {
 
         // Verify JWT Token        
