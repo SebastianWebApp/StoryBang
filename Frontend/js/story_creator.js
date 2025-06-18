@@ -16,6 +16,7 @@ var retryInterval = 3000; // 5 seconds
 var message_information = true;
 let selectedModel = '';
 
+let Storys = [];
 
 Read_Character();
 
@@ -69,6 +70,13 @@ async function Read_Character(){
 }
 
 
+document.addEventListener("DOMContentLoaded", () => {
+    // Buscar el botón con data-model="grok"
+    const defaultGrokButton = document.querySelector('.model-btn[data-model="grok"]');
+    if (defaultGrokButton) {
+        defaultGrokButton.click(); // Simular clic en "grok"
+    }
+});
 
 
 // Model selection
@@ -78,7 +86,40 @@ modelButtons.forEach(button => {
         modelButtons.forEach(btn => btn.classList.remove('active'));
         button.classList.add('active');
         selectedModel = button.dataset.model;
+
+        if(selectedModel == "grok"){
+            document.getElementById("lenght_selection").style.display = "block";
+            document.getElementById("learning_values").style.display = "block";  
+            document.getElementById("interactive_option").style.display = "block";  
+            document.getElementById("gender_selection").style.display = "block"; 
+        }
+        else{
+            document.getElementById("lenght_selection").style.display = "none";
+            document.getElementById("learning_values").style.display = "none";       
+            document.getElementById("interactive_option").style.display = "none";  
+            document.getElementById("gender_selection").style.display = "none"; 
+        }
+
     });
+});
+
+
+const select = document.getElementById("translator");
+select.addEventListener("change", function () {
+    const selectedText = select.options[select.selectedIndex].value;
+
+    var Exist = false;
+    for (let index = 0; index < Storys.length; index++) {
+        if(Storys[index].Language == selectedText){
+            document.getElementById("P_Text").innerText = Storys[index].Story;
+            Exist = true;
+            break;
+        }
+    }
+
+    if(!Exist){
+        Translate(Storys[0].Story, selectedText);
+    }    
 });
 
 
@@ -138,25 +179,94 @@ function getSelectedValues() {
 }
 
 
+async function Translate(Text, Language){
+    try {
 
+            document.getElementById("loading").style.display = "inline-block";     
+            document.getElementById("container").style.display = "none";   
+
+            const Request = await fetch(`api/router_generator/Translate`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    Text: Text,
+                    Tgt_lang: Language
+                })
+            });
+
+            const Server_Response = await Request.json();
+            
+            document.getElementById("loading").style.display = "none";     
+            document.getElementById("container").style.display = "flex";
+
+            if(Server_Response.Status == true){
+                document.getElementById("P_Text").innerText = Server_Response.Response;
+
+                Storys.push({
+                    Story: Server_Response.Response,
+                    Language: Language
+                })
+            }       
+            else{
+                Notification(Server_Response.Response);
+            }
+            
+
+        } catch (error) {
+            Notification("Failed to create character. Please try again.");
+            document.getElementById("loading").style.display = "none";     
+            document.getElementById("container").style.display = "flex";
+        }
+}
 
 
 document.getElementById("generateHistory").addEventListener('click', async() => {
 
+    Storys = [];
     var audience = document.getElementById("audience").value;
     var genre = document.getElementById("genre").value;
-    var Textarea_Promt = document.getElementById("Textarea_Promt").value;
     var lenght_story = document.getElementById("lenght_story").value;
+    var gender = document.getElementById("gender").value;
     const isInteractiveSelected = document.getElementById('interactive').checked;
     const selectedValues = getSelectedValues();
     var Prompt = "";
+    var Textarea_Promt = "";
+    document.getElementById("translator").value = "eng_Latn";
+
+    if(audience == "Children aged 7 to 9"){
+        Textarea_Promt = "Audience: " + audience;
+        audience = "children";
+    }
+
+    else if(audience == "Children aged 10 to 12"){
+        Textarea_Promt = "Audience: " + audience;
+        audience = "children";
+    }
+
+    else if(audience == "Teenagers aged 13 to 15"){
+        Textarea_Promt = "Audience: " + audience;
+        audience = "young";
+    }
+
+    else if(audience == "Teenagers aged 16 to 17"){
+        Textarea_Promt = "Audience: " + audience;
+        audience = "young";
+    }
+
+   
+
 
     if(selectedModel == "" ){
         Notification("Select a model");
         return;
-    }
+    }    
 
-    if(isInteractiveSelected){
+
+    if(selectedModel == "grok"){
+
+        if(isInteractiveSelected){
 
         Prompt = `Create a complete and finished story for ${audience} with the following conditions:
 
@@ -166,6 +276,8 @@ ${List_Name}
 Story genre: ${genre}
 
 Values to learn: ${selectedValues}
+
+What genre is the content aimed at? ${gender}
 
 Additional instructions: ${Textarea_Promt}
 
@@ -194,64 +306,114 @@ Always use the following labels to structure the story:
 [Option 2 Content]: Before the following paragraph if Option 2 is chosen. `;
 
 
+        }
+        else{
+
+            Prompt = `Create a complete and finished story for ${audience} with the following conditions:
+
+    Main characters:
+    ${List_Name}
+
+    Story genre: ${genre}
+
+    Values to learn: ${selectedValues}
+
+    What genre is the content aimed at? ${gender}
+
+    Additional instructions: ${Textarea_Promt}
+
+    Each paragraph should be a coherent reading block or "chunk".
+
+    The story should consist of ${lenght_story} paragraphs, each approximately 100 tokens in length.
+
+    The story must have a well-defined beginning, middle, and end.  
+    Use the following tags to structure the story:  
+    [Title]: General title of the story.  
+    [Content]: Before each paragraph of the story.`;
+        
+        }
+
+
+        try {
+
+            await socket.emit('joinRoom', Id+"_Grok_Text_Generator");
+
+            Type = "Grok_Text_Generator";
+
+            const Request = await fetch(`api/router_generator/Grok_Text_Generator`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    Id: Id,
+                    Prompt: Prompt,
+                    Audience: audience
+                })
+            });
+
+            const Server_Response = await Request.json();
+
+            Notification(Server_Response.Response);
+
+            if(Server_Response.Status == true){
+                document.getElementById("loading").style.display = "inline-block";     
+                document.getElementById("container").style.display = "none";                  
+            }       
+            
+
+        } catch (error) {
+            Notification("Failed to create character. Please try again.");
+        }
+
     }
+
     else{
 
-        Prompt = `Create a complete and finished story for ${audience} with the following conditions:
+        Prompt = `Write a short story in the ${genre} genre where the protagonists are ${List_Name}.`
 
-Main characters:
-${List_Name}
+        try {
 
-Story genre: ${genre}
-
-Values to learn: ${selectedValues}
-
-Additional instructions: ${Textarea_Promt}
-
-Each paragraph should be a coherent reading block or "chunk".
-
-The story should consist of ${lenght_story} paragraphs, each approximately 100 tokens in length.
-
-The story must have a well-defined beginning, middle, and end.  
-Use the following tags to structure the story:  
-[Title]: General title of the story.  
-[Content]: Before each paragraph of the story.`;
-    
-    }
-
-
-
-    try {
-
-        await socket.emit('joinRoom', Id+"_Grok_Text_Generator");
-
-        Type = "Grok_Text_Generator";
-
-        const Request = await fetch(`api/router_generator/Grok_Text_Generator`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                Id: Id,
-                Prompt: Prompt,
-                Audience: audience
-            })
-        });
-
-        const Server_Response = await Request.json();
-
-        Notification(Server_Response.Response);
-
-        if(Server_Response.Status == true){
             document.getElementById("loading").style.display = "inline-block";     
-            document.getElementById("container").style.display = "none";                  
-        }       
-        
+            document.getElementById("container").style.display = "none";   
 
-    } catch (error) {
-        Notification("Failed to create character. Please try again.");
+            const Request = await fetch(`api/router_generator/Gpt2_Text_Generator`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    Prompt: Prompt,
+                    Audience: audience
+                })
+            });
+
+            const Server_Response = await Request.json();
+            
+            document.getElementById("loading").style.display = "none";     
+            document.getElementById("container").style.display = "flex";
+            if(Server_Response.Status == true){
+                document.getElementById("P_Text").innerText = Server_Response.Response;
+                document.getElementById("translator").style.display = "block";    
+                document.getElementById("createStory").style.display = "block";             
+                Storys.push({
+                    Story: Server_Response.Response,
+                    Language: "eng_Latn"
+                })                
+            }       
+            else{
+                Notification(Server_Response.Response);
+            }
+            
+
+        } catch (error) {
+            Notification("Failed to create character. Please try again.");
+            document.getElementById("loading").style.display = "none";     
+            document.getElementById("container").style.display = "flex";
+        }
     }
+
+    
 
 
 
@@ -295,6 +457,13 @@ socket.on('Profile_Response', async (data) => {
         return Read_Character();
     }
     else if (data.Status && Type == "Grok_Text_Generator"){
+
+        Storys.push({
+            Story: data.Message,
+            Language: "eng_Latn"
+        })
+        document.getElementById("translator").style.display = "block"; 
+        document.getElementById("createStory").style.display = "block";                         
         document.getElementById("P_Text").innerText = data.Message;
         document.getElementById("container").style.display = "flex";
         document.getElementById("loading").style.display = "none";

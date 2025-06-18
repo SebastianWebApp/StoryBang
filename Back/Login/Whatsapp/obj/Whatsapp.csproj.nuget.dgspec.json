@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Mateo\\Desktop\\Proyecto Octavo\\Proyecto Octavo\\Back\\Login\\Whatsapp\\Whatsapp.csproj": {}
+    "C:\\Users\\USER\\Desktop\\Proyecto Octavo 11-04\\Proyecto Octavo\\Back\\Login\\Whatsapp\\Whatsapp.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Mateo\\Desktop\\Proyecto Octavo\\Proyecto Octavo\\Back\\Login\\Whatsapp\\Whatsapp.csproj": {
+    "C:\\Users\\USER\\Desktop\\Proyecto Octavo 11-04\\Proyecto Octavo\\Back\\Login\\Whatsapp\\Whatsapp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Mateo\\Desktop\\Proyecto Octavo\\Proyecto Octavo\\Back\\Login\\Whatsapp\\Whatsapp.csproj",
+        "projectUniqueName": "C:\\Users\\USER\\Desktop\\Proyecto Octavo 11-04\\Proyecto Octavo\\Back\\Login\\Whatsapp\\Whatsapp.csproj",
         "projectName": "Whatsapp",
-        "projectPath": "C:\\Users\\Mateo\\Desktop\\Proyecto Octavo\\Proyecto Octavo\\Back\\Login\\Whatsapp\\Whatsapp.csproj",
-        "packagesPath": "C:\\Users\\Mateo\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Mateo\\Desktop\\Proyecto Octavo\\Proyecto Octavo\\Back\\Login\\Whatsapp\\obj\\",
+        "projectPath": "C:\\Users\\USER\\Desktop\\Proyecto Octavo 11-04\\Proyecto Octavo\\Back\\Login\\Whatsapp\\Whatsapp.csproj",
+        "packagesPath": "C:\\Users\\USER\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\USER\\Desktop\\Proyecto Octavo 11-04\\Proyecto Octavo\\Back\\Login\\Whatsapp\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Mateo\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\USER\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net9.0"
@@ -88,7 +88,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.300/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.301/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

@@ -19,6 +19,8 @@ const jwtService = new JWTService();
 const grokService = new GROKService();
 
 
+
+
 const Text_GeneratorQueue = new Queue("Grok_Text_Generator", { redis: redisOptions });
 
 Text_GeneratorQueue.process(5, async (job) => {

@@ -1,0 +1,9 @@
+services:
+  translator:
+    build:
+      context: ./ # En donde se encuentra el archivo Dockerfile
+    container_name: translator
+    image: sebastianwebapp/story_bang_translator:latest
+    ports:
+      - "4020:4020"  # Mapea el puerto 3000
+    restart: always # Reinicio del microservicio en caso de fallo

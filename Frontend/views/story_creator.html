@@ -53,12 +53,12 @@
         <section class="model-selection">
             <h2>Select Model</h2>
             <div class="model-options">
-                <button class="model-btn" data-model="gpt-j">GPT - J</button>
+                <button class="model-btn" data-model="gpt2">GPT2</button>
                 <button class="model-btn" data-model="grok">GROK</button>
             </div>
         </section>
 
-        <section class="audience-selection">
+        <section class="audience-selection" id="lenght_selection">
             <h2>Length of the story</h2>
             <select id="lenght_story">
                 <option value="5">Short (5 paragraphs)</option>
@@ -69,13 +69,23 @@
         </section>
 
         <section class="audience-selection">
-            <h2>Target Audience</h2>
+            <h2>Age of the target audience</h2>
             <select id="audience">
-                <option value="children">Children</option>
-                <option value="young">Young Adult</option>
-                <option value="adult">Adult</option>
+                <option value="Children aged 7 to 9">Children aged 7 to 9</option>
+                <option value="Children aged 10 to 12">Children aged 10 to 12</option>
+                <option value="Teenagers aged 13 to 15">Teenagers aged 13 to 15</option>
+                <option value="Teenagers aged 16 to 17">Teenagers aged 16 to 17</option>                                           
             </select>
         </section>
+
+         <section class="audience-selection" id="gender_selection">
+            <h2>What gender is the content aimed at?</h2>
+            <select id="gender">
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+            </select>
+        </section>
+        
 
         <section class="genre-selection">
             <h2>Story Genre</h2>
@@ -91,7 +101,7 @@
             </select>
         </section>
 
-        <section class="learning-values">
+        <section class="learning-values" id="learning_values">
             <h2>Learning Values</h2>
             <div class="values-checkboxes">
                 <label><input type="checkbox" value="respect"> Respect</label>
@@ -102,7 +112,7 @@
             </div>
         </section>
 
-        <section class="interactive-option">
+        <section class="interactive-option" id="interactive_option">
             <h2>Story Type</h2>
             <div class="interactive-toggle">
                 <label class="switch">
@@ -111,12 +121,6 @@
                 </label>
                 <span style="margin-left: 10px;">Interactive Story</span>
             </div>
-        </section>
-
-
-        <section class="interactive-option">
-            <h2>Story Prompt</h2>
-            <textarea id="Textarea_Promt" placeholder="E.g., two endearing characters with distinct personalities."></textarea>
         </section>
 
 
@@ -133,8 +137,20 @@
         <div class="creator-container">
 
             <h1>My Story</h1>
+
+            <select id="translator" style="display: none; margin-bottom: 15px;">
+                <option value="eng_Latn">English</option>             
+                <option value="spa_Latn">Español</option>               
+                <option value="por_Latn">Português</option>  
+                <option value="fra_Latn">Français</option>
+                <option value="ita_Latn">Italiano</option>
+                <option value="rus_Cyrl">Русский</option>
+                <option value="deu_Latn">Deutsch</option>           
+            </select>
+       
+
             <p id="P_Text"></p>
-            <button id="createStory" class="create-btn">Create Story</button>
+            <button id="createStory" style="display: none; margin-top: 10px;" class="create-btn">Create Story</button>
 
         </div>
 

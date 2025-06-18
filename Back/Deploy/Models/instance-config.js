@@ -9,14 +9,10 @@ class InstanceConfig {
       "arn:aws:elasticloadbalancing:us-east-1:168562793459:targetgroup/Encrypt/03fde7ca8ff21f9e",
       "arn:aws:elasticloadbalancing:us-east-1:168562793459:targetgroup/Decrypt/7e50e9d06d835270",
       "eipalloc-09b0e6223b679c2f3",
-      "eipalloc-01f2e6fbcbda75140",
-      "eipalloc-0cb7fc1a48a31c96f",
-      "eipalloc-0858caaa93de6a130",
-      "eipalloc-0c7c589df1c485977",
-      "eipalloc-04ec5a3d90d24ceee"
+      "eipalloc-085234d31e72b6555",      
     ];
     this.Names = ["DB_User", "DB_Code", "Bull_User", "Messages_user", "Kafka", "Encrypt", "Decrypt","JWT",
-       "Whatsapp", "Login P2", "BULL_CHARACTER", "Character_MONGODB", "BULL_GENERATOR"];
+       "MongoDB"];
     
        this.Instance = [
       "t2.micro",
@@ -45,15 +41,8 @@ class InstanceConfig {
       "sg-04371dba8d4161b49",
       "sg-04371dba8d4161b49",
       "sg-0b41dd15864a8060f",
-      "sg-0b4f12b159b7ed947",
-      "sg-0b4f12b159b7ed947",
-      "sg-0b4f12b159b7ed947",
-      "sg-0b4f12b159b7ed947",
-      "sg-0b4f12b159b7ed947",
-      "sg-0b4f12b159b7ed947",
-      "sg-0b4f12b159b7ed947",
-      "sg-0b4f12b159b7ed947",
-      "sg-0b4f12b159b7ed947"
+      "sg-0b41dd15864a8060f"
+    
     ];
     this.Scripts = [
       `#!/bin/bash
@@ -395,174 +384,7 @@ EOF
         
         `,
 
-         `#!/bin/bash
-    
-    # Actualizar el sistema
-    sudo apt update -y && sudo apt upgrade -y
-    
-    # Instalar Docker
-    sudo apt install -y docker.io
-    
-    # Iniciar y habilitar Docker
-    sudo systemctl start docker
-    sudo systemctl enable docker
-    
-    # Agregar el usuario al grupo Docker para evitar usar sudo con cada comando Docker
-    sudo usermod -aG docker $USER
-    
-    # Configurar permisos para el socket Docker
-    sudo chmod 666 /var/run/docker.sock
-    
-        
-    # Contenedor story_bang_whatsapp
-    docker pull sebastianwebapp/story_bang_whatsapp:latest
-    
-    docker stop story_bang_whatsapp || true
-    docker rm story_bang_whatsapp || true
-    
-    docker run -d --name story_bang_whatsapp \
-        -p 4002:4002 \
-        --restart always \
-        sebastianwebapp/story_bang_whatsapp:latest
-
-
-     # Contenedor story_bang_create_user
-    docker pull sebastianwebapp/story_bang_create_user:latest
-    
-    docker stop story_bang_create_user || true
-    docker rm story_bang_create_user || true
-    
-    docker run -d --name story_bang_create_user \
-        -p 4004:4004 \
-        --restart always \
-        sebastianwebapp/story_bang_create_user:latest
-
-
-     # Contenedor story_bang_delete_user
-    docker pull sebastianwebapp/story_bang_delete_user:latest
-    
-    docker stop story_bang_delete_user || true
-    docker rm story_bang_delete_user || true
-    
-    docker run -d --name story_bang_delete_user \
-        -p 4011:4011 \
-        --restart always \
-        sebastianwebapp/story_bang_delete_user:latest
-        
-    
-    # Contenedor story_bang_recover_password
-    docker pull sebastianwebapp/story_bang_recover_password:latest
-    
-    docker stop story_bang_recover_password || true
-    docker rm story_bang_recover_password || true
-    
-    docker run -d --name story_bang_recover_password \
-        -p 4010:4010 \
-        --restart always \
-        sebastianwebapp/story_bang_recover_password:latest
-        
-        `,    
-    
-
-    `#!/bin/bash
-    
-    # Actualizar el sistema
-    sudo apt update -y && sudo apt upgrade -y
-    
-    # Instalar Docker
-    sudo apt install -y docker.io
-    
-    # Iniciar y habilitar Docker
-    sudo systemctl start docker
-    sudo systemctl enable docker
-    
-    # Agregar el usuario al grupo Docker para evitar usar sudo con cada comando Docker
-    sudo usermod -aG docker $USER
-    
-    # Configurar permisos para el socket Docker
-    sudo chmod 666 /var/run/docker.sock
-    
-        
-    # Contenedor story_bang_read_user
-    docker pull sebastianwebapp/story_bang_read_user:latest
-    
-    docker stop story_bang_read_user || true
-    docker rm story_bang_read_user || true
-    
-    docker run -d --name story_bang_read_user \
-        -p 4007:4007 \
-        --restart always \
-        sebastianwebapp/story_bang_read_user:latest
-
-    # Contenedor story_bang_update_user
-    docker pull sebastianwebapp/story_bang_update_user:latest
-    
-    docker stop story_bang_update_user || true
-    docker rm story_bang_update_user || true
-    
-    docker run -d --name story_bang_update_user \
-        -p 4008:4008 \
-        --restart always \
-        sebastianwebapp/story_bang_update_user:latest
-        
-
-    # Contenedor story_bang_verification
-    docker pull sebastianwebapp/story_bang_verification:latest
-    
-    docker stop story_bang_verification || true
-    docker rm story_bang_verification || true
-    
-    docker run -d --name story_bang_verification \
-        -p 4001:4001 \
-        --restart always \
-        sebastianwebapp/story_bang_verification:latest
-
-    # Contenedor story_bang_verify_user
-    docker pull sebastianwebapp/story_bang_verify_user:latest
-    
-    docker stop story_bang_verify_user || true
-    docker rm story_bang_verify_user || true
-    
-    docker run -d --name story_bang_verify_user \
-        -p 4009:4009 \
-        --restart always \
-        sebastianwebapp/story_bang_verify_user:latest
-    
-        `,
-
-      `#!/bin/bash
-    
-    # Actualizar el sistema
-    sudo apt update -y && sudo apt upgrade -y
-    
-    # Instalar Docker
-    sudo apt install -y docker.io
-    
-    # Iniciar y habilitar Docker
-    sudo systemctl start docker
-    sudo systemctl enable docker
-    
-    # Agregar el usuario al grupo Docker para evitar usar sudo con cada comando Docker
-    sudo usermod -aG docker $USER
-    
-    # Configurar permisos para el socket Docker
-    sudo chmod 666 /var/run/docker.sock
-      
-      docker pull redis:latest
-      docker volume create redis_data || true
-    
-      docker stop redis || true
-      docker rm redis || true
-      
-      # Iniciar el contenedor de Redis
-      docker run -d --name redis \
-        -v redis_data:/data \
-        -p 6379:6379 \
-        --restart always \
-        redis:latest
-      `,
-
-    `#!/bin/bash
+          `#!/bin/bash
     
     # Actualizar el sistema
     sudo apt update -y && sudo apt upgrade -y
@@ -594,37 +416,6 @@ EOF
         mongo:latest
       `,
 
-    `#!/bin/bash
-    
-    # Actualizar el sistema
-    sudo apt update -y && sudo apt upgrade -y
-    
-    # Instalar Docker
-    sudo apt install -y docker.io
-    
-    # Iniciar y habilitar Docker
-    sudo systemctl start docker
-    sudo systemctl enable docker
-    
-    # Agregar el usuario al grupo Docker para evitar usar sudo con cada comando Docker
-    sudo usermod -aG docker $USER
-    
-    # Configurar permisos para el socket Docker
-    sudo chmod 666 /var/run/docker.sock
-      
-      docker pull redis:latest
-      docker volume create redis_data || true
-    
-      docker stop redis || true
-      docker rm redis || true
-      
-      # Iniciar el contenedor de Redis
-      docker run -d --name redis \
-        -v redis_data:/data \
-        -p 6379:6379 \
-        --restart always \
-        redis:latest
-      `,
 
     ];
   }
