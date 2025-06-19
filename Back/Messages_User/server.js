@@ -11,9 +11,7 @@ const io = new Server(server, {
     maxHttpBufferSize: 1e9, // 1 GB
     cors: {
         origin: ["*"], 
-        methods: ["GET", "POST"],
-        allowedHeaders: ["Content-Type", "Authorization"],
-        credentials: true
+        methods: ["GET", "POST"]
     }
 });        
 
