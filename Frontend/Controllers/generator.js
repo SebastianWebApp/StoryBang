@@ -2,6 +2,7 @@ import Queue from "bull";
 import dotenv from "dotenv";
 import Security_JWT from "../Services/create_jwt.js";
 import GPT2 from "../Services/api_gpt2.js";
+import GPT2MEDIUM  from "../Services/api_gpt2medium.js";
 
 dotenv.config();
 
@@ -150,6 +151,25 @@ export const Grok_Text_Generator = async (req, res) => {
 export const Gpt2_Text_Generator = async (req, res) => {
 
     var Text_Generator = await GPT2(req, res);
+    if (Text_Generator.Status) { 
+        return res.status(200).json({
+            Response: Text_Generator.Response,
+            Status: true
+        });
+    }
+    else{
+        return res.status(400).json({
+            Response: Text_Generator.Response,
+            Status: false
+        });
+    }
+
+
+}
+
+export const Gpt2Medium_Text_Generator = async (req, res) => {
+
+    var Text_Generator = await GPT2MEDIUM(req, res);
     if (Text_Generator.Status) { 
         return res.status(200).json({
             Response: Text_Generator.Response,

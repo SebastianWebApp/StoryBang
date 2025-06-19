@@ -93,11 +93,14 @@ modelButtons.forEach(button => {
             document.getElementById("interactive_option").style.display = "block";  
             document.getElementById("gender_selection").style.display = "block"; 
         }
-        else{
+        else if(selectedModel == "gpt2"){
             document.getElementById("lenght_selection").style.display = "none";
             document.getElementById("learning_values").style.display = "none";       
             document.getElementById("interactive_option").style.display = "none";  
             document.getElementById("gender_selection").style.display = "none"; 
+        }
+        else{
+            document.getElementById("gender_selection").style.display = "block"; 
         }
 
     });
@@ -370,14 +373,27 @@ Always use the following labels to structure the story:
 
     else{
 
-        Prompt = `Write a short story in the ${genre} genre where the protagonists are ${List_Name}.`
+        var model_gpt2 = "";
+        if(selectedModel == "gpt2"){
+            Prompt = `Write a short story in the ${genre} genre where the protagonists are ${List_Name}.`
+            model_gpt2 = "Gpt2_Text_Generator";
+        }
+        else{
+            Prompt = `### Prompt: Write a short story in the genre ${genre} for a ${gender} where the protagonists are ${List_Name}.
+            ### Genre: ${genre}
+            ### Story:
 
+            `
+            model_gpt2 = "Gpt2Medium_Text_Generator";
+        }
+
+        
         try {
 
             document.getElementById("loading").style.display = "inline-block";     
             document.getElementById("container").style.display = "none";   
 
-            const Request = await fetch(`api/router_generator/Gpt2_Text_Generator`, {
+            const Request = await fetch(`api/router_generator/${model_gpt2}`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
