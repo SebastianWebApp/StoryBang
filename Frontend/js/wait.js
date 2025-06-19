@@ -37,7 +37,7 @@ for (let index = 1; index < Story.length; index++) {
     Content.push(Cap);       
 }
 
-Image(0);
+// Image(0);
 
 async function Image(Number) {    
 
