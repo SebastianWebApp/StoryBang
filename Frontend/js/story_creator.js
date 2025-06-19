@@ -18,6 +18,11 @@ let selectedModel = '';
 
 let Storys = [];
 
+if(Id == null || Id == ""){
+    localStorage.removeItem('Id');
+    window.location.href = "/expired_session";
+}
+
 Read_Character();
 
 async function Read_Character(){
@@ -432,6 +437,20 @@ Always use the following labels to structure the story:
     
 
 
+
+});
+
+document.getElementById("createStory").addEventListener('click', async() =>{
+
+    if(Storys.length == 0){
+        Notification("No story has been created to continue.");
+        return;
+    }
+    
+    localStorage.setItem("Story", JSON.stringify(Storys));
+    localStorage.setItem("Name", JSON.stringify(List_Name));
+    localStorage.setItem("Description", JSON.stringify(List_Description));
+    location.href = "/wait";
 
 });
 

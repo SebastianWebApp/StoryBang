@@ -278,7 +278,8 @@ async function Grok_Image_Generator (Prompt) {
             },
             body: JSON.stringify({
                 Id: Id,
-                Prompt: Prompt     
+                Prompt: Prompt,
+                Number: 0    
             })
         });
 

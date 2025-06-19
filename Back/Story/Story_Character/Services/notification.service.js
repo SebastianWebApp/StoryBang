@@ -3,13 +3,12 @@ export class NotificationService {
         this.socket = socket;
     }
 
-    async notify(userId, status, message, number) {
+    async notify(userId, status, message) {
         try {
             this.socket.emit("Profile", {
-                Id: userId + "_Grok_Image_Generator",
+                Id: userId + "_Create_Story",
                 Status: status,
-                Message: message,
-                Number: number
+                Message: message
             });
         } catch (error) {
             console.log("Communication server error");

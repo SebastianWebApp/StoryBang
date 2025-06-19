@@ -8,6 +8,7 @@ import { JWT } from "./Services/read_jwt.js";
 import router_create_account from "./Routers/routers_create_account.js";
 import router_generator from "./Routers/routers_generator.js";
 import router_character from "./Routers/routers_character.js";
+import router_story from "./Routers/routers_story.js";
 
 // Enable connection with the .env file
 dotenv.config();
@@ -57,12 +58,16 @@ app.get("/user_profile",JWT, (req, res) => {
     res.sendFile(path.join(__dirname, "views", "user_profile.html"));
 });
 
-app.get("/character_creator",JWT , (req, res) => {
+app.get("/character_creator" , (req, res) => {
     res.sendFile(path.join(__dirname, "views", "character_creator.html"));
 });
 
 app.get("/story_creator", (req, res) => {
     res.sendFile(path.join(__dirname, "views", "story_creator.html"));
+});
+
+app.get("/wait", (req, res) => {
+    res.sendFile(path.join(__dirname, "views", "wait.html"));
 });
 
 
@@ -78,7 +83,7 @@ app.get("/expired_session", (req, res) => {
 app.use("/api/create_account", router_create_account);
 app.use("/api/router_generator", router_generator);
 app.use("/api/router_character", router_character);
-
+app.use("/api/router_story", router_story);
 
 app.use((req, res) => {
     if (req.path.startsWith("/api/")) {

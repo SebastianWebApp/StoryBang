@@ -76,7 +76,8 @@ export const Grok_Image_Generator = async (req, res) => {
             {
                 Id: req.body.Id,
                 Prompt: req.body.Prompt,
-                Token: Security.Response
+                Token: Security.Response,
+                Number: req.body.Number
             },
             {
                 attempts: 1,           // Retry up to 1 times in case of failure
