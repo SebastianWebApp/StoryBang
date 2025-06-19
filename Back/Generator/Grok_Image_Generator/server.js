@@ -22,6 +22,7 @@ const grokService = new GROKService();
 const Image_GeneratorQueue = new Queue("Grok_Image_Generator", { redis: redisOptions });
 
 Image_GeneratorQueue.process(5, async (job) => {
+    
     try {  
         
         // Verify JWT Token        
@@ -38,6 +39,7 @@ Image_GeneratorQueue.process(5, async (job) => {
         await notificationService.notify(job.data.Id, true, "data:image/jpeg;base64,"+Image, job.data.Number);
 
     } catch (error) {
+        
         await notificationService.notify(job.data.Id, false, "Error processing job", job.data.Number);
     }
 });

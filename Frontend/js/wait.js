@@ -14,17 +14,21 @@ const savedStory = JSON.parse(localStorage.getItem("Story"));
 const savedName = JSON.parse(localStorage.getItem("Name"));
 const savedDescription = JSON.parse(localStorage.getItem("Description"));
 
-var Title = "";
 var Story;
 var Content = [];
+var Content_Story = [];
+var Complet = [];
+var Complet_Number = [];
+var Type = "Image";
 
 Story = savedStory[0].Story.split(/\[Content(?: \d*)?\]:\s*/);
+var index_n = 0;
 
 if(savedStory[0].Story.includes("[Title]: ")){    
-    Title = Story[0];
+    index_n = 1;  
 }
 
-for (let index = 1; index < Story.length; index++) {
+for (let index = index_n; index < Story.length; index++) {
 
     var Cap = Story[index] + "\n Character description: \n";
 
@@ -34,10 +38,10 @@ for (let index = 1; index < Story.length; index++) {
         }
     }
 
-    Content.push(Cap);       
+    Content.push(Cap);  
+    await Image(index - index_n);     
 }
 
-// Image(0);
 
 async function Image(Number) {    
 
@@ -61,12 +65,6 @@ async function Image(Number) {
             return Image(Number);
         }
         
-        console.log(Number)
-
-        if(Content.length != Number){
-            Image(Number + 1);
-        }        
-
     } catch (error) {
         return Image(Number);
     }
@@ -74,41 +72,83 @@ async function Image(Number) {
 }
 
 
-// async function Create(Number) {    
+async function Create(Create_Story) {    
 
-//     try {
-//         const Request = await fetch(`api/router_story/Create_Story`, {
-//             method: "POST",
-//             headers: {
-//                 "Content-Type": "application/json"
-//             },
-//             body: JSON.stringify({
-//                 Id: Id,
-//                 Content: Content[Number]
-//             })
-//         });
+    await socket.emit('joinRoom', Id+"_Create_Story");
+    Type = "Create";
+
+    try {
+        const Request = await fetch(`api/router_story/Create_Story`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                Id: Id,
+                Content: Create_Story
+            })
+        });
 
 
-//         const Server_Response = await Request.json();
+        const Server_Response = await Request.json();
 
-//         if(Server_Response.Status == false){
-//             return Create();
-//         }
+        if(Server_Response.Status == false){
+            return Create(Create_Story);
+        }
         
-//         Notification(Server_Response.Response);     
+        Notification(Server_Response.Response);     
 
-//     } catch (error) {
-//         return Create();
-//     }
+    } catch (error) {
+        return Create(Create_Story);
+    }
 
 
-// }
+}
 
 
 
 socket.on('Profile_Response', async (data) => { 
 
-    console.log(data);
+    if(Type == "Image"){
+
+          if(data.Status == false){
+            Image(data.Number);
+        }
+
+        if(data.Status && !Complet_Number.includes(data.Number)){
+            Complet_Number.push(data.Number);
+            Complet.push(data.Message);
+        }
+        
+
+        if(Complet.length == Content.length){
+
+
+            const sortedIndices = Complet_Number
+                .map((value, index) => ({ value, index }))
+                .sort((a, b) => a.value - b.value)
+                .map(obj => obj.index);
+
+            const OrderedComplet = sortedIndices.map(i => Complet[i]);
+
+            var New_Story = {
+
+                Storys: savedStory,
+                Image: OrderedComplet
+
+            }
+
+            Create(New_Story);
+            
+        }
+
+    }
+    else{
+        console.log(data)
+    }
+
+
+  
     
 });
 

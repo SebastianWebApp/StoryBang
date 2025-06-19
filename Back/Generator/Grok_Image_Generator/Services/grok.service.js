@@ -7,6 +7,9 @@ var API_GROK = process.env.API_GROK;
 
 export class GROKService {   
     async ImageGrok(Image) {
+
+        let imagenReducida = Image.length > 700 ? Image.slice(0, 700) : Image;
+
         
         const client = new OpenAI({
             baseURL: 'https://api.x.ai/v1',
@@ -15,7 +18,7 @@ export class GROKService {
   
         const response = await client.images.generate({
             model: 'grok-2-image-1212',
-            prompt: "Generate an image in the style of Studio Ghibli: soft colors, warm lighting, expressive anime-style eyes, hand-drawn look, and whimsical, gentle atmosphere. "+Image,
+            prompt: "Generate an image in the style of Studio Ghibli: soft colors, warm lighting, expressive anime-style eyes, hand-drawn look, and whimsical, gentle atmosphere. "+imagenReducida,
             n: 1 
         });
 
