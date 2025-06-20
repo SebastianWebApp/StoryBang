@@ -14,12 +14,18 @@ const savedStory = JSON.parse(localStorage.getItem("Story"));
 const savedName = JSON.parse(localStorage.getItem("Name"));
 const savedDescription = JSON.parse(localStorage.getItem("Description"));
 
+
+if(savedStory == null){
+    location.href = "/story_creator"
+}
+
+
 var Story;
 var Content = [];
-var Content_Story = [];
 var Complet = [];
 var Complet_Number = [];
 var Type = "Image";
+var New_Story;
 
 Story = savedStory[0].Story.split(/\[Content(?: \d*)?\]:\s*/);
 var index_n = 0;
@@ -109,6 +115,7 @@ async function Create(Create_Story) {
 
 socket.on('Profile_Response', async (data) => { 
 
+
     if(Type == "Image"){
 
           if(data.Status == false){
@@ -131,7 +138,7 @@ socket.on('Profile_Response', async (data) => {
 
             const OrderedComplet = sortedIndices.map(i => Complet[i]);
 
-            var New_Story = {
+            New_Story = {
 
                 Storys: savedStory,
                 Image: OrderedComplet
@@ -144,11 +151,19 @@ socket.on('Profile_Response', async (data) => {
 
     }
     else{
-        console.log(data)
+        if(data.Status == false){
+            Create(New_Story);
+        }
+        else{
+            Notification(data.Message);
+            localStorage.removeItem("Story");
+            localStorage.removeItem("Name");
+            localStorage.removeItem("Description");
+            localStorage.setItem('Id_Story', data.Number);
+            location.href = "/story";
+        }
     }
 
-
-  
     
 });
 

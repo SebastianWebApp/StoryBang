@@ -22,10 +22,9 @@ const userService = new UserService();
 const jwtService = new JWTService();
 
 
-const Process_Queue = new Queue("Create_Story", { redis: redisOptions });
+const Process_Queue = new Queue("Read_Id_Story", { redis: redisOptions });
 
-Process_Queue.process(5, async (job) => {
-
+Process_Queue.process(async (job) => {
     try {    
         // Verify JWT Token        
         const isValidToken = await jwtService.verifyToken(job.data.Token);
@@ -33,8 +32,8 @@ Process_Queue.process(5, async (job) => {
             await notificationService.notify(job.data.Id, false, "Session expired. Please log in again.");
             return;
         }
-        await userService.character_process(job.data.Id, job.data.Content);
-        await notificationService.notify(job.data.Id, true, "Story created correctly");    
+        const result = await userService.character_process(job.data.Id_Story);
+        await notificationService.notify(job.data.Id, true, result);    
     } catch (error) {
         await notificationService.notify(job.data.Id, false, "Error processing job");
     }

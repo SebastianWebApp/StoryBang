@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Whatsapp")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+548ea3efe740a165bfb53d6948214f0ae235d838")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f52c98fd7f49a10a3c02715d2a7537a8a2062c8f")]
 [assembly: System.Reflection.AssemblyProductAttribute("Whatsapp")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Whatsapp")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

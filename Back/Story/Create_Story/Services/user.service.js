@@ -9,5 +9,6 @@ export class UserService {
         });
 
         await resultado.save();
+        return resultado._id; // Devuelve el ID generado por MongoDB
     }
 }

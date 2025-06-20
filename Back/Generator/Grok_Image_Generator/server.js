@@ -38,8 +38,7 @@ Image_GeneratorQueue.process(5, async (job) => {
         // Send Image
         await notificationService.notify(job.data.Id, true, "data:image/jpeg;base64,"+Image, job.data.Number);
 
-    } catch (error) {
-        
+    } catch (error) {        
         await notificationService.notify(job.data.Id, false, "Error processing job", job.data.Number);
     }
 });

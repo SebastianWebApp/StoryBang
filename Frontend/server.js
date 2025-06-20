@@ -58,7 +58,7 @@ app.get("/user_profile",JWT, (req, res) => {
     res.sendFile(path.join(__dirname, "views", "user_profile.html"));
 });
 
-app.get("/character_creator" , (req, res) => {
+app.get("/character_creator",JWT , (req, res) => {
     res.sendFile(path.join(__dirname, "views", "character_creator.html"));
 });
 
@@ -68,6 +68,10 @@ app.get("/story_creator", (req, res) => {
 
 app.get("/wait", (req, res) => {
     res.sendFile(path.join(__dirname, "views", "wait.html"));
+});
+
+app.get("/story", (req, res) => {
+    res.sendFile(path.join(__dirname, "views", "story.html"));
 });
 
 

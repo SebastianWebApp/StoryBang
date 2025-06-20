@@ -97,6 +97,7 @@ modelButtons.forEach(button => {
             document.getElementById("learning_values").style.display = "block";  
             document.getElementById("interactive_option").style.display = "block";  
             document.getElementById("gender_selection").style.display = "block"; 
+            document.getElementById("interactive_option").style.display = "none";  
         }
         else if(selectedModel == "gpt2"){
             document.getElementById("lenght_selection").style.display = "none";
@@ -106,6 +107,9 @@ modelButtons.forEach(button => {
         }
         else{
             document.getElementById("gender_selection").style.display = "block"; 
+              document.getElementById("lenght_selection").style.display = "none";
+            document.getElementById("learning_values").style.display = "none";       
+            document.getElementById("interactive_option").style.display = "none";  
         }
 
     });
