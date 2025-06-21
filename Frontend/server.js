@@ -70,10 +70,10 @@ app.get("/wait",JWT, (req, res) => {
     res.sendFile(path.join(__dirname, "views", "wait.html"));
 });
 
-app.get("/story", (req, res) => {
+app.get("/story",JWT, (req, res) => {
     res.sendFile(path.join(__dirname, "views", "story.html"));
 });
-app.get("/list", (req, res) => {
+app.get("/list",JWT, (req, res) => {
     res.sendFile(path.join(__dirname, "views", "list.html"));
 });
 
@@ -87,9 +87,9 @@ app.get("/expired_session", (req, res) => {
 
 // // ---------------------- Gateway ------------------------------
 app.use("/api/create_account", router_create_account);
-app.use("/api/router_generator", router_generator);
-app.use("/api/router_character", router_character);
-app.use("/api/router_story", router_story);
+app.use("/api/router_generator",JWT, router_generator);
+app.use("/api/router_character",JWT, router_character);
+app.use("/api/router_story",JWT, router_story);
 
 app.use((req, res) => {
     if (req.path.startsWith("/api/")) {

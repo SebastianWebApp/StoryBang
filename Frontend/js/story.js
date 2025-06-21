@@ -253,6 +253,12 @@ document.getElementById("back").addEventListener("click", async () => {
 
 socket.on("Profile_Response", async (data) => {
   if (data.Status && Type == "Read_Story") {
+
+    if(data.Message == null){
+      location.href = "/home";
+      return;
+    }
+
     responseReceived = true;
     check = check + 1;
     if(check == 1){

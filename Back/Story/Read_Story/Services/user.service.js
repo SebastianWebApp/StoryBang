@@ -5,26 +5,33 @@ export class UserService {
 
     const result = await Mongo_Story.find(Filter)
       .sort({ createdAt: -1 })
-      .limit(10);
+      .limit(20);
 
     const processed = result.map(doc => {
       const storyList = doc.Content?.Storys || [];
 
-      return storyList.map(storyItem => {
-        const { Story, Language } = storyItem;
+      var Document = [];
 
-        let Title = "Untitled";
-        if (Story.includes("Title: ")) {
-          const Content_Story = Story.split(/\[Content(?: \d*)?\]:\s*/);
-          Title = Content_Story[0].replace("Title: ", "").trim();
-        }
+      let Title = "Untitled";
+      if (storyList[0].Story.includes("Title: ")) {
+        const Content_Story = storyList[0].Story.split(/\[Content(?: \d*)?\]:\s*/);
+        Title = Content_Story[0].replace("Title: ", "").trim();
+      }
 
-        return {
-          Title,
-          Language,
-          createdAt: doc.createdAt
-        };
+      storyList.map(storyItem => {
+        const {Language} = storyItem;       
+
+        Document.push(Language);
+        
       });
+
+      return {
+          id: doc._id, 
+          Title,
+          Language: Document,
+          createdAt: doc.createdAt
+      };
+
     });
 
     return processed.flat(); // flatten to have a single list
