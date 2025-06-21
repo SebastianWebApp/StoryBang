@@ -23,6 +23,7 @@ if(Id == null || Id == ""){
     window.location.href = "/expired_session";
 }
 
+
 Read_Character();
 
 async function Read_Character(){

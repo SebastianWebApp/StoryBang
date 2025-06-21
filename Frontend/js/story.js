@@ -22,6 +22,11 @@ if (Id == null || Id == "") {
   window.location.href = "/expired_session";
 }
 
+if(Id_Story == "" || Id_Story == null){
+  localStorage.removeItem("Id_Story");
+  window.location.href = "/story_creator"
+}
+
 
 
 function toggleLanguageMenu() {
@@ -258,7 +263,6 @@ socket.on("Profile_Response", async (data) => {
       Story = data.Message.Content.Storys;
       Image = data.Message.Content.Image;
       Story_Create("eng_Latn");
-            console.log(Story)
 
     }    
 

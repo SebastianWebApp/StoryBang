@@ -2,43 +2,41 @@ import express from "express";
 import Queue from "bull";
 import dotenv from "dotenv";
 import { io } from "socket.io-client";
+import connectToDB from "./Database/connect.js";
 import { redisOptions } from "./Config/redis.config.js";
 import { NotificationService } from "./Services/notification.service.js";
+import { UserService } from "./Services/user.service.js";
 import {JWTService} from "./Services/jwt.service.js";
-import {GROKService} from "./Services/grok.service.js";
+
 
 dotenv.config();
 const PORT = process.env.PORT;
 const PORT_MESSAGES_USERS = process.env.PORT_MESSAGES_USERS;
 
+connectToDB();
 
 const app = express();
 const socket = io(PORT_MESSAGES_USERS);
 const notificationService = new NotificationService(socket);
+const userService = new UserService();
 const jwtService = new JWTService();
-const grokService = new GROKService();
 
 
-const Image_GeneratorQueue = new Queue("Grok_Image_Generator", { redis: redisOptions });
+const Process_Queue = new Queue("Read_Story", { redis: redisOptions });
 
-Image_GeneratorQueue.process(5, async (job) => {
-    
-    try {  
+Process_Queue.process(5, async (job) => {
+    try {    
         // Verify JWT Token        
         const isValidToken = await jwtService.verifyToken(job.data.Token);
         if (!isValidToken) {
-            await notificationService.notify(job.data.Id, false, "Session expired. Please log in again.", job.data.Number);
+            await notificationService.notify(job.data.Id, false, "Session expired. Please log in again.");
             return;
         }
 
-        // Generate Image
-        const Image = await grokService.ImageGrok(job.data.Prompt);
-
-        // Send Image
-        await notificationService.notify(job.data.Id, true, "data:image/jpeg;base64,"+Image, job.data.Number);
-
-    } catch (error) {     
-        await notificationService.notify(job.data.Id, false, "Error processing job", job.data.Number);
+        const result = await userService.character_process(job.data.Filter);
+        await notificationService.notify(job.data.Id, true, result);    
+    } catch (error) {
+        await notificationService.notify(job.data.Id, false, "Error processing job");
     }
 });
 

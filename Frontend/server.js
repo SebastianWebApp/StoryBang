@@ -62,18 +62,20 @@ app.get("/character_creator",JWT , (req, res) => {
     res.sendFile(path.join(__dirname, "views", "character_creator.html"));
 });
 
-app.get("/story_creator", (req, res) => {
+app.get("/story_creator",JWT, (req, res) => {
     res.sendFile(path.join(__dirname, "views", "story_creator.html"));
 });
 
-app.get("/wait", (req, res) => {
+app.get("/wait",JWT, (req, res) => {
     res.sendFile(path.join(__dirname, "views", "wait.html"));
 });
 
 app.get("/story", (req, res) => {
     res.sendFile(path.join(__dirname, "views", "story.html"));
 });
-
+app.get("/list", (req, res) => {
+    res.sendFile(path.join(__dirname, "views", "list.html"));
+});
 
 
 // ---------------------- Expired Session ------------------------------
