@@ -5,6 +5,7 @@ const maxRetries = 5;
 var responseReceived = false;
 var retryInterval = 3000; // 5 seconds
 var message_information = true;
+var NULL = false;
 var check = 0;
 let Id = localStorage.getItem("Id");
 var Last_Id = "";
@@ -156,9 +157,11 @@ window.addEventListener("scroll", () => {
   const documentHeight = document.documentElement.scrollHeight;
 
   if (scrollTop + windowHeight >= documentHeight - 10) {
-    Filter._id = {$lt: Last_Id};
-    check = 0;
-    Read_Story();
+    if(!NULL){
+      Filter._id = {$lt: Last_Id};
+      check = 0;
+      Read_Story();
+    }    
   }
 });
 
@@ -167,7 +170,12 @@ socket.on("Profile_Response", async (data) => {
   if (data.Status && Type == "Read_Story") {
     responseReceived = true;
     check = check + 1;
-    if(check == 1){        
+    if(check == 1){    
+      
+      if(data.Message == null){
+        NULL = true;
+      }
+      
         renderTable(data.Message);
     }    
 
