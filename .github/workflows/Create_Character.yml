@@ -70,25 +70,3 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_USERNAME }}  # Asegúrate de que los secretos estén configurados
           password: ${{ secrets.DOCKER_PASSWORD }}
-
-      # Build and push Docker images using Docker Compose
-      - name: Build and push Docker images with Docker Compose
-        run: |
-          docker-compose -f docker-compose.yml build
-          docker-compose -f docker-compose.yml push
-          # Verificar que las imágenes se enviaron correctamente
-          echo "Verificando imágenes enviadas a DockerHub:"
-          docker-compose -f docker-compose.yml images
-
-      - name: Mostrar .env (debug temporal)
-        run: cat .env
-
-      - name: Verificar e imprimir variables del .env (solo para debug)
-        run: |
-          source .env
-          echo "PORT=$PORT"
-          echo "BULL_CHARACTER_HOST=$BULL_CHARACTER_HOST"
-          echo "BULL_CHARACTER_PORT=$BULL_CHARACTER_PORT"
-          echo "MONGODB=$MONGODB"
-          echo "PORT_MESSAGES_USERS=$PORT_MESSAGES_USERS"
-          echo "API_JWT=$API_JWT"
