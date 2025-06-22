@@ -172,7 +172,7 @@ socket.on("Profile_Response", async (data) => {
     check = check + 1;
     if(check == 1){    
       
-      if(data.Message == null){
+      if(data.Message == null || data.Message.length === 0){
         NULL = true;
       }
       
