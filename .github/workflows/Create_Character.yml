@@ -82,3 +82,13 @@ jobs:
 
       - name: Mostrar .env (debug temporal)
         run: cat .env
+
+      - name: Verificar e imprimir variables del .env (solo para debug)
+        run: |
+          source .env
+          echo "PORT=$PORT"
+          echo "BULL_CHARACTER_HOST=$BULL_CHARACTER_HOST"
+          echo "BULL_CHARACTER_PORT=$BULL_CHARACTER_PORT"
+          echo "MONGODB=$MONGODB"
+          echo "PORT_MESSAGES_USERS=$PORT_MESSAGES_USERS"
+          echo "API_JWT=$API_JWT"
