@@ -32,6 +32,15 @@ jobs:
         run: npm test  # o npx jest si no tienes "test" en package.json
 
 
+      - name: Reemplazar valores en el archivo .env
+        run: |
+          sed -i "s/^PORT=.*/PORT=${{ secrets.CREATE_CHARACTER_PORT }}/" .env
+          sed -i "s/^BULL_CHARACTER_HOST=.*/BULL_CHARACTER_HOST=${{ secrets.BULL_CHARACTER_HOST }}/" .env
+          sed -i "s/^BULL_CHARACTER_PORT=.*/BULL_CHARACTER_PORT=${{ secrets.BULL_PORT }}/" .env
+          sed -i "s|^MONGODB=.*|MONGODB=${{ secrets.MONGODB }}|" .env
+          sed -i "s|^PORT_MESSAGES_USERS=.*|PORT_MESSAGES_USERS=${{ secrets.PORT_MESSAGES_USERS }}|" .env
+          sed -i "s|^API_JWT=.*|API_JWT=${{ secrets.API_JWT }}|" .env
+
 
       # Install Docker and Docker Compose
       - name: Install Docker and Docker Compose
@@ -70,3 +79,6 @@ jobs:
           # Verificar que las imágenes se enviaron correctamente
           echo "Verificando imágenes enviadas a DockerHub:"
           docker-compose -f docker-compose.yml images
+
+      - name: Mostrar .env (debug temporal)
+        run: cat .env
