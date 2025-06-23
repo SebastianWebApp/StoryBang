@@ -5,7 +5,6 @@ A microservice for handling JSON Web Token (JWT) operations, including token cre
 
 ## JWT Creation and Verification Flow - Express.js
 
-Este diagrama describe el flujo de creación y verificación de JWTs en una API construida con Express.js.
 
 ```mermaid
 flowchart TD

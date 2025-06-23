@@ -1,7 +1,47 @@
-```markdown
 # Delete User Microservice
 
 A microservice for handling user deletion operations using Bull queue for job processing and real-time notifications.
+
+## Delete User Flow - Bull Queue + MySQL
+
+
+```mermaid
+flowchart TD
+    %% Inicio del flujo
+    A[User submits delete user job to Bull queue Delete_User] --> B[server js Queue processor]
+
+    %% Proceso de la cola
+    B --> C[JWTService verifyToken Token]
+    C -- Invalid Token --> D[NotificationService notify Id false Session expired Please log in again]
+    C -- Valid Token --> E[UserService deleteUser Id]
+
+    %% Lógica de borrado
+    E --> F[Call MySQL stored procedure DeleteRecord Id]
+    F --> G[NotificationService notify Id true Successfully deleted]
+
+    %% Manejo de errores generales
+    B -->|Exception| H[NotificationService notify Id false Error processing job]
+
+    %% Comunicación con usuario
+    D -.-> I[Socket IO Notification]
+    G -.-> I
+    H -.-> I
+
+    %% Clases principales y archivos
+    classDef service fill:#f9f,stroke:#333,stroke-width:2px;
+    class B,C,E,F,G,D,H service;
+
+    %% Leyenda
+    subgraph Legend
+        direction LR
+        L1[server js Express app Bull queue main logic]
+        L2[Services jwt service js JWTService token validation]
+        L3[Services user service js UserService deletes user in MySQL]
+        L4[Services notification service js NotificationService Socket IO notifications]
+        L5[Config redis config js Redis connection config]
+        L6[Database connect js MySQL connection pool]
+    end
+```
 
 ## Features
 

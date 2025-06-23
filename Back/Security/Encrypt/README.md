@@ -4,8 +4,6 @@ A SOAP-based microservice for encrypting sensitive data using AES-256-CFB encryp
 
 ## SOAP Encryption Flow - Go HTTP Server
 
-Este diagrama representa el flujo de procesamiento para una solicitud SOAP POST que incluye un número de teléfono y una contraseña en formato XML, los cuales son cifrados y devueltos en una respuesta SOAP cifrada.
-
 ```mermaid
 flowchart TD
     %% Inicio del flujo

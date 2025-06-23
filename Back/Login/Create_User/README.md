@@ -1,11 +1,59 @@
-
-
-
-          
 # Create_User Microservice
 
 ## Description
 The Create_User microservice is responsible for handling user registration in the system. It implements an asynchronous processing approach using Bull queues and integrates with multiple services for secure user creation.
+
+## Create User Flow - Bull Queue + Redis + MySQL
+
+```mermaid
+flowchart TD
+    %% Inicio del flujo
+    A[User submits create user job to Bull queue Create_User] --> B[server js Queue processor]
+
+    %% Proceso de la cola
+    B --> C[JWTService verifyToken Token]
+    C -- Invalid Token --> D[NotificationService notify Id false Session expired Please log in again]
+    C -- Valid Token --> E[RedisService getValue Id]
+
+    %% Verificación de código
+    E --> F{Code from Redis equals Code from job}
+    F -- No --> G[NotificationService notify Id false The verification code is incorrect]
+    F -- Yes --> H[EncryptionService encrypt Phone Password]
+
+    %% Encriptación y creación de usuario
+    H --> I{Encryption successful}
+    I -- No --> J[NotificationService notify Id false Error encrypting your credentials Please try again]
+    I -- Yes --> K[UserService createUser Id encryptedPhone encryptedPassword Username Image]
+    K --> L[RedisService deleteValue Id]
+    L --> M[NotificationService notify Id true User created successfully]
+
+    %% Manejo de errores generales
+    B -->|Exception| N[NotificationService notify Id false Error processing job]
+
+    %% Comunicación con usuario
+    D -.-> O[Socket IO Notification]
+    G -.-> O
+    J -.-> O
+    M -.-> O
+    N -.-> O
+
+    %% Clases principales y archivos
+    classDef service fill:#f9f,stroke:#333,stroke-width:2px;
+    class B,C,E,H,K,L,M,D,G,J,N service;
+
+    %% Leyenda
+    subgraph Legend
+        direction LR
+        L1[server js Express app Bull queue main logic]
+        L2[Services jwt service js JWTService token validation]
+        L3[Services redis service js RedisService code validation and deletion]
+        L4[Services encryption service js EncryptionService SOAP encryption]
+        L5[Services user service js UserService creates user in MySQL]
+        L6[Services notification service js NotificationService Socket IO notifications]
+        L7[Config redis config js Redis connection config]
+        L8[Database connect js MySQL connection pool]
+    end
+```
 
 ## Features
 - Asynchronous user creation using Bull queues

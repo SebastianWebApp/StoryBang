@@ -4,6 +4,58 @@
 ## Description
 The Read_User microservice is a system for reading and retrieving user profiles, implementing a Bull Queue system for asynchronous request processing. The service includes secure decryption of sensitive data and real-time notifications.
 
+## Read User Job Flow
+
+```mermaid
+flowchart TD
+    %% Start of flow
+    A[User submits read user job to Bull queue Read User] --> B[server js Queue processor]
+
+    %% Queue processing
+    B --> C[JWTService verify Token]
+    C -- Invalid Token --> D[NotificationService notify Id false Session expired Please log in again]
+    C -- Valid Token --> E[UserService find User By Id]
+
+    %% User lookup logic
+    E --> F{User found}
+    F -- No --> G[NotificationService notify Id false The user does not exist]
+    F -- Yes --> H[DecryptionService decrypt Phone Password]
+
+    %% Decryption and profile mapping
+    H --> I{Decryption successful}
+    I -- No --> J[NotificationService notify Id false Error decrypting your information]
+    I -- Yes --> K[UserMapper toUserProfile user decryptedData]
+    K --> L[NotificationService notify Id true userProfile]
+
+    %% General error handling
+    B -->|Exception| M[NotificationService notify Id false Error processing job]
+
+    %% User communication
+    D -.-> N[Socket IO Notification]
+    G -.-> N
+    J -.-> N
+    L -.-> N
+    M -.-> N
+
+    %% Main classes and files
+    classDef service fill:#f9f,stroke:#333,stroke-width:2px
+    class B,C,E,H,K,L,D,G,J,M service
+
+    %% Legend
+    subgraph Legend
+        direction LR
+        L1[server js Main entry Bull queue service orchestration]
+        L2[Services jwt service js JWTService token validation external API]
+        L3[Services user service js UserService fetches user from MySQL]
+        L4[Services decryption service js DecryptionService decrypts via GraphQL]
+        L5[Services user mapper js UserMapper maps DB and decrypted data to profile]
+        L6[Services notification service js NotificationService sends Socket IO notifications]
+        L7[Config redis config js Redis connection]
+        L8[Database connect js MySQL connection pool]
+    end
+
+```
+
 ## Features
 - Asynchronous processing with Bull Queue
 - JWT token verification
