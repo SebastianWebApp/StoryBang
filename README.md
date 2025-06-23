@@ -79,9 +79,7 @@ erDiagram
         STRING QueueName "Bull queue name"
     }
 
-    %% Relationships
-    USERS ||--o{ CHARACTERS : "owns"
-    USERS ||--o{ STORY : "authors"
+  
 ```
 
 
