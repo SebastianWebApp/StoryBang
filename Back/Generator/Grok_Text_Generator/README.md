@@ -1,11 +1,57 @@
-
-
-
-          
 # GROK Text Generator Service
 
 ## Overview
 This service is part of a microservices architecture that generates text content using GROK technology. It implements a queue-based system for processing text generation requests with JWT authentication.
+
+## Flowchart of the Text Generation Module
+
+This flowchart illustrates the workflow for the text generation feature using the Bull queue named "Grok Text Generator". When a user submits a text generation job, the request is processed by the server's queue processor.
+
+The JWTService validates the user's token. If the token is invalid, the user is notified that the session expired. If valid, the GROKService generates the text based on the provided prompt and audience parameters by calling the GROK API.
+
+The generated text is then sent back to the user via NotificationService with real-time updates through Socket.IO. Errors during job processing trigger notifications as well.
+
+The key components include the Express server with Bull queue handling, JWT token validation, GROK text generation service, notification service, and Redis queue configuration as outlined in the legend.
+
+```mermaid
+flowchart TD
+    %% Inicio del flujo
+    A[User submits text generation job to Bull queue Grok Text Generator] --> B[server js Queue processor]
+
+    %% Proceso de la cola
+    B --> C[JWTService verify Token Token]
+    C -- Invalid Token --> D[NotificationService notify Id false Session expired Please log in again]
+    C -- Valid Token --> E[GROKService GenerateText Prompt Audience]
+
+    %% Lógica de generación de texto
+    E --> F[Call GROK API with prompt and audience params]
+    F --> G[Receive generated text from GROK API]
+
+    %% Notificación de éxito
+    G --> H[NotificationService notify Id true Content]
+
+    %% Manejo de errores generales
+    B -->|Exception| I[NotificationService notify Id false Error processing job]
+
+    %% Comunicación con usuario
+    D -.-> J[Socket IO Notification]
+    H -.-> J
+    I -.-> J
+
+    %% Clases principales y archivos
+    classDef service fill:#f9f,stroke:#333,stroke-width:2px;
+    class B,C,E,F,G,H,D,I service
+
+    %% Leyenda
+    subgraph Legend [Legend]
+        direction LR
+        L1[server js Express app Bull queue main logic]
+        L2[Services jwt service js JWTService token validation]
+        L3[Services grok service js GROKService text generation]
+        L4[Services notification service js NotificationService Socket IO notifications]
+        L5[Config redis config js Redis queue configuration]
+    end
+```
 
 ## Technologies Used
 - Express.js - Web framework

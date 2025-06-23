@@ -1,4 +1,4 @@
-# [Service_Name] Service
+# Service
 
 This microservice is part of the Proyecto Octavo platform and is responsible for [describe the main responsibility, e.g., creating, reading, updating, or deleting user stories]. It is built with Node.js, Express, Bull for job queueing, MongoDB for storage, and Redis for queue management. The service is containerized with Docker for easy deployment and integrates with other platform services via Socket.IO and JWT authentication.
 

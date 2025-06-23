@@ -2,6 +2,65 @@
 
 This project provides a RESTful API for generating stories using a custom-trained GPT-2 model. The service is built with Flask, follows SOLID principles, and is containerized with Docker for easy deployment.
 
+## Flowchart of the Story Generation Module
+
+This flowchart illustrates the architecture and flow of the story generation module. It handles HTTP POST requests with a JSON payload containing a prompt and audience data. The module uses a Flask application that initializes two main components: the GPT2MEDIUMStoryGenerator service responsible for generating stories using a GPT2MEDIUM model, and the StoryController that manages the API route logic.
+
+The process begins with the `/generate_story` route handler validating the presence of a prompt in the request. If no prompt is provided, an error response is returned. Otherwise, the story generator proceeds by tokenizing the prompt, selecting generation parameters based on the audience, generating the story, and formatting the output into a Story object.
+
+Finally, the module returns a JSON response indicating success or failure along with the generated story content when successful.
+
+The module architecture is divided into infrastructure, API, and domain layers, each responsible for specific tasks and implemented in their corresponding source files as detailed in the legend.
+
+```mermaid
+flowchart TD
+    %% Inicio del flujo
+    A[User sends POST generate story request\nwith JSON payload] --> B[Flask app main py]
+
+    %% Inicialización de servicios y controlador
+    B --> C[GPT2MEDIUMStoryGenerator\nsrc infrastructure gpt2medium story generator py]
+    B --> D[StoryController\nsrc api story controller py]
+
+    %% Ruta principal
+    D --> E[generate story route handler]
+
+    %% Lógica del controlador
+    E --> F{Is prompt present}
+    F -- No --> G[Story create error no prompt provided return error JSON]
+    F -- Yes --> H[Story generator generate prompt audience]
+
+    %% Lógica de generación
+    H --> I[Tokenize prompt]
+    I --> J[Select generation params by audience]
+    J --> K[Generate story with GPT2MEDIUM model]
+    K --> L[Decode and format output]
+    L --> M[Create Story object]
+
+    %% Respuesta
+    M --> N{Story status}
+    N -- False --> O[Return error JSON]
+    N -- True --> P[Return JSON status true content]
+
+    %% Clases principales
+    classDef infra fill f9f stroke 333 stroke width 2px
+    classDef api fill bfb stroke 333 stroke width 2px
+    classDef domain fill bbf stroke 333 stroke width 2px
+    class C infra
+    class D api
+    class H infra
+    class M domain
+
+    %% Leyenda
+    subgraph Legend [Legend]
+        direction LR
+        L1[main py Flask app loads env initializes GPT2MEDIUMStoryGenerator StoryController]
+        L2[src api story controller py StoryController route logic]
+        L3[src infrastructure gpt2medium story generator py GPT2MEDIUMStoryGenerator GPT2MEDIUM logic]
+        L4[src domain story generator py StoryGenerator abstract]
+        L5[src domain story py Story dataclass for response]
+    end
+
+```
 ---
 
 ## Table of Contents
