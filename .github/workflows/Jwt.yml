@@ -37,8 +37,8 @@ jobs:
 
       - name: Reemplazar valores en el archivo .env
         run: |
-          sed -i "s/^CORS_ORIGIN=.*/CORS_ORIGIN=${{ secrets.CORS_ORIGIN_JWT_QA }}/" .env
-         
+          sed -i "s|^CORS_ORIGIN *=.*|CORS_ORIGIN=${{ secrets.CORS_ORIGIN_JWT_QA }}|" .env
+
 
 
 
