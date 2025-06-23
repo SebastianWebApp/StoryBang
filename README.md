@@ -36,7 +36,8 @@ graph TD
 ```
 
 ## 🧱 Low-Level Architecture Infrastructure
-![Arquitectura](https://raw.githubusercontent.com/SebastianWebApp/StoryBang/630b6b353cf2bd5f69c484931c04dde6ec08f43b/low_architecture.png)
+[View PDF document](path-or-url-to-the-file.pdf)
+
 
 
 
