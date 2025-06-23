@@ -9,7 +9,7 @@ This module is part of the Proyecto Octavo platform and provides microservices f
 ```mermaid
 flowchart TD
     A[User sends character request to Bull queue]
-    A -->|Queue Bull| B[Character Service (server.js)]
+    A -->|Queue Bull| B[Character Service server.js]
     B --> C[Process_Queue listens for Character jobs]
 
     C --> D{Is token valid?}
@@ -36,10 +36,10 @@ stateDiagram-v2
     [*] --> WaitingForJob
     WaitingForJob: Waiting for job in Bull queue
 
-    WaitingForJob --> JobReceived: Job received (Create, Read, Delete)
+    WaitingForJob --> JobReceived: Job received Create Read Delete
     JobReceived --> JWTValidation: Validate JWT token
     JWTValidation -->|Invalid| NotifySessionExpired
-    NotifySessionExpired: Notify user (Socket.IO): "Session expired"
+    NotifySessionExpired: Notify user SocketIO Session expired
     NotifySessionExpired --> WaitingForJob
 
     JWTValidation -->|Valid| ProcessingJob
@@ -50,22 +50,23 @@ stateDiagram-v2
         [*] --> DeleteCharacter
 
         CreateCharacter --> StoreCharacter: Store in MongoDB
-        StoreCharacter --> NotifyCreated: Notify user (created)
+        StoreCharacter --> NotifyCreated: Notify user created
         NotifyCreated --> [*]
 
         ReadCharacter --> QueryCharacter: Query MongoDB
-        QueryCharacter --> NotifyRead: Notify user (data)
+        QueryCharacter --> NotifyRead: Notify user data
         NotifyRead --> [*]
 
         DeleteCharacter --> RemoveCharacter: Delete from MongoDB
-        RemoveCharacter --> NotifyDeleted: Notify user (deleted)
+        RemoveCharacter --> NotifyDeleted: Notify user deleted
         NotifyDeleted --> [*]
     }
 
     ProcessingJob --> WaitingForJob
     ProcessingJob -->|Error| NotifyError
-    NotifyError: Notify user (Socket.IO): "Error processing job"
+    NotifyError: Notify user SocketIO Error processing job
     NotifyError --> WaitingForJob
+
 ```
 
 ---
@@ -73,17 +74,23 @@ stateDiagram-v2
 ## Use Case Diagram
 
 ```mermaid
-usecaseDiagram
-    actor User
-    actor Admin
+graph TB
+    User[User]
+    Admin[Admin]
+    CreateCharacter[Create Character]
+    ReadCharacter[Read Character]
+    DeleteCharacter[Delete Character]
+    MonitorService[Monitor Service]
+    AuthenticateViaJWT[Authenticate via JWT]
 
-    User --> (Create Character)
-    User --> (Read Character)
-    User --> (Delete Character)
-    Admin --> (Monitor Service)
-    (Create Character) ..> (Authenticate via JWT) : include
-    (Read Character) ..> (Authenticate via JWT) : include
-    (Delete Character) ..> (Authenticate via JWT) : include
+    User --> CreateCharacter
+    User --> ReadCharacter
+    User --> DeleteCharacter
+    Admin --> MonitorService
+    CreateCharacter -- include --> AuthenticateViaJWT
+    ReadCharacter -- include --> AuthenticateViaJWT
+    DeleteCharacter -- include --> AuthenticateViaJWT
+
 ```
 
 ---
