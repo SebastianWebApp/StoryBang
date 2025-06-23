@@ -1,4 +1,3 @@
-```markdown
 # Messages_User Microservice
 
 ## Description
