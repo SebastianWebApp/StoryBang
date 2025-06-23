@@ -4,28 +4,32 @@ This directory contains the microservices for character management in the Proyec
 
 ---
 
+## Flowchart of the Character Module
+
+This flowchart represents the general architecture of the character module, not just for character creation but also for reading, updating, and deleting characters. All these operations follow the same structure using Bull queues, JWT authentication, MongoDB for persistence, and real-time notifications through Socket.IO.
+
 
 ```mermaid
 flowchart TD
-    A[User submits character creation request to Bull queue]
-    A -->|Queue Bull| B[Create_Character Service in server.js]
-    B --> C[Process_Queue listens for Create_Character jobs]
+    A[User sends character request to Bull queue]
+    A -->|Queue Bull| B[Character Service in server.js]
+    B --> C[Process_Queue listens for Character jobs]
 
-    C --> D{Token válido?}
+    C --> D{Is token valid?}
     D -- No --> E[Notify: Session expired]
-    D -- Sí --> F[UserService processes character]
+    D -- Yes --> F[UserService processes character request]
 
-    F --> G[Mongo_Character save]
+    F --> G[Mongo_Character (create/read/update/delete)]
     G --> H[MongoDB]
 
-    F --> I[Notify: Character created correctly]
+    F --> I[Notify: Operation completed successfully]
     C -->|Error| J[Notify: Error processing job]
 
     E -.-> K[Socket.IO Notification]
     I -.-> K
     J -.-> K
 
-    subgraph Legend [Leyenda]
+    subgraph Legend [Legend]
         direction LR
         L1[server.js: Bull + Express]
         L2[Services: jwt, user, notification]
@@ -33,6 +37,7 @@ flowchart TD
         L4[Database: MongoDB]
         L5[Socket.IO]
     end
+
 ```
 
 
