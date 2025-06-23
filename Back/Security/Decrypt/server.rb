@@ -3,10 +3,12 @@ require 'json'
 require 'base64'
 require 'openssl'
 require 'graphql'
+require 'dotenv/load'
 
 # Configuración base
 KEY = ENV['AES_KEY'] || "12345678901234567890123456789012" # 32 bytes
 IV  = ENV['AES_IV']  || "1234567890123456"                  # 16 bytes
+ALLOWED_ORIGINS = (ENV['CORS_ORIGIN'] || "*").split(',')
 
 # Componente base para desencriptación
 class BaseDecryptor
@@ -80,9 +82,48 @@ class Schema < GraphQL::Schema
   mutation(MutationType)
 end
 
-# Configuración CORS
+# # Configuración CORS
+# before do
+#   response.headers['Access-Control-Allow-Origin'] = '*'
+#   response.headers['Access-Control-Allow-Methods'] = 'POST, OPTIONS'
+#   response.headers['Access-Control-Allow-Headers'] = 'Content-Type'
+# end
+
+# options '*' do
+#   200
+# end
+
+# # Endpoint GraphQL
+# post '/' do
+#   content_type :json
+#   begin
+#     data = JSON.parse(request.body.read)
+#     result = Schema.execute(
+#       data['query'],
+#       variables: data['variables']
+#     )
+#     result.to_json
+#   rescue JSON::ParserError => e
+#     status 400
+#     { error: "Invalid JSON: #{e.message}" }.to_json
+#   rescue StandardError => e
+#     status 500
+#     { error: "Server error: #{e.message}" }.to_json
+#   end
+# end
+
+# # Configuración del servidor
+# set :bind, '0.0.0.0'
+# set :port, 4006
+
+
+# Middleware CORS dinámico
 before do
-  response.headers['Access-Control-Allow-Origin'] = '*'
+  origin = request.env['HTTP_ORIGIN']
+  if ALLOWED_ORIGINS.include?(origin)
+    response.headers['Access-Control-Allow-Origin'] = origin
+  end
+
   response.headers['Access-Control-Allow-Methods'] = 'POST, OPTIONS'
   response.headers['Access-Control-Allow-Headers'] = 'Content-Type'
 end
@@ -110,6 +151,5 @@ post '/' do
   end
 end
 
-# Configuración del servidor
 set :bind, '0.0.0.0'
 set :port, 4006

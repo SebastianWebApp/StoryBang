@@ -31,6 +31,9 @@ jobs:
       - name: Run Jest tests
         run: npm test  # o npx jest si no tienes "test" en package.json
 
+      - name: Reemplazar valores en el archivo .env
+        run: |
+          sed -i "s|^MYSQL_HOST=.*|MYSQL_HOST=${{ secrets.MYSQL_HOST_QA }}|" .env
 
       # Install Docker and Docker Compose
       - name: Install Docker and Docker Compose

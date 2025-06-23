@@ -20,6 +20,16 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
+
+      - name: Reemplazar valores en el archivo .env
+        run: |
+          sed -i "s|^KAFKA_PORT=.*|KAFKA_PORT=${{ secrets.KAFKA_PORT_QA }}|" .env
+          sed -i "s|^PORT_DB_CODE=.*|PORT_DB_CODE=${{ secrets.PORT_DB_CODE_QA }}|" .env
+          sed -i "s|^WEBHOOK=.*|WEBHOOK=${{ secrets.WEBHOOK_QA }}|" .env
+          sed -i "s|^PORT_MESSAGES_USERS=.*|PORT_MESSAGES_USERS=${{ secrets.PORT_MESSAGES_USERS_QA }}|" .env
+
+
+
       # Install Docker and Docker Compose
       - name: Install Docker and Docker Compose
         run: |

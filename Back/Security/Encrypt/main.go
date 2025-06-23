@@ -1,13 +1,24 @@
 package main
 
 import (
+	// "crypto/aes"
+	// "crypto/cipher"
+	// "encoding/base64"
+	// "fmt"
+	// "io/ioutil"
+	// "net/http"
+	// "strings"
+
 	"crypto/aes"
 	"crypto/cipher"
 	"encoding/base64"
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"os"
 	"strings"
+
+	"github.com/joho/godotenv"
 )
 
 // Command interface
@@ -98,8 +109,51 @@ func soapHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprint(w, response)
 }
 
+// func main() {
+// 	http.HandleFunc("/", soapHandler)
+// 	fmt.Println("SOAP Server listening on http://localhost:4005/")
+// 	http.ListenAndServe(":4005", nil)
+// }
+
+// Middleware CORS
+func withCORS(next http.HandlerFunc, allowedOrigins []string) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		origin := r.Header.Get("Origin")
+		for _, o := range allowedOrigins {
+			if origin == o {
+				w.Header().Set("Access-Control-Allow-Origin", origin)
+				w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
+				w.Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS")
+				break
+			}
+		}
+
+		// Handle preflight
+		if r.Method == "OPTIONS" {
+			w.WriteHeader(http.StatusOK)
+			return
+		}
+
+		next.ServeHTTP(w, r)
+	}
+}
+
 func main() {
-	http.HandleFunc("/", soapHandler)
-	fmt.Println("SOAP Server listening on http://localhost:4005/")
-	http.ListenAndServe(":4005", nil)
+	// Cargar .env
+	err := godotenv.Load()
+	if err != nil {
+		fmt.Println("⚠️  No se pudo cargar el archivo .env")
+	}
+
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "4005"
+	}
+
+	origins := strings.Split(os.Getenv("CORS_ORIGIN"), ",")
+
+	http.HandleFunc("/", withCORS(soapHandler, origins))
+
+	fmt.Println("🟢 SOAP Server listening on http://localhost:" + port)
+	http.ListenAndServe(":"+port, nil)
 }

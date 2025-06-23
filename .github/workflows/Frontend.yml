@@ -20,6 +20,23 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
+
+      - name: Reemplazar valores en el archivo .env
+        run: |
+          sed -i "s|^BULL_USERS_HOST=.*|BULL_USERS_HOST=${{ secrets.BULL_USERS_HOST_QA }}|" .env
+          sed -i "s|^BULL_GENERATOR_HOST=.*|BULL_GENERATOR_HOST=${{ secrets.BULL_GENERATOR_HOST_QA }}|" .env
+          sed -i "s/^BULL_CHARACTER_HOST=.*/BULL_CHARACTER_HOST=${{ secrets.BULL_CHARACTER_HOST_QA }}/" .env
+          sed -i "s/^BULL_STORY_HOST=.*/BULL_STORY_HOST=${{ secrets.BULL_STORY_HOST_QA }}/" .env
+          sed -i "s|^API_JWT=.*|API_JWT=${{ secrets.API_JWT_QA }}|" .env
+          sed -i "s|^API_GPT2=.*|API_GPT2=${{ secrets.API_GPT2_QA }}|" .env
+          sed -i "s|^API_GPT2MEDIUM=.*|API_GPT2MEDIUM=${{ secrets.API_GPT2MEDIUM_QA }}|" .env
+          sed -i "s|^API_TRANSLATOR=.*|API_TRANSLATOR=${{ secrets.API_TRANSLATOR_QA }}|" .env
+
+      - name: Reemplazar URL de mensajes_user en JS
+        run: |
+          sed -i "s|__MESSAGES_USER__|${{ secrets.PORT_MESSAGES_USERS_QA }}|" js/messages_user.js
+
+
       # Install Docker and Docker Compose
       - name: Install Docker and Docker Compose
         run: |

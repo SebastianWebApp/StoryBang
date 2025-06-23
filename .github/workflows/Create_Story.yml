@@ -33,6 +33,16 @@ jobs:
 
 
 
+      - name: Reemplazar valores en el archivo .env
+        run: |
+          sed -i "s/^BULL_STORY_HOST=.*/BULL_STORY_HOST=${{ secrets.BULL_STORY_HOST_QA }}/" .env
+          sed -i "s|^MONGODB=.*|MONGODB=${{ secrets.MONGODB_STORY_QA }}|" .env
+          sed -i "s|^PORT_MESSAGES_USERS=.*|PORT_MESSAGES_USERS=${{ secrets.PORT_MESSAGES_USERS_QA }}|" .env
+          sed -i "s|^API_JWT=.*|API_JWT=${{ secrets.API_JWT_QA }}|" .env
+
+
+
+
       # Install Docker and Docker Compose
       - name: Install Docker and Docker Compose
         run: |

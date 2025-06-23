@@ -32,6 +32,16 @@ jobs:
         run: npm test  # o npx jest si no tienes "test" en package.json
 
 
+
+
+
+      - name: Reemplazar valores en el archivo .env
+        run: |
+          sed -i "s/^CORS_ORIGIN=.*/CORS_ORIGIN=${{ secrets.CORS_ORIGIN_JWT_QA }}/" .env
+         
+
+
+
       # Install Docker and Docker Compose
       - name: Install Docker and Docker Compose
         run: |

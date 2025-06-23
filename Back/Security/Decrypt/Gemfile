@@ -6,4 +6,4 @@ gem 'graphql'
 gem 'json'
 gem 'rackup'
 gem 'puma'
-
+gem 'dotenv'

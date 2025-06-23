@@ -10,10 +10,29 @@ const app = express();
 const PORT = process.env.PORT;
 const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY;
 
+// app.use(cors({
+//     origin: process.env.CORS_ORIGIN,
+//     credentials: true
+// }));
+
 app.use(cors({
-    origin: process.env.CORS_ORIGIN,
-    credentials: true
+  origin: function (origin, callback) {
+    const allowedOrigins = process.env.CORS_ORIGIN.split(',');
+
+    if (allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    } else {
+      const msg = {
+        Status: false,
+        Response: "Origin not allowed by CORS"
+      };
+      return callback(new Error(JSON.stringify(msg)), false);
+    }
+  },
+  credentials: true
 }));
+
+
 app.use(express.json());
 app.use(cookieParser());
 

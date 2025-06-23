@@ -31,6 +31,13 @@ jobs:
       - name: Run Jest tests
         run: npm test  # o npx jest si no tienes "test" en package.json
 
+      - name: Reemplazar valores en el archivo .env
+        run: |
+          sed -i "s/^BULL_GENERATOR_HOST=.*/BULL_GENERATOR_HOST=${{ secrets.BULL_GENERATOR_HOST_QA }}/" .env
+          sed -i "s|^API_GROK=.*|API_GROK=${{ secrets.API_GROK_QA }}|" .env
+          sed -i "s|^PORT_MESSAGES_USERS=.*|PORT_MESSAGES_USERS=${{ secrets.PORT_MESSAGES_USERS_QA }}|" .env
+          sed -i "s|^API_JWT=.*|API_JWT=${{ secrets.API_JWT_QA }}|" .env
+
 
 
       # Install Docker and Docker Compose
