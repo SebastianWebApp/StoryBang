@@ -4,6 +4,53 @@
 ## Description
 The Messages_User microservice is a real-time messaging system based on Socket.IO, enabling bidirectional communication between users. It is specifically designed to handle profile updates and real-time notifications.
 
+## Flowchart of the Real-Time Notification System (Socket.IO)
+
+This flowchart outlines the real-time communication logic using Socket.IO. When a user connects through a Socket.IO client, the Express server handles the initialization and connection events.
+
+The server listens for specific client events like `joinRoom` to subscribe the user to a room (identified by an ID), and `Profile`, which triggers a notification broadcast to the corresponding room with the status and message payload.
+
+This architecture supports scalable communication by using rooms and provides CORS configuration, environment setup via dotenv, containerized deployment with Docker, and automated testing with Jest.
+
+```mermaid
+flowchart TD
+    %% Inicio del flujo
+    A[User connects via Socket IO client] --> B[Express HTTP server js initializes Socket IO]
+    B --> C[Socket IO connection event]
+
+    %% Unirse a sala
+    C --> D{Client emits joinRoom}
+    D -- Yes --> E[socket join room]
+    E --> F[User is now in the specified room]
+
+    %% Envío de mensaje de perfil
+    C --> G{Client emits Profile}
+    G -- Yes --> H[Extract Id Message Status Number]
+    H --> I[io to Id emit Profile Response with Message Status Number]
+    I --> J[All clients in room Id receive Profile Response]
+
+    %% Fin del flujo
+    J --> K[User receives real time notification]
+
+    %% Manejo de CORS y configuración
+    B --> L[dotenv loads PORT from env]
+    B --> M[Socket IO CORS origin star methods GET POST]
+
+    %% Docker y pruebas
+    N[Dockerfile docker compose yml Containerized deployment]
+    O[jest config js and tests server test js Automated tests]
+
+    %% Leyenda
+    subgraph Legend [Legend]
+        direction LR
+        L1[server js Main entry Express Socket IO logic]
+        L2[env Port configuration]
+        L3[Dockerfile Container build]
+        L4[jest config js tests Testing]
+    end
+
+```
+
 ## Features
 - Real-time communication using Socket.IO
 - Room-based system for targeted messaging

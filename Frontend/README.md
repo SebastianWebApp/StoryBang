@@ -4,6 +4,71 @@ This is the frontend for Proyecto Octavo, a web application that allows users to
 
 ---
 
+## Flowchart of the Frontend Routing and Access Control
+
+This flowchart illustrates the routing logic of the Express backend that serves both HTML pages and API endpoints. It shows how user requests are handled when accessing URLs such as `/`, `/home`, or `/character_creator`, and how JWT validation is performed before serving protected routes.
+
+```mermaid
+flowchart TD
+    %% Inicio del flujo
+    A[User accesses frontend URL such as / or /home or /character_creator] --> B[Express app server js]
+
+    %% Middleware y configuración
+    B --> C[Load env set up CORS JSON cookies]
+    B --> D[Serve static files and HTML views from views]
+
+    %% Rutas principales
+    B --> E{Route requested}
+    E -- / --> F[Send index html]
+    E -- /create_account --> G[Send create_account html]
+    E -- /verification_code --> H[Send verification_code html]
+    E -- /forgot_password --> I[Send forgot_password html]
+    E -- /home --> J[JWT Middleware read jwt js]
+    J -- Invalid JWT --> K[Redirect to login or show error]
+    J -- Valid JWT --> L[Send home html]
+    E -- /user_profile --> M[JWT Middleware]
+    M -- Invalid JWT --> K
+    M -- Valid JWT --> N[Send user_profile html]
+    E -- /character_creator --> O[JWT Middleware]
+    O -- Invalid JWT --> K
+    O -- Valid JWT --> P[Send character_creator html]
+
+    %% Rutas API
+    B --> Q[API Routers]
+    Q --> R[router_create_account]
+    Q --> S[router_generator]
+    Q --> T[router_character]
+    Q --> U[router_story]
+    R --> V[Controllers business logic]
+    S --> V
+    T --> V
+    U --> V
+
+    %% Servicios auxiliares
+    V --> W[Services JWT validation and data access]
+
+    %% Interacción cliente
+    D --> X[Client loads HTML CSS JS]
+    X --> Y[User interacts with UI and sends API calls]
+    Y --> Q
+
+    %% Respuesta al usuario
+    V --> Z[Send JSON or HTML response]
+    Z --> AA[Frontend updates UI or navigates]
+
+    %% Leyenda
+    subgraph Legend
+        direction LR
+        L1[server js Express app with routes and middleware]
+        L2[Controllers handle business logic]
+        L3[Routers connect endpoints to controllers]
+        L4[Services handle JWT and data logic]
+        L5[views contain HTML pages]
+        L6[css and js contain static assets]
+    end
+
+```
+
 ## Project Structure
 
 ```
