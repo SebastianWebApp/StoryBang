@@ -22,7 +22,25 @@ This subsystem is responsible for AI-powered content generation in the Proyecto 
 
 ---
 
-## 🧱 High-Level Architecture
+## 🧱 High-Level Architecture Infrastructure
+```mermaid
+graph TD
+    A[External User] -->|Access| B[Frontend]
+    B -->|Authentication| C[User]
+    B -->|Notifications| D[Message]
+    B -->|Query/Display| E[Character]
+    B -->|Query/Display| F[Story]
+    B -->|Generation| G[Generate]
+    B -->|Permissions| H[Security]
+    B -->|Orchestrator| I[Orchestrator]
+```
+
+## 🧱 Low-Level Architecture Infrastructure
+![Low Level Architecture](low_architecture.png)
+
+
+
+## 🧱 High-Level Architecture Software 
 ```mermaid
 flowchart TD
     A[Frontend: Express server js] --> B[Routes and Views]
@@ -49,7 +67,7 @@ flowchart TD
 
 ```
 
-## 🧱 Low-Level Architecture (Frontend to Backend Flow)
+## 🧱 Low-Level Architecture Software (Frontend to Backend Flow)
 ```mermaid
 flowchart TD
     A[User accesses Frontend] --> B[Frontend Express server js]
@@ -223,6 +241,70 @@ erDiagram
 
 
 
+
+
+## 🧱 Use Case Diagram
+```mermaid
+graph TB
+    User((User))
+    Admin((Admin))
+
+    subgraph User Actions
+        UC1[Create Character]
+        UC2[Read Character]
+        UC3[Update Character]
+        UC4[Delete Character]
+        UC5[Generate Story]
+        UC6[Generate Image]
+        UC7[Describe Image]
+        UC8[Translate Text]
+        UC9[Login]
+        UC10[Register]
+        UC11[Recover Password]
+        UC12[View Profile]
+        UC13[Update Profile]
+    end
+
+    subgraph Admin Actions
+        AC1[Monitor Service]
+        AC2[Manage Users]
+        AC3[View Logs]
+    end
+
+    subgraph Common Requirement
+        JWT[Authenticate via JWT]
+    end
+
+    User --> UC1
+    User --> UC2
+    User --> UC3
+    User --> UC4
+    User --> UC5
+    User --> UC6
+    User --> UC7
+    User --> UC8
+    User --> UC9
+    User --> UC10
+    User --> UC11
+    User --> UC12
+    User --> UC13
+
+    Admin --> AC1
+    Admin --> AC2
+    Admin --> AC3
+
+    UC1 --> JWT
+    UC2 --> JWT
+    UC3 --> JWT
+    UC4 --> JWT
+    UC5 --> JWT
+    UC6 --> JWT
+    UC7 --> JWT
+    UC8 --> JWT
+    UC12 --> JWT
+    UC13 --> JWT
+
+```
 
 ## Main Generator Services
 

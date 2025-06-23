@@ -68,6 +68,51 @@ flowchart TD
     end
 
 ```
+## Frontend State Flow Diagram
+
+```mermaid
+stateDiagram-v2
+    [*] --> Start
+    Start: User opens frontend web or app
+
+    Start --> RouteRequested: User requests a URL like home or character_creator
+
+    state RouteRequested {
+        [*] --> PublicRoute
+        [*] --> ProtectedRoute
+
+        PublicRoute: Public route like create_account or forgot_password
+        ProtectedRoute: Protected route like home or user_profile or character_creator
+
+        PublicRoute --> ServeHTML: Serve HTML from views
+        ProtectedRoute --> JWTCheck: JWT Middleware from Services read_jwt js
+        JWTCheck --> InvalidJWT: Invalid JWT
+        JWTCheck --> ValidJWT: Valid JWT
+
+        InvalidJWT --> ShowError: Redirect to login or show error
+        ValidJWT --> ServeProtectedHTML: Serve protected HTML from views
+    }
+
+    ServeHTML --> UserInteracts
+    ServeProtectedHTML --> UserInteracts
+    ShowError --> [*]
+
+    state UserInteracts {
+        [*] --> APIRequest
+        APIRequest: User triggers API call via fetch or AJAX
+        APIRequest --> RouterLayer: Routers like character js or story js or login js
+        RouterLayer --> ControllerLayer: Controllers like character js or story js or login js
+        ControllerLayer --> ServiceLayer: Services like jwt js or API clients
+        ServiceLayer --> BackendCall: Call backend microservice or database
+
+        BackendCall --> ResponseReady: Receive response or notification
+        ResponseReady --> UpdateUI: Frontend updates UI
+        UpdateUI --> [*]
+    }
+
+    ShowError --> [*]
+
+```
 
 ## Project Structure
 
