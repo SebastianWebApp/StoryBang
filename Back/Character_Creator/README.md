@@ -19,7 +19,7 @@ flowchart TD
     D -- No --> E[Notify: Session expired]
     D -- Yes --> F[UserService processes character request]
 
-    F --> G[Mongo_Character (create/read/update/delete)]
+    F --> G[Mongo_Character create_read_update_delete]
     G --> H[MongoDB]
 
     F --> I[Notify: Operation completed successfully]
