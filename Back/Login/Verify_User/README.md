@@ -5,29 +5,29 @@ This service is part of a distributed system that manages user verification thro
 ```mermaid
 flowchart TD
     %% Inicio del flujo
-    A[Job submitted to Bull queue "Verify_User"<br>with {Id, Password, Token}] --> B[server.js<br>Queue processor]
+    A[Job submitted to Bull queue Verify User with Id Password Token] --> B[server.js Queue processor]
 
     %% Proceso de la cola
-    B --> C[JWTService.verifyToken(Token)]
-    C -- Invalid Token --> D[NotificationService.sendNotification(Id, false, "Session expired. Please log in again.")]
-    C -- Valid Token --> E[VerificationService.verifyUser({Id, Password, Token})]
+    B --> C[JWTService verifyToken Token]
+    C -- Invalid Token --> D[NotificationService sendNotification Id false Session expired Please log in again]
+    C -- Valid Token --> E[VerificationService verifyUser with Id Password Token]
 
     %% Lógica de verificación
-    E --> F[UserService.findUserById(Id)]
+    E --> F[UserService findUserById Id]
     F --> G{User found?}
-    G -- No --> H[NotificationService.sendNotification(Id, false, "The user does not exist")]
-    G -- Yes --> I[DecryptionService.decryptData(Phone, Password)]
+    G -- No --> H[NotificationService sendNotification Id false The user does not exist]
+    G -- Yes --> I[DecryptionService decryptData Phone Password]
     I --> J{Decryption successful?}
-    J -- No --> K[NotificationService.sendNotification(Id, false, "Error decrypting your information")]
-    J -- Yes --> L{Decrypted password === job Password?}
-    L -- No --> M[NotificationService.sendNotification(Id, false, "The password is incorrect.")]
-    L -- Yes --> N[NotificationService.sendNotification(Id, true, "The user exist")]
+    J -- No --> K[NotificationService sendNotification Id false Error decrypting your information]
+    J -- Yes --> L{Decrypted password equals job Password?}
+    L -- No --> M[NotificationService sendNotification Id false The password is incorrect]
+    L -- Yes --> N[NotificationService sendNotification Id true The user exist]
 
     %% Manejo de errores generales
-    E -->|Exception| O[NotificationService.sendNotification(Id, false, "Error processing job")]
+    E -->|Exception| O[NotificationService sendNotification Id false Error processing job]
 
     %% Comunicación con usuario
-    D -.-> P[Socket.IO Notification]
+    D -.-> P[Socket IO Notification]
     H -.-> P
     K -.-> P
     M -.-> P
@@ -41,15 +41,16 @@ flowchart TD
     %% Leyenda
     subgraph Legend [Legend]
         direction LR
-        L1[server.js: Main entry, Bull queue, service orchestration]
-        L2[Services/jwt.service.js: JWTService, token validation (calls external API)]
-        L3[Services/verification.service.js: VerificationService, main verification logic]
-        L4[Services/user.service.js: UserService, fetches user from MySQL]
-        L5[Services/decryption.service.js: DecryptionService, decrypts credentials via GraphQL]
-        L6[Services/notification.service.js: NotificationService, sends Socket.IO notifications]
-        L7[Config/redis.config.js: Redis config for Bull queue]
-        L8[Database/connect.js: MySQL connection pool]
+        L1[server.js Main entry Bull queue service orchestration]
+        L2[Services jwt.service.js JWTService token validation calls external API]
+        L3[Services verification.service.js VerificationService main verification logic]
+        L4[Services user.service.js UserService fetches user from MySQL]
+        L5[Services decryption.service.js DecryptionService decrypts credentials via GraphQL]
+        L6[Services notification.service.js NotificationService sends Socket IO notifications]
+        L7[Config redis.config.js Redis config for Bull queue]
+        L8[Database connect.js MySQL connection pool]
     end
+
 ```
 
 ## Features

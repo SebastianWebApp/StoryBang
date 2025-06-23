@@ -5,43 +5,44 @@ This service is part of a distributed system responsible for handling user verif
 ```mermaid
 flowchart TD
     %% Inicio del flujo
-    A[Kafka topic "Verification":<br>VerificationMessage received] --> B[Program.cs:<br>Kafka Consumer loop]
+    A[Kafka topic Verification - VerificationMessage received] --> B[Program.cs - Kafka Consumer loop]
 
     %% Procesamiento del mensaje
     B --> C[Deserialize VerificationMessage]
-    C --> D[VerificationService.ProcessVerificationMessageAsync(msg)]
+    C --> D[VerificationService ProcessVerificationMessageAsync msg]
 
     %% Lógica de verificación
     D --> E[Generate verification code]
-    E --> F[TwilioWhatsappService.SendMessage(phone, code)]
-    E --> G[RedisCodeStorageService.StoreCode(phone, code)]
+    E --> F[TwilioWhatsappService SendMessage phone code]
+    E --> G[RedisCodeStorageService StoreCode phone code]
 
     %% Notificación en tiempo real
-    F --> H[SocketNotificationService.Notify(phone, "Code sent")]
+    F --> H[SocketNotificationService Notify phone Code sent]
     G --> H
 
     %% Webhook de estado de mensaje
-    I[Twilio webhook POST /] --> J[Program.cs:<br>app.MapPost("/")]
-    J --> K[Log status update,<br>optionally notify via SocketNotificationService]
+    I[Twilio webhook POST slash] --> J[Program.cs - app MapPost slash]
+    J --> K[Log status update optionally notify via SocketNotificationService]
 
     %% Manejo de errores
-    D -->|Error| L[SocketNotificationService.Notify(phone, "Error sending code")]
+    D -->|Error| L[SocketNotificationService Notify phone Error sending code]
 
-    %% Componentes principales
+    %% Clases principales
     classDef service fill:#f9f,stroke:#333,stroke-width:2px;
     class D,E,F,G,H,L service;
 
     %% Leyenda
     subgraph Legend [Legend]
         direction LR
-        L1[Program.cs: Entry point, Kafka consumer, webhook, DI]
-        L2[Services/VerificationService.cs: Orchestrates verification process]
-        L3[Services/Implementations/TwilioWhatsappService.cs: Sends WhatsApp via Twilio]
-        L4[Services/Implementations/RedisCodeStorageService.cs: Stores codes in Redis]
-        L5[Services/Implementations/SocketNotificationService.cs: Real-time notifications]
-        L6[Models/VerificationMessage.cs: Message data model]
-        L7[Config/AppConfig.cs: Loads env/config]
+        L1[Program.cs Entry point Kafka consumer webhook DI]
+        L2[Services VerificationService Orchestrates verification process]
+        L3[Services Implementations TwilioWhatsappService Sends WhatsApp via Twilio]
+        L4[Services Implementations RedisCodeStorageService Stores codes in Redis]
+        L5[Services Implementations SocketNotificationService Real time notifications]
+        L6[Models VerificationMessage Message data model]
+        L7[Config AppConfig Loads env config]
     end
+
 ```
 
 ## Features

@@ -15,37 +15,37 @@ flowchart TD
     C -- Valid Token --> E[VerificationService processVerification job.data]
 
     %% Verification logic
-    E --> F[connectToDB query CALL ReadRecord(Id)]
+    E --> F[connectToDB query CALL ReadRecord Id]
     F --> G{User exists in DB?}
     G -- Yes --> H[NotificationService sendNotification Id false User exists]
-    G -- No --> I[KafkaService sendMessage {Id, Phone}]
+    G -- No --> I[KafkaService sendMessage Id Phone]
 
     %% General error handling
     E -->|Exception| J[NotificationService sendNotification Id false Error processing job]
 
     %% User communication
-    D -.-> K[Socket.IO Notification]
+    D -.-> K[Socket IO Notification]
     H -.-> K
     J -.-> K
 
     %% Initialization and setup
-    L[server.js loads .env, sets up Express]
-    L --> M[Test_Connection Controllers/test_connection.js]
+    L[server.js loads env sets up Express]
+    L --> M[Test Connection Controllers test_connection.js]
     L --> N[KafkaService createTopicIfNotExists TOPIC]
     L --> O[Queue Verification setup with redisConfig]
 
     %% Legend
     subgraph Legend
         direction LR
-        L1[server.js: Main entry, queue processing, Kafka topic setup]
-        L2[Services/jwt.service.js: JWTService, token validation (external API)]
-        L3[Services/verification.service.js: VerificationService, DB check and Kafka integration]
-        L4[Services/notification.service.js: NotificationService, sends Socket.IO notifications]
-        L5[Services/kafka.service.js: KafkaService, topic management and messaging]
-        L6[Config/redis.config.js: Redis config for Bull queue]
-        L7[Config/kafka.config.js: Kafka config]
-        L8[Database/connect.js: MySQL connection pool]
-        L9[Controllers/test_connection.js: DB connection test]
+        L1[server.js Main entry queue processing Kafka topic setup]
+        L2[Services jwt.service.js JWTService token validation external API]
+        L3[Services verification.service.js VerificationService DB check Kafka integration]
+        L4[Services notification.service.js NotificationService sends Socket IO notifications]
+        L5[Services kafka.service.js KafkaService topic management messaging]
+        L6[Config redis.config.js Redis config for Bull queue]
+        L7[Config kafka.config.js Kafka config]
+        L8[Database connect.js MySQL connection pool]
+        L9[Controllers test_connection.js DB connection test]
     end
 
 ```
