@@ -33,7 +33,7 @@ flowchart TD
         L4[Database: MongoDB]
         L5[Socket.IO]
     end
-
+```
 
 
 ## Folder Summaries
