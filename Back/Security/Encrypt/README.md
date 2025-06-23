@@ -1,4 +1,3 @@
-```markdown
 # Encrypt Microservice
 
 A SOAP-based microservice for encrypting sensitive data using AES-256-CFB encryption algorithm, implemented in Go using the Command pattern.
