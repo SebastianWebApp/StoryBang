@@ -3,7 +3,7 @@ name: StoryBang-Delete_Story
 on:
   push:
     branches:
-      - Prod  # Cambia según sea necesario
+      - QA  # Cambia según sea necesario
     paths:
       - 'Back/Story/Delete_Story/**'  # Solo activa el workflow si hay cambios en esta carpeta
 
@@ -30,6 +30,11 @@ jobs:
 
       - name: Run Jest tests
         run: npm test  # o npx jest si no tienes "test" en package.json
+
+
+      - name: Reemplazar nombre de imagen en docker-compose.yml
+        run: |
+          sed -i "s|^\s*image: .*|    image: sebastianwebapp/story_bang_delete_story_${{ secrets.IMAGE_TAG_QA }}|" docker-compose.yml
 
 
       - name: Reemplazar valores en el archivo .env

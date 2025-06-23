@@ -3,7 +3,7 @@ name: StoryBang-Deploy
 on:
   push:
     branches:
-      - Prod  # Cambia según sea necesario
+      - QA  # Cambia según sea necesario
     paths:
       - 'Back/Deploy/**'  # Solo activa el workflow si hay cambios en esta carpeta
 
@@ -19,6 +19,12 @@ jobs:
       # Checkout the repository code
       - name: Checkout code
         uses: actions/checkout@v3
+
+
+      - name: Reemplazar nombre de imagen en docker-compose.yml
+        run: |
+          sed -i "s|^\s*image: .*|    image: sebastianwebapp/story_bang_deploy_${{ secrets.IMAGE_TAG_QA }}|" docker-compose.yml
+
 
       # Install Docker and Docker Compose
       - name: Install Docker and Docker Compose

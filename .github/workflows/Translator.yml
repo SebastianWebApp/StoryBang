@@ -3,7 +3,7 @@ name: StoryBang-Translator
 on:
   push:
     branches:
-      - Prod
+      - QA
     paths:
       - 'Back/Translator/**'
 
@@ -18,6 +18,12 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
+
+
+      - name: Reemplazar nombre de imagen en docker-compose.yml
+        run: |
+          sed -i "s|^\s*image: .*|    image: sebastianwebapp/story_bang_translator_${{ secrets.IMAGE_TAG_QA }}|" docker-compose.yml
+
 
       - name: Reemplazar valores en el archivo .env
         run: |

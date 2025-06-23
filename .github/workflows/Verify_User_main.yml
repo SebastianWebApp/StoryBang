@@ -1,11 +1,11 @@
-name: StoryBang-Whatsapp
+name: StoryBang-Verify_User_main
 
 on:
   push:
     branches:
-      - QA  # Cambia según sea necesario
+      - main  # Cambia según sea necesario
     paths:
-      - 'Back/Login/Whatsapp/**'  # Solo activa el workflow si hay cambios en esta carpeta
+      - 'Back/Login/Verify_User/**'  # Solo activa el workflow si hay cambios en esta carpeta
 
 jobs:
   build-and-push:
@@ -13,24 +13,38 @@ jobs:
 
     defaults:
       run:
-        working-directory: Back/Login/Whatsapp  # Todos los comandos correrán desde esta carpeta
+        working-directory: Back/Login/Verify_User  # Todos los comandos correrán desde esta carpeta
 
     steps:
       # Checkout the repository code
       - name: Checkout code
         uses: actions/checkout@v3
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18  # O ajusta a tu versión
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run Jest tests
+        run: npm test  # o npx jest si no tienes "test" en package.json
+
+
       - name: Reemplazar nombre de imagen en docker-compose.yml
         run: |
-          sed -i "s|^\s*image: .*|    image: sebastianwebapp/story_bang_whatsapp_${{ secrets.IMAGE_TAG_QA }}|" docker-compose.yml
+          sed -i "s|^\s*image: .*|    image: sebastianwebapp/story_bang_verify_user_${{ secrets.IMAGE_TAG_MAIN }}|" docker-compose.yml
 
 
       - name: Reemplazar valores en el archivo .env
         run: |
-          sed -i "s|^KAFKA_PORT=.*|KAFKA_PORT=${{ secrets.KAFKA_PORT_QA }}|" .env
-          sed -i "s|^PORT_DB_CODE=.*|PORT_DB_CODE=${{ secrets.PORT_DB_CODE_QA }}|" .env
-          sed -i "s|^WEBHOOK=.*|WEBHOOK=${{ secrets.WEBHOOK_QA }}|" .env
-          sed -i "s|^PORT_MESSAGES_USERS=.*|PORT_MESSAGES_USERS=${{ secrets.PORT_MESSAGES_USERS_QA }}|" .env
+          sed -i "s/^BULL_USERS_HOST=.*/BULL_USERS_HOST=${{ secrets.BULL_USERS_HOST_MAIN }}/" .env
+          sed -i "s|^MYSQL_HOST=.*|MYSQL_HOST=${{ secrets.MYSQL_HOST_MAIN }}|" .env
+          sed -i "s|^PORT_MESSAGES_USERS=.*|PORT_MESSAGES_USERS=${{ secrets.PORT_MESSAGES_USERS_MAIN }}|" .env
+          sed -i "s|^PORT_DECRYPT=.*|PORT_DECRYPT=${{ secrets.PORT_DECRYPT_MAIN }}|" .env
+          sed -i "s|^API_JWT=.*|API_JWT=${{ secrets.API_JWT_MAIN }}|" .env
+
 
 
 
