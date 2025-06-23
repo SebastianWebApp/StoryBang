@@ -36,8 +36,7 @@ graph TD
 ```
 
 ## 🧱 Low-Level Architecture Infrastructure
-[View PDF document](path-or-url-to-the-file.pdf)
-
+[View PDF document](./low_architecture.pdf)
 
 
 
