@@ -4,6 +4,38 @@ This directory contains the microservices for character management in the Proyec
 
 ---
 
+
+```mermaid
+flowchart TD
+    A[User submits character creation request to Bull queue]
+    A -->|Queue Bull| B[Create_Character Service in server.js]
+    B --> C[Process_Queue listens for Create_Character jobs]
+
+    C --> D{Token válido?}
+    D -- No --> E[Notify: Session expired]
+    D -- Sí --> F[UserService processes character]
+
+    F --> G[Mongo_Character save]
+    G --> H[MongoDB]
+
+    F --> I[Notify: Character created correctly]
+    C -->|Error| J[Notify: Error processing job]
+
+    E -.-> K[Socket.IO Notification]
+    I -.-> K
+    J -.-> K
+
+    subgraph Legend [Leyenda]
+        direction LR
+        L1[server.js: Bull + Express]
+        L2[Services: jwt, user, notification]
+        L3[Config: mongo, redis]
+        L4[Database: MongoDB]
+        L5[Socket.IO]
+    end
+
+
+
 ## Folder Summaries
 
 ### Create_Character
