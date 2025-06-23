@@ -22,6 +22,142 @@ This subsystem is responsible for AI-powered content generation in the Proyecto 
 
 ---
 
+## 🧱 High-Level Architecture
+```mermaid
+flowchart TD
+    A[Frontend: Express server js] --> B[Routes and Views]
+    B --> C[Controllers and Services]
+    C --> D[Microservices Layer]
+
+    D --> E[Login Service]
+    D --> F[Character Service]
+    D --> G[Story Service]
+    D --> H[Generator Service]
+    D --> I[Security Service]
+    D --> J[Socket IO Notification Service]
+
+    H --> K[GPT2 Flask API]
+    H --> L[Redis Bull Queue for GROK]
+    L --> M[Worker processes GROK job]
+    M --> J
+
+    I --> N[JWT Service]
+    I --> O[Encryption Service]
+    I --> P[Decryption Service]
+
+    D --> Q[Database Layer: MySQL MongoDB Redis]
+
+```
+
+## 🧱 Low-Level Architecture (Frontend to Backend Flow)
+```mermaid
+flowchart TD
+    A[User accesses Frontend] --> B[Frontend Express server js]
+
+    B --> C{Route requested}
+    C -- Public route --> D[Serve HTML from views]
+    C -- Protected route --> E[JWT Middleware Services read_jwt js]
+    E -- Invalid JWT --> F[Redirect to login or show error]
+    E -- Valid JWT --> G[Serve protected HTML from views]
+
+    D & G --> H[User triggers API call via AJAX or fetch]
+    H --> I[Frontend Routers]
+    I --> J[Frontend Controllers]
+    J --> K[Frontend Services]
+
+    K --> L{API Endpoint}
+    L -- Login --> M[Microservices Create_User Delete_User]
+    L -- Story --> N[Microservices Create_Story Read_Story]
+    L -- Character --> O[Microservices Create_Character etc]
+    L -- Generator --> P[Microservices Gpt2_Text_Generator Grok_Text_Generator]
+    L -- Security --> Q[Microservices Jwt Encrypt Decrypt]
+    L -- Messages --> R[Socket IO Server]
+
+    M --> S[JWT Microservice]
+    S -- Valid --> T[Return JWT]
+    S -- Invalid --> F
+
+    P --> U{Service type}
+    U -- GPT2 --> V[REST call to Flask service]
+    U -- GROK --> W[Add job to Bull Queue in Redis]
+    W --> X[Worker processes job calls GROK API]
+    X --> Y[Notification via Socket IO]
+
+    T & Y & N & O --> Z[Frontend receives response or notification]
+    Z --> AA[Frontend updates UI]
+
+    R --> AB[User joins Socket IO room]
+    AB --> AC[Receives real-time notifications]
+
+```
+
+
+## 🧱 Low-Level System Architecture and Connection Flow
+```mermaid
+flowchart TD
+    %% INICIO DEL FLUJO
+    A[User accesses Frontend - web or app] --> B[Frontend Express - server.js]
+
+    %% FRONTEND ROUTING Y AUTENTICACIÓN
+    B --> C{Route requested}
+    C -- Public route --> D[Serve HTML from views]
+    C -- Protected route --> E[JWT Middleware - read_jwt.js]
+    E -- Invalid JWT --> F[Redirect to login or show error]
+    E -- Valid JWT --> G[Serve protected HTML from views]
+
+    %% INTERACCIÓN DEL USUARIO
+    D --> H[User triggers API call]
+    G --> H
+    H --> I[Frontend Routers]
+    I --> J[Frontend Controllers]
+    J --> K[Frontend Services - JWT and API calls]
+
+    %% LLAMADAS A BACKEND
+    K --> L{API Endpoint}
+    L -- Login --> M[Login Services - CreateUser, DeleteUser]
+    L -- Story --> N[Story Services - CreateStory, ReadStory]
+    L -- Character --> O[Character Services - CreateCharacter]
+    L -- Generator --> P[Generator Services - Gpt2Text, GrokText]
+    L -- Security --> Q[Security Services - JWT, Encrypt, Decrypt]
+    L -- Messages --> R[Socket IO Notifications]
+
+    %% FLUJO DE AUTENTICACIÓN
+    M --> S[JWT Microservice]
+    S -- Valid --> T[Return JWT to Frontend]
+    S -- Invalid --> F
+
+    %% FLUJO DE GENERACIÓN
+    P --> U{Service Type}
+    U -- GPT2 --> V[REST API call to Flask service]
+    U -- GROK --> W[Add job to Bull queue - Redis]
+    W --> X[Worker processes job and calls GROK API]
+    X --> Y[Notify user via Socket IO]
+
+    %% RESPUESTA AL USUARIO
+    T --> Z[Frontend receives response]
+    Y --> Z
+    N --> Z
+    O --> Z
+    Z --> AA[Frontend updates UI]
+
+    %% NOTIFICACIONES EN TIEMPO REAL
+    R --> AB[User joins Socket IO room]
+    AB --> AC[User receives real-time notifications]
+
+    %% LEYENDA
+    subgraph Legend
+        direction LR
+        L1[Frontend - Express, Routers, Controllers, Services, views]
+        L2[Backend - Microservices for Login, Story, Character, Generator, Security, Messages]
+        L3[Security - JWT, Encrypt, Decrypt]
+        L4[Generator - GPT2 with Flask and GROK with Bull and Redis]
+        L5[Messages - Real-time updates with Socket IO]
+    end
+```
+
+
+
+
 ## 🧱 Database Architecture and Redis Bull Queues Configuration
 ```mermaid
 erDiagram
@@ -81,6 +217,11 @@ erDiagram
 
   
 ```
+
+
+
+
+
 
 
 ## Main Generator Services
