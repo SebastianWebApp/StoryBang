@@ -2,6 +2,40 @@
 
 This microservice is part of the Proyecto Octavo platform and is responsible for [describe the main responsibility, e.g., creating, reading, updating, or deleting user stories]. It is built with Node.js, Express, Bull for job queueing, MongoDB for storage, and Redis for queue management. The service is containerized with Docker for easy deployment and integrates with other platform services via Socket.IO and JWT authentication.
 
+## Flowchart of the Story Module
+
+This flowchart represents the general architecture of the Story module, including not only story creation but also reading, updating, and deleting stories. All operations follow the same structure using Bull queues, JWT authentication, MongoDB for persistence, and real-time notifications through Socket.IO.
+
+```mermaid
+flowchart TD
+    A[User sends story request to Bull queue]
+    A -->|Queue Bull| B[Story Service in server.js]
+    B --> C[Process_Queue listens for Story jobs]
+
+    C --> D{Is token valid?}
+    D -- No --> E[Notify: Session expired]
+    D -- Yes --> F[UserService processes story request]
+
+    F --> G[Mongo_Story create_read_update_delete]
+    G --> H[MongoDB]
+
+    F --> I[Notify: Operation completed successfully]
+    C -->|Error| J[Notify: Error processing job]
+
+    E -.-> K[Socket.IO Notification]
+    I -.-> K
+    J -.-> K
+
+    subgraph Legend [Legend]
+        direction LR
+        L1[server.js: Bull + Express]
+        L2[Services: jwt, user, notification]
+        L3[Config: mongo, redis]
+        L4[Database: MongoDB]
+        L5[Socket.IO]
+    end
+```
+
 ---
 
 ## Table of Contents

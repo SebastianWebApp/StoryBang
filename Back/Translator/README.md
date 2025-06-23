@@ -4,6 +4,46 @@ This microservice provides a RESTful API for translating text using Meta's NLLB-
 
 ---
 
+## Flowchart of the Translation Module
+
+This flowchart represents the main architecture of the translation service module. It handles incoming translation requests, processes text with specialized services, manages error handling, and returns the translation result. The architecture uses a Flask app for routing, a translation service for handling translations, a text processor for managing special tags, and consistent JSON responses for success or error states.
+
+```mermaid
+flowchart TD
+    A[User sends POST request with JSON payload] --> B[Flask app main.py]
+    B --> C[NLLBTranslatorService]
+    B --> D[RegexTextProcessor]
+    B --> E[TranslationController]
+    E --> F[Translate route handler]
+    F --> G{Is text present?}
+    G -- No --> H[Return error: No text provided]
+    G -- Yes --> I[Protect tags]
+    I --> J[Split into sections]
+    J --> K[Translate batch]
+    K --> L[Join chunks]
+    L --> M[Restore tags]
+    M --> N[Format result]
+    N --> O[Return JSON success]
+    H --> P[Return JSON error]
+    F -->|Exception| P
+
+    classDef infra fill:#f9f,stroke:#333,stroke-width:2px;
+    classDef domain fill:#bbf,stroke:#333,stroke-width:2px;
+    classDef api fill:#bfb,stroke:#333,stroke-width:2px;
+    class C,D infra;
+    class E api;
+
+    subgraph Legend [Legend]
+        direction LR
+        L1[main.py: Flask app]
+        L2[TranslationController: route logic]
+        L3[NLLBTranslatorService: translation logic]
+        L4[RegexTextProcessor: text processing]
+        L5[Domain: abstract base classes]
+    end
+```
+
+
 ## Table of Contents
 
 - [Project Structure](#project-structure)
