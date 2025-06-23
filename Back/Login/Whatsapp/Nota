@@ -1,0 +1,12 @@
+Crear Carpeta dotnet new console -o KafkaDemo
+ 
+Correr: dotnet run
+
+Libreria: dotnet add package Confluent.Kafka
+dotnet add package Twilio
+dotnet add package dotenv.net
+dotnet add package StackExchange.Redis
+dotnet add package SocketIOClient
+
+n ngrok para el webhook
+ngrok http 4002

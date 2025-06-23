@@ -1,0 +1,9 @@
+services:
+  mysql_structure:
+    build:
+      context: ./ # En donde se encuentra el archivo Dockerfile
+    container_name: mysql_structure
+    image: sebastianwebapp/story_bang_mysql_structure:latest
+    ports:
+      - "4000:4000"  # Mapea el puerto 3000
+    restart: "no" 

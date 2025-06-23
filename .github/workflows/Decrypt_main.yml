@@ -1,0 +1,72 @@
+name: StoryBang-Decrypt_main
+
+on:
+  push:
+    branches:
+      - main  # Cambia según sea necesario
+    paths:
+      - 'Back/Security/Decrypt/**'  # Solo activa el workflow si hay cambios en esta carpeta
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: Back/Security/Decrypt  # Todos los comandos correrán desde esta carpeta
+
+    steps:
+      # Checkout the repository code
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+
+      - name: Reemplazar nombre de imagen en docker-compose.yml
+        run: |
+          sed -i "s|^\s*image: .*|    image: sebastianwebapp/story_bang_decrypt_${{ secrets.IMAGE_TAG_MAIN }}|" docker-compose.yml
+
+
+
+      - name: Reemplazar valores en el archivo .env
+        run: |
+          sed -i "s|^CORS_ORIGIN *=.*|CORS_ORIGIN=${{ secrets.CORS_ORIGIN_DECRYPT_MAIN }}|" .env
+
+
+
+      # Install Docker and Docker Compose
+      - name: Install Docker and Docker Compose
+        run: |
+          sudo apt-get update
+          if ! command -v docker &> /dev/null; then
+            echo "Docker no encontrado. Instalando..."
+            sudo apt-get install -y docker.io
+          else
+            echo "Docker ya está instalado."
+          fi
+
+          if ! command -v docker-compose &> /dev/null; then
+            echo "Docker Compose no encontrado. Instalando..."
+            sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+            sudo chmod +x /usr/local/bin/docker-compose
+          else
+            echo "Docker Compose ya está instalado."
+          fi
+
+          docker --version
+          docker-compose --version
+
+      # Log in to Docker Hub
+      - name: Log in to DockerHub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}  # Asegúrate de que los secretos estén configurados
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      # Build and push Docker images using Docker Compose
+      - name: Build and push Docker images with Docker Compose
+        run: |
+          docker-compose -f docker-compose.yml build
+          docker-compose -f docker-compose.yml push
+          # Verificar que las imágenes se enviaron correctamente
+          echo "Verificando imágenes enviadas a DockerHub:"
+          docker-compose -f docker-compose.yml images

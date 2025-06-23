@@ -1,0 +1,9 @@
+services:
+  orchestrator:
+    build:
+      context: ./ # En donde se encuentra el archivo Dockerfile
+    container_name: orchestrator
+    image: sebastianwebapp/story_bang_orchestrator:latest
+    ports:
+      - "4027:4027"  # Mapea el puerto 3000
+    restart: always # Reinicio del microservicio en caso de fallo
