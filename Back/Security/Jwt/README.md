@@ -1,7 +1,61 @@
-```markdown
+
 # JWT Microservice
 
 A microservice for handling JSON Web Token (JWT) operations, including token creation and verification.
+
+## JWT Creation and Verification Flow - Express.js
+
+Este diagrama describe el flujo de creación y verificación de JWTs en una API construida con Express.js.
+
+```mermaid
+flowchart TD
+    %% Inicio del flujo
+    A[User sends POST request to Create_Jwt or Verify_Jwt] --> B[Express app server js]
+
+    %% Middleware y configuración
+    B --> C[Load env with dotenv]
+    B --> D[Apply CORS policy from env]
+    B --> E[Parse JSON body]
+    B --> F[Parse cookies]
+
+    %% Rutas principales
+    B --> G[Route check]
+    G -- Create_Jwt --> H[POST Create_Jwt handler]
+    G -- Verify_Jwt --> I[POST Verify_Jwt handler]
+    G -- Not found --> J[404 handler]
+
+    %% Lógica de creación de JWT
+    H --> K[Id provided]
+    K -- No --> L[Return 400 with error message]
+    K -- Yes --> M[Create JWT with jwt sign]
+    M --> N[Return 200 with token]
+    M -- Error --> O[Return 500 with error message]
+
+    %% Lógica de verificación de JWT
+    I --> P[Token provided]
+    P -- No --> Q[Return 401 session expired]
+    P -- Yes --> R[Verify token with jwt verify]
+    R -- Valid --> S[Return 200 valid token]
+    R -- Invalid --> T[Return 401 invalid token]
+
+    %% 404 handler
+    J --> U[Return 404 resource not found]
+
+    %% Testing y Docker
+    V[Jest and Supertest for testing]
+    W[Dockerfile and docker compose for deployment]
+
+    %% Leyenda
+    subgraph Legend
+        direction LR
+        L1[server js Express app routes JWT logic]
+        L2[dotenv Loads env config]
+        L3[jwt Handles token creation and verification]
+        L4[cors and cookie parser Middleware]
+        L5[tests server test js Automated tests]
+        L6[Dockerfile and docker compose yml Deployment]
+    end
+```
 
 ## Features
 
