@@ -452,6 +452,3 @@ Back/Generator/
 
 ---
 
-## Authors
-
-Proyecto Octavo Team
