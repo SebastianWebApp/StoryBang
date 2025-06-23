@@ -3,7 +3,7 @@ name: StoryBang-Create_Character
 on:
   push:
     branches:
-      - Prod  # Cambia según sea necesario
+      - QA  # Cambia según sea necesario
     paths:
       - 'Back/Character_Creator/Create_Character/**'  # Solo activa el workflow si hay cambios en esta carpeta
 
