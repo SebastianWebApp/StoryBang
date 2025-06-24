@@ -1,0 +1,32 @@
+// Instalar
+
+// gem install sinatra  
+// gem install graphql   
+// gem install json
+// gem install rackup
+// gem install puma
+
+// Patron Decorator (estructural): permite agregar funcionalidades adicionales a un objeto de forma dinámica, 
+// sin modificar su clase original. Lo hace envolviendo el objeto con clases decoradoras que 
+// implementan la misma interfaz, ofreciendo una forma flexible y reutilizable de extender 
+// comportamientos.
+
+// Corre con ruby server.rb        
+
+
+// Como enviar para que se ejecute
+// // POST /
+// Content-Type: application/json
+
+// {
+//  {
+//   "query": "mutation Decrypt($phone: String!, $password: String!) { decrypt(phone: $phone, password: $password) { phone password } }",
+//   "variables": {
+//     "phone": "/xhwNp/Tws6ZWg==",
+//     "password": "uVF5bZqO"
+//   }
+// }
+
+// }
+
+

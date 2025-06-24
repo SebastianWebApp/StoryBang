@@ -1,0 +1,35 @@
+{
+  "name": "verificacion_whatsapp",
+  "version": "1.0.0",
+  "description": "Envió del mensaje de whatsapp con el código de verificación",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "SebastianWebApp"
+  },
+  "author": "Mateo Espinosa",
+  "license": "ISC",
+  "dependencies": {
+    "bull": "^4.16.5",
+    "cors": "2.8.5",
+    "dotenv": "16.4.7",
+    "express": "4.21.2",
+    "mysql2": "^3.14.1",
+    "redis": "4.7.0",
+    "twilio": "5.3.7"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.27.4",
+    "@babel/plugin-transform-modules-commonjs": "^7.27.1",
+    "@babel/preset-env": "^7.27.2",
+    "@types/jest": "^29.5.14",
+    "babel-jest": "^30.0.0-beta.3",
+    "jest": "^29.7.0",
+    "socket.io-client": "^4.8.1"
+  }
+}

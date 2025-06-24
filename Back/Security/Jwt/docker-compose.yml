@@ -1,0 +1,9 @@
+services:
+  jwt:
+    build: ./
+    container_name: jwt
+    image: sebastianwebapp/story_bang_jwt:latest
+    ports:
+      - "4012:4012"  
+      
+    restart: always # Reinicio del microservicio en caso de fallo

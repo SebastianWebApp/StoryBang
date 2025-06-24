@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StoryBang</title>
+    <link rel="stylesheet" href="/css/home.css">
+    <link rel="icon" href="/src/icon.jpg" type="image/jpg">
+</head>
+<body>
+    <div class="container">
+        <div class="left-panel">
+            <header class="app-header">
+                <div class="logo">
+                    <img src="../src/icon.jpg" alt="StoryBang" class="logo-img">
+                    <span>StoryBang</span>
+                </div>               
+            </header>
+
+            <div class="search-section">
+                <h1>StoryBang – Your stories in seconds</h1>
+                
+                <div class="search-option" onclick="window.location.href='/user_profile';">
+                    <div class="icon">📝</div>
+                    <div class="option-details">
+                        <span class="label">Edit Profile</span>
+                    </div>
+                </div>
+
+                <div class="search-option" onclick="window.location.href='/list';">
+                    <div class="icon">📚</div>
+                    <div class="option-details">
+                        <span class="label">My Stories</span>
+                    </div>
+                </div>
+
+                <div class="search-option active">
+                    <div class="icon">🎭</div>
+                    <div class="option-details">
+                        <span class="label">Bring Your Stories and Characters to Life</span>
+                    </div>
+                    <div class="arrow">→</div>
+                </div>
+
+                <div class="search-option" onclick="window.location.href='/';">
+                    <div class="icon">🚪</div>
+                    <div class="option-details">
+                        <span class="label">Sign Out</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="right-panel">
+            <div class="top-bar">
+                <div class="reputation">
+                    <span class="stars">⭐</span>
+                    <span class="author">Mateo Espinosa</span>
+                </div>
+            </div>
+
+            <div class="team-section">
+                <h2>Story Lab</h2>
+                <div class="cards-container">
+                    <div class="team-card" onclick="window.location.href='/story_creator';">
+                        <div class="icon">🎮</div>
+                        <h3>Your stories, your world</h3>
+                        <p>Create your own stories and make yourself, a family member, or a friend the main character.</p>                        
+                    </div>
+
+                    <div class="team-card" onclick="window.location.href='/character_creator';">
+                        <div class="icon">👥</div>
+                        <h3>Create a New Character</h3>
+                        <p>Bring a character to life based on yourself, your family, or your friends — and make them the star of your stories.</p>                       
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="/js/home.js"></script>
+</body>
+</html>

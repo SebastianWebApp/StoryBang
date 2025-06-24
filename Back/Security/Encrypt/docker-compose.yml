@@ -1,0 +1,10 @@
+version: "3.9"
+services:
+  encrypt:
+    build:
+      context: .
+    image: sebastianwebapp/story_bang_encrypt:latest
+    container_name: encrypt
+    restart: always
+    ports:
+      - "4005:4005"

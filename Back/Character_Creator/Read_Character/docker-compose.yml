@@ -1,0 +1,9 @@
+services:
+  read_first_character:
+    build:
+      context: ./ # En donde se encuentra el archivo Dockerfile
+    container_name: read_first_character
+    image: sebastianwebapp/story_bang_read_first_character:latest
+    ports:
+      - "4018:4018"  # Mapea el puerto 3000
+    restart: always # Reinicio del microservicio en caso de fallo
