@@ -32,7 +32,6 @@ jobs:
           sed -i "s/^BULL_USERS_HOST=.*/BULL_USERS_HOST=${{ secrets.BULL_USERS_HOST_MAIN }}/" .env
           sed -i "s|^MYSQL_HOST=.*|MYSQL_HOST=${{ secrets.MYSQL_HOST_MAIN }}|" .env
           sed -i "s|^PORT_MESSAGES_USERS=.*|PORT_MESSAGES_USERS=${{ secrets.PORT_MESSAGES_USERS_MAIN }}|" .env
-          sed -i "s|^PORT_DECRYPT=.*|PORT_DECRYPT=${{ secrets.PORT_DECRYPT_MAIN }}|" .env
           sed -i "s|^API_JWT=.*|API_JWT=${{ secrets.API_JWT_MAIN }}|" .env
 
       # Install Docker and Docker Compose
