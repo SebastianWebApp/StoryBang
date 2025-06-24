@@ -47,7 +47,7 @@ class Deployer {
 
     var cont = 0;
     var cont2 = 1;
-    var List = [0,1,8]
+    var List = [8,1,8]
     try {
 
       for (let i = 0; i < this.config.Scripts.length; i++) {        
