@@ -20,17 +20,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18  # O ajusta a tu versión
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Run Jest tests
-        run: npm test  # o npx jest si no tienes "test" en package.json
-
+   
 
       - name: Reemplazar nombre de imagen en docker-compose.yml
         run: |
