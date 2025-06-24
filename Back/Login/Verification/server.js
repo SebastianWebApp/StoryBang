@@ -25,14 +25,12 @@ const verificationQueue = new Queue("Verification", { redis: redisConfig });
 
 // Process verification jobs
 verificationQueue.process(5, async (job) => {
-console.log("1")
     // Verify JWT Token        
         const isValidToken = await jwtService.verifyToken(job.data.Token);
         if (!isValidToken) {
             await NotificationService.sendNotification(job.data.Id, false, "Session expired. Please log in again.");
             return;
         }
-        console.log("2")    
     await VerificationService.processVerification(job.data);
 });
 

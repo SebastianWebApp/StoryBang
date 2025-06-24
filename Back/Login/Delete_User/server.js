@@ -25,7 +25,6 @@ const jwtService = new JWTService();
 const DeleteUserQueue = new Queue("Delete_User", { redis: redisOptions });
 
 DeleteUserQueue.process(5, async (job) => {
-    console.log("1")
     try {    
         // Verify JWT Token        
         const isValidToken = await jwtService.verifyToken(job.data.Token);
@@ -33,7 +32,6 @@ DeleteUserQueue.process(5, async (job) => {
             await notificationService.notify(job.data.Id, false, "Session expired. Please log in again.");
             return;
         }
-        console.log("2")    
         await userService.deleteUser(job.data.Id);
         await notificationService.notify(job.data.Id, true, "Successfully deleted");    
     } catch (error) {
