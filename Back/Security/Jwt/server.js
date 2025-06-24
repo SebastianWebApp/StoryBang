@@ -41,6 +41,9 @@ const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY;
 
 app.use(cors({
   origin: function (origin, callback) {
+
+     console.log('Origin recibido:', origin);  // <--- aquí
+
     if (!origin) return callback(null, true);
     const allowedOrigins = process.env.CORS_ORIGIN.split(',').map(o => o.trim());
 
