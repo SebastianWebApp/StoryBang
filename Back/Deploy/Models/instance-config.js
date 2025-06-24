@@ -60,16 +60,16 @@ class InstanceConfig {
         mysql:latest
         
         
-    # Contenedor mysql_structure
-    docker pull sebastianwebapp/story_bang_mysql_structure:latest
+    # Contenedor story_bang_mysql_structure_qa
+    docker pull sebastianwebapp/story_bang_mysql_structure_qa:latest
     
-    docker stop mysql_structure || true
-    docker rm mysql_structure || true
+    docker stop story_bang_mysql_structure_qa || true
+    docker rm story_bang_mysql_structure_qa || true
     
-    docker run -d --name mysql_structure \
+    docker run -d --name story_bang_mysql_structure_qa \
         -p 4000:4000 \
         --restart no \
-        sebastianwebapp/story_bang_mysql_structure:latest
+        sebastianwebapp/story_bang_mysql_structure_qa:latest
         
 
     docker pull redis:latest
