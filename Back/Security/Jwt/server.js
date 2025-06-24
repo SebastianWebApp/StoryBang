@@ -15,23 +15,40 @@ const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY;
 //     credentials: true
 // }));
 
+// app.use(cors({
+//   origin: function (origin, callback) {
+//     const allowedOrigins = process.env.CORS_ORIGIN.split(',');
+
+
+//     if (!origin) {
+//       return callback(null, true);
+//     }
+
+//     if (allowedOrigins.includes(origin)) {
+//       return callback(null, true);
+//     } else {
+//       const msg = {
+//         Status: false,
+//         Response: "Origin not allowed by CORS"
+//       };
+//       return callback(new Error(JSON.stringify(msg)), false);
+//     }
+//   },
+//   credentials: true
+// }));
+
+
+
 app.use(cors({
   origin: function (origin, callback) {
-    const allowedOrigins = process.env.CORS_ORIGIN.split(',');
+    if (!origin) return callback(null, true);
+    const allowedOrigins = process.env.CORS_ORIGIN.split(',').map(o => o.trim());
 
-
-    if (!origin) {
-      return callback(null, true);
-    }
-
-    if (allowedOrigins.includes(origin)) {
+    if (allowedOrigins.some(allowedOrigin => origin.startsWith(allowedOrigin))) {
       return callback(null, true);
     } else {
-      const msg = {
-        Status: false,
-        Response: "Origin not allowed by CORS"
-      };
-      return callback(new Error(JSON.stringify(msg)), false);
+      console.log('Bloqueado por CORS:', origin);
+      return callback(new Error('Not allowed by CORS'), false);
     }
   },
   credentials: true
