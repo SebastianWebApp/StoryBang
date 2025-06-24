@@ -6,7 +6,6 @@ var API_JWT = process.env.API_JWT;
 
 export const Security_JWT = async (req, res) => {
 
-     console.log('Origin recibido:', API_JWT);  // <--- aquí
     try {
         const request = await fetch(API_JWT + `/Create_Jwt`, {
             method: "POST", // Changed to POST

@@ -9,5 +9,5 @@ export const redisOptions = {
 };
 
 export const createRedisClient = () => {
-    return createClient({ url: process.env.PORT_DB_CODE });
+    return createClient({ url: "redis://"+process.env.PORT_DB_CODE });
 };
