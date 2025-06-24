@@ -34,14 +34,14 @@ const CreateUserQueue = new Queue("Create_User", { redis: redisOptions });
 
 CreateUserQueue.process(5, async (job) => {
     try {
-
+console.log("1")
         // Verify JWT Token        
         const isValidToken = await jwtService.verifyToken(job.data.Token);
         if (!isValidToken) {
             await notificationService.notify(job.data.Id, false, "Session expired. Please log in again.");
             return;
         }
-
+console.log("2")
         const code = await redisService.getValue(job.data.Id);
 
         if (code === job.data.Code) {
@@ -51,6 +51,7 @@ CreateUserQueue.process(5, async (job) => {
                     job.data.Password
                 );
 
+                console.log("3")
                 await userService.createUser(
                     job.data.Id,
                     encryptedPhone,
@@ -58,6 +59,7 @@ CreateUserQueue.process(5, async (job) => {
                     job.data.Username,
                     job.data.Image
                 );
+                console.log("4")
                 await redisService.deleteValue(job.data.Id);
                 await notificationService.notify(job.data.Id, true, "User created successfully");
             } catch (error) {
