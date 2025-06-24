@@ -1,7 +1,7 @@
 class InstanceConfig {
   constructor() {
     this.IPs = [
-      "arn:aws:elasticloadbalancing:us-east-1:747763450211:targetgroup/Bases-Datos/a693740829657677",
+      "eipalloc-00e8e9dc4e1ed1202",
       "arn:aws:elasticloadbalancing:us-east-1:747763450211:targetgroup/Mensajeria/499fa02c4c040bbc",
       "arn:aws:elasticloadbalancing:us-east-1:747763450211:targetgroup/Seguridad/4fa27b50407b8b7a",
       "arn:aws:elasticloadbalancing:us-east-1:747763450211:targetgroup/Login1-Encriptacion/f6da01d9afe572ff",
@@ -16,8 +16,8 @@ class InstanceConfig {
       
      
     ];
-    this.Type = ["Balancer","Balancer","Balancer","Balancer","Balancer","Balancer"];
-    this.Port_Target = [27017, 4003, 4012, 4004, 4009, 80];
+    this.Type = ["Elastic","Balancer","Balancer","Balancer","Balancer","Balancer"];
+    this.Port_Target = [0, 4003, 4012, 4004, 4009, 80];
     this.SecurityGroupIds = [
       "sg-07949c21821a92579","sg-07949c21821a92579","sg-07949c21821a92579","sg-07949c21821a92579","sg-07949c21821a92579","sg-07949c21821a92579"
   
