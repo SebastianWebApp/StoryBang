@@ -2,7 +2,7 @@ class InstanceConfig {
   constructor() {
     this.IPs = [
       "eipalloc-00e8e9dc4e1ed1202",
-      "arn:aws:elasticloadbalancing:us-east-1:747763450211:targetgroup/Mensajeria/499fa02c4c040bbc",
+      "eipalloc-0bd56900b37bf693b",
       "arn:aws:elasticloadbalancing:us-east-1:747763450211:targetgroup/Seguridad/4fa27b50407b8b7a",
       "arn:aws:elasticloadbalancing:us-east-1:747763450211:targetgroup/Login1-Encriptacion/f6da01d9afe572ff",
       "arn:aws:elasticloadbalancing:us-east-1:747763450211:targetgroup/Login2-Desencriptado/5001e3484f83d872",
@@ -16,8 +16,8 @@ class InstanceConfig {
       
      
     ];
-    this.Type = ["Elastic","Balancer","Balancer","Balancer","Balancer","Balancer"];
-    this.Port_Target = [0, 4003, 4012, 4004, 4009, 80];
+    this.Type = ["Elastic","Elastic","Balancer","Balancer","Balancer","Balancer"];
+    this.Port_Target = [0, 0, 4012, 4004, 4009, 80];
     this.SecurityGroupIds = [
       "sg-07949c21821a92579","sg-07949c21821a92579","sg-07949c21821a92579","sg-07949c21821a92579","sg-07949c21821a92579","sg-07949c21821a92579"
   
@@ -165,7 +165,7 @@ class InstanceConfig {
           - "9092:9092"
         environment:
           KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-          KAFKA_ADVERTISED_HOST_NAME: mensajeria-8d7826a555ab7dc4.elb.us-east-1.amazonaws.com
+          KAFKA_ADVERTISED_HOST_NAME: 54.82.185.50
           KAFKA_ADVERTISED_PORT: 9092
           KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092
           KAFKA_BROKER_ID: 1
