@@ -437,6 +437,45 @@ EOF
         -p 80:80 \
         --restart always \
         sebastianwebapp/story_bang_frontend_qa:latest
+
+
+
+    # Contenedor story_bang_create_user_qa
+    docker pull sebastianwebapp/story_bang_grok_description_image_qa:latest
+    
+    docker stop story_bang_grok_description_image_qa || true
+    docker rm story_bang_grok_description_image_qa || true
+    
+    docker run -d --name story_bang_grok_description_image_qa \
+        -p 4015:4015 \
+        --restart always \
+        sebastianwebapp/story_bang_grok_description_image_qa:latest
+
+
+
+    # Contenedor story_bang_grok_image_generator_qa
+    docker pull sebastianwebapp/story_bang_grok_image_generator_qa:latest
+    
+    docker stop story_bang_grok_image_generator_qa || true
+    docker rm story_bang_grok_image_generator_qa || true
+    
+    docker run -d --name story_bang_grok_image_generator_qa \
+        -p 4013:4013 \
+        --restart always \
+        sebastianwebapp/story_bang_grok_image_generator_qa:latest
+
+
+
+    # Contenedor story_bang_grok_text_generator_qa
+    docker pull sebastianwebapp/story_bang_grok_text_generator_qa:latest
+    
+    docker stop story_bang_grok_text_generator_qa || true
+    docker rm story_bang_grok_text_generator_qa || true
+    
+    docker run -d --name story_bang_grok_text_generator_qa \
+        -p 4014:4014 \
+        --restart always \
+        sebastianwebapp/story_bang_grok_text_generator_qa:latest
       `,
 
     ];
