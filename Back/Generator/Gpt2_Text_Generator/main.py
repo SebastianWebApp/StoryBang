@@ -28,10 +28,12 @@ from flask import Flask
 from flask_cors import CORS
 from dotenv import load_dotenv
 import os
+import gdown
+import zipfile
+
 
 from src.infrastructure.gpt2_story_generator import GPT2StoryGenerator
 from src.api.story_controller import StoryController
-
 # Carga variables de entorno desde .env
 load_dotenv()
 
@@ -44,8 +46,29 @@ def create_app():
     CORS(app, origins=origins, supports_credentials=True)
 
     checkpoint_path = "./story_model"
-    story_generator = GPT2StoryGenerator(checkpoint_path)
+  
 
+    url = 'https://drive.google.com/uc?id=1jcT9D-fFZfoubYm-h10jP6JJZZTXcoP8'
+    output = 'story_model_small.zip'
+
+    if not os.path.exists(checkpoint_path):
+        print(f"The '{checkpoint_path}' folder does not exist. Downloading and unzipping...")
+        # Descargar ZIP
+        gdown.download(url, output, quiet=False)
+
+        # Descomprimir ZIP
+        with zipfile.ZipFile(output, 'r') as zip_ref:
+            zip_ref.extractall(checkpoint_path)
+
+        # Borrar ZIP
+        os.remove(output)
+        print(f"Model downloaded and unzipped to '{checkpoint_path}'.")
+    else:
+        print(f"The '{checkpoint_path}' folder already exists. It won't download or unzip.")
+
+
+
+    story_generator = GPT2StoryGenerator(checkpoint_path)
     story_controller = StoryController(story_generator)
     app.register_blueprint(story_controller.blueprint)
 

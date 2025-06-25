@@ -1,14 +1,6 @@
 package main
 
 import (
-	// "crypto/aes"
-	// "crypto/cipher"
-	// "encoding/base64"
-	// "fmt"
-	// "io/ioutil"
-	// "net/http"
-	// "strings"
-
 	"crypto/aes"
 	"crypto/cipher"
 	"encoding/base64"
@@ -108,12 +100,6 @@ func soapHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "text/xml")
 	fmt.Fprint(w, response)
 }
-
-// func main() {
-// 	http.HandleFunc("/", soapHandler)
-// 	fmt.Println("SOAP Server listening on http://localhost:4005/")
-// 	http.ListenAndServe(":4005", nil)
-// }
 
 // Middleware CORS
 func withCORS(next http.HandlerFunc, allowedOrigins []string) http.HandlerFunc {
