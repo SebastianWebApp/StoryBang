@@ -110,12 +110,6 @@ async function Delete_Story(Id_Story) {
 function renderTable(messageArray) {
   const tableBody = document.getElementById("tableBody");
 
-  console.log(messageArray)
-  var Title = "";
-  if(messageArray[0].Story.includes("[Title]: ")){ 
-    Title = Content_Story[0].replace("[Title]: ", "").replace("\n", "");
-  }
-
   messageArray.forEach((item, index) => {
 
     if(List_Exist.includes(item.id)){
@@ -125,11 +119,9 @@ function renderTable(messageArray) {
     List_Exist.push(item.id)
     const row = document.createElement("tr");
 
-    console.log(item)
-
     row.innerHTML = `
       <td>${index + 1}</td>
-      <td>${Title || ""}</td>
+      <td>${item.Title || ""}</td>
       <td>${item.Language.map(code => etiquetas[code] || code).join(", ")}</td>
       <td>${new Date(item.createdAt).toLocaleString()}</td>
       <td>

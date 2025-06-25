@@ -11,7 +11,7 @@ export class UserService {
       const storyList = doc.Content?.Storys || [];
 
       var Document = [];
-
+      console.log(storyList);
       let Title = "Untitled";
       if (storyList[0].Story.includes("Title: ")) {
         const Content_Story = storyList[0].Story.split(/\[Content(?: \d*)?\]:\s*/);
