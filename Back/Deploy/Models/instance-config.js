@@ -6,20 +6,21 @@ class InstanceConfig {
       "eipalloc-05dac3d600bf28995",
       "arn:aws:elasticloadbalancing:us-east-1:747763450211:targetgroup/Login1-Encriptacion/f6da01d9afe572ff",
       "arn:aws:elasticloadbalancing:us-east-1:747763450211:targetgroup/Login2-Desencriptado/5001e3484f83d872",
-      "arn:aws:elasticloadbalancing:us-east-1:747763450211:targetgroup/Front/7b27eb79e59e40ae"
+      "arn:aws:elasticloadbalancing:us-east-1:747763450211:targetgroup/Front/7b27eb79e59e40ae",
+      "arn:aws:elasticloadbalancing:us-east-1:747763450211:targetgroup/Personajes/6c94923d037ad31a"
             
     ];
-    this.Names = ["Base_Datos", "Mensajeria", "Seguridad", "Login1_Encriptacion", "Login2-Desencriptado", "Front"];
+    this.Names = ["Base_Datos", "Mensajeria", "Seguridad", "Login1_Encriptacion", "Login2-Desencriptado", "Front-Grok", "Personajes"];
     
     this.Instance = [
       "t2.micro", "t2.micro", "t2.micro", "t2.micro", "t2.micro", "t2.micro"
       
      
     ];
-    this.Type = ["Elastic","Elastic","Elastic","Balancer","Balancer","Balancer"];
-    this.Port_Target = [0, 0, 0, 4004, 4009, 80];
+    this.Type = ["Elastic","Elastic","Elastic","Balancer","Balancer","Balancer","Balancer"];
+    this.Port_Target = [0, 0, 0, 4004, 4009, 80, 4016];
     this.SecurityGroupIds = [
-      "sg-07949c21821a92579","sg-07949c21821a92579","sg-07949c21821a92579","sg-07949c21821a92579","sg-07949c21821a92579","sg-07949c21821a92579"
+      "sg-07949c21821a92579","sg-07949c21821a92579","sg-07949c21821a92579","sg-07949c21821a92579","sg-07949c21821a92579","sg-07949c21821a92579","sg-07949c21821a92579"
   
     
     ];
@@ -476,6 +477,64 @@ EOF
         -p 4014:4014 \
         --restart always \
         sebastianwebapp/story_bang_grok_text_generator_qa:latest
+      `,
+
+      `#!/bin/bash
+    
+    # Actualizar el sistema
+    sudo apt update -y && sudo apt upgrade -y
+    
+    # Instalar Docker
+    sudo apt install -y docker.io
+    
+    # Iniciar y habilitar Docker
+    sudo systemctl start docker
+    sudo systemctl enable docker
+    
+    # Agregar el usuario al grupo Docker para evitar usar sudo con cada comando Docker
+    sudo usermod -aG docker $USER
+    
+    # Configurar permisos para el socket Docker
+    sudo chmod 666 /var/run/docker.sock
+      
+
+    # Contenedor story_bang_create_character_qa
+    docker pull sebastianwebapp/story_bang_create_character_qa:latest
+    
+    docker stop story_bang_create_character_qa || true
+    docker rm story_bang_create_character_qa || true
+    
+    docker run -d --name story_bang_create_character_qa \
+        -p 4016:4016 \
+        --restart always \
+        sebastianwebapp/story_bang_create_character_qa:latest
+
+
+
+    # Contenedor story_bang_delete_character_qa
+    docker pull sebastianwebapp/story_bang_delete_character_qa:latest
+    
+    docker stop story_bang_delete_character_qa || true
+    docker rm story_bang_delete_character_qa || true
+    
+    docker run -d --name story_bang_delete_character_qa \
+        -p 4017:4017 \
+        --restart always \
+        sebastianwebapp/story_bang_delete_character_qa:latest
+
+
+
+    # Contenedor story_bang_read_character_qa
+    docker pull sebastianwebapp/story_bang_read_character_qa:latest
+    
+    docker stop story_bang_read_character_qa || true
+    docker rm story_bang_read_character_qa || true
+    
+    docker run -d --name story_bang_read_character_qa \
+        -p 4018:4018 \
+        --restart always \
+        sebastianwebapp/story_bang_read_character_qa:latest
+
       `,
 
     ];
