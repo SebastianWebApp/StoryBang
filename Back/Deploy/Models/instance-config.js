@@ -9,21 +9,24 @@ class InstanceConfig {
       "arn:aws:elasticloadbalancing:us-east-1:747763450211:targetgroup/Front/7b27eb79e59e40ae",
       "arn:aws:elasticloadbalancing:us-east-1:747763450211:targetgroup/Personajes/6c94923d037ad31a",
       "arn:aws:elasticloadbalancing:us-east-1:747763450211:targetgroup/Story/16cb6d1ee15e3241",
-      "eipalloc-03c15b52d8c875113"
+      "eipalloc-03c15b52d8c875113",
+      "eipalloc-0f4f05781df5b5867",
+      "eipalloc-0dcf14a053f6faaef"
 
     ];
-    this.Names = ["Base_Datos", "Mensajeria", "Seguridad", "Login1_Encriptacion", "Login2-Desencriptado", "Front-Grok", "Personajes", "Story", "Gpt2"];
+    this.Names = ["Base_Datos", "Mensajeria", "Seguridad", "Login1_Encriptacion", "Login2-Desencriptado", "Front-Grok", "Personajes", "Story", "Gpt2-Medium", "Gpt2-Small", "Traductor"];
     
     this.Instance = [
-      "t2.micro", "t2.micro", "t2.micro", "t2.micro", "t2.micro", "t2.micro", "t2.micro", "t2.micro", "t2.large"
+      "t2.micro", "t2.micro", "t2.micro", "t2.micro", "t2.micro", "t2.micro", "t2.micro", "t2.micro", "t2.large", "t2.large"
+      , "t2.large"
       
      
     ];
-    this.Type = ["Elastic","Elastic","Elastic","Balancer","Balancer","Balancer","Balancer","Balancer","Elastic"];
-    this.Port_Target = [0, 0, 0, 4004, 4009, 80, 4016, 4022, 0];
+    this.Type = ["Elastic","Elastic","Elastic","Balancer","Balancer","Balancer","Balancer","Balancer","Elastic","Elastic"];
+    this.Port_Target = [0, 0, 0, 4004, 4009, 80, 4016, 4022, 0, 0, 0];
     this.SecurityGroupIds = [
       "sg-07949c21821a92579","sg-07949c21821a92579","sg-07949c21821a92579","sg-07949c21821a92579","sg-07949c21821a92579","sg-07949c21821a92579","sg-07949c21821a92579","sg-07949c21821a92579"
-    ,"sg-07949c21821a92579"
+    ,"sg-07949c21821a92579","sg-0be93f17d1c27e213"
     
     ];
     this.Scripts = [
@@ -655,19 +658,6 @@ EOF
     sudo chmod 666 /var/run/docker.sock
       
 
-    # Contenedor story_bang_gpt2_text_generator_qa
-    docker pull sebastianwebapp/story_bang_gpt2_text_generator_qa:latest
-    
-    docker stop story_bang_gpt2_text_generator_qa || true
-    docker rm story_bang_gpt2_text_generator_qa || true
-    
-    docker run -d --name story_bang_gpt2_text_generator_qa \
-        -p 4019:4019 \
-        --restart always \
-        sebastianwebapp/story_bang_gpt2_text_generator_qa:latest
-
-
-
     # Contenedor story_bang_gpt2medium_text_generator_qa
     docker pull sebastianwebapp/story_bang_gpt2medium_text_generator_qa:latest
     
@@ -676,12 +666,80 @@ EOF
     
     docker run -d --name story_bang_gpt2medium_text_generator_qa \
         -p 4021:4021 \
+        -v /home/ubuntu/story_model:/app/story_model \
         --restart always \
         sebastianwebapp/story_bang_gpt2medium_text_generator_qa:latest
 
 
+   
 
       `,
+
+      `#!/bin/bash
+    
+    # Actualizar el sistema
+    sudo apt update -y && sudo apt upgrade -y
+    
+    # Instalar Docker
+    sudo apt install -y docker.io
+    
+    # Iniciar y habilitar Docker
+    sudo systemctl start docker
+    sudo systemctl enable docker
+    
+    # Agregar el usuario al grupo Docker para evitar usar sudo con cada comando Docker
+    sudo usermod -aG docker $USER
+    
+    # Configurar permisos para el socket Docker
+    sudo chmod 666 /var/run/docker.sock
+      
+
+    # Contenedor story_bang_gpt2_text_generator_qa
+    docker pull sebastianwebapp/story_bang_gpt2_text_generator_qa:latest
+    
+    docker stop story_bang_gpt2_text_generator_qa || true
+    docker rm story_bang_gpt2_text_generator_qa || true
+    
+    docker run -d --name story_bang_gpt2_text_generator_qa \
+        -p 4019:4019 \
+        -v /home/ubuntu/story_model:/app/story_model \
+        --restart always \
+        sebastianwebapp/story_bang_gpt2_text_generator_qa:latest
+
+      `,
+
+    `#!/bin/bash
+    
+    # Actualizar el sistema
+    sudo apt update -y && sudo apt upgrade -y
+    
+    # Instalar Docker
+    sudo apt install -y docker.io
+    
+    # Iniciar y habilitar Docker
+    sudo systemctl start docker
+    sudo systemctl enable docker
+    
+    # Agregar el usuario al grupo Docker para evitar usar sudo con cada comando Docker
+    sudo usermod -aG docker $USER
+    
+    # Configurar permisos para el socket Docker
+    sudo chmod 666 /var/run/docker.sock
+      
+
+    # Contenedor story_bang_translator_qa
+    docker pull sebastianwebapp/story_bang_translator_qa:latest
+    
+    docker stop story_bang_translator_qa || true
+    docker rm story_bang_translator_qa || true
+    
+    docker run -d --name story_bang_translator_qa \
+        -p 4020:4020 \        
+        --restart always \
+        sebastianwebapp/story_bang_translator_qa:latest
+
+      `,
+    
 
     ];
   }
