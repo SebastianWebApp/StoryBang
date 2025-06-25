@@ -8,12 +8,12 @@ class InstanceConfig {
       "arn:aws:elasticloadbalancing:us-east-1:747763450211:targetgroup/Login2-Desencriptado/5001e3484f83d872",
       "arn:aws:elasticloadbalancing:us-east-1:747763450211:targetgroup/Front/7b27eb79e59e40ae",
       "arn:aws:elasticloadbalancing:us-east-1:747763450211:targetgroup/Personajes/6c94923d037ad31a"
-            
+
     ];
     this.Names = ["Base_Datos", "Mensajeria", "Seguridad", "Login1_Encriptacion", "Login2-Desencriptado", "Front-Grok", "Personajes"];
     
     this.Instance = [
-      "t2.micro", "t2.micro", "t2.micro", "t2.micro", "t2.micro", "t2.micro"
+      "t2.micro", "t2.micro", "t2.micro", "t2.micro", "t2.micro", "t2.micro", "t2.micro"
       
      
     ];
