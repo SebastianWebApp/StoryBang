@@ -4,6 +4,7 @@ import path from "path";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import { fileURLToPath, pathToFileURL } from "url";
+import timeout from 'connect-timeout';
 import { JWT } from "./Services/read_jwt.js";
 import router_create_account from "./Routers/routers_create_account.js";
 import router_generator from "./Routers/routers_generator.js";
@@ -25,6 +26,9 @@ const app = express();
 app.use(cors()); // Allows connection between Front and Backend
 app.use(json({ limit: "10mb" })); // Parse JSON in requests
 app.use(cookieParser()); // To parse cookies
+app.use("/api/router_generator/Translate", timeout('10m'));
+app.use("/api/router_generator/Gpt2Medium_Text_Generator", timeout('10m'));
+app.use("/api/router_generator/Gpt2_Text_Generator", timeout('10m'));
 
 // Serve static files based on the route
 app.use(express.static(path.join(__dirname)));
