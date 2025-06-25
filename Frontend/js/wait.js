@@ -27,7 +27,12 @@ var Complet_Number = [];
 var Type = "Image";
 var New_Story;
 
-Story = savedStory[0].Story.split(/\[Content(?: \d*)?\]:\s*/);
+// Dividir en secciones y eliminar vacíos
+Story = savedStory[0].Story
+    .split(/\[Content(?: \d*)?\]:\s*/)
+    .filter(s => s.trim() !== "");  // elimina vacíos o solo saltos
+
+// Story = savedStory[0].Story.split(/\[Content(?: \d*)?\]:\s*/);
 var index_n = 0;
 
 if(savedStory[0].Story.includes("[Title]: ")){    
