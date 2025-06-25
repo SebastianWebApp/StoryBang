@@ -110,6 +110,7 @@ async function Delete_Story(Id_Story) {
 function renderTable(messageArray) {
   const tableBody = document.getElementById("tableBody");
 
+  console.log(messageArray)
   var Title = "";
   if(messageArray[0].Story.includes("[Title]: ")){ 
     Title = Content_Story[0].replace("[Title]: ", "").replace("\n", "");
@@ -123,6 +124,8 @@ function renderTable(messageArray) {
 
     List_Exist.push(item.id)
     const row = document.createElement("tr");
+
+    console.log(item)
 
     row.innerHTML = `
       <td>${index + 1}</td>
