@@ -709,34 +709,33 @@ EOF
       `,
 
     `#!/bin/bash
-    
-    # Actualizar el sistema
-    sudo apt update -y && sudo apt upgrade -y
-    
-    # Instalar Docker
-    sudo apt install -y docker.io
-    
-    # Iniciar y habilitar Docker
-    sudo systemctl start docker
-    sudo systemctl enable docker
-    
-    # Agregar el usuario al grupo Docker para evitar usar sudo con cada comando Docker
-    sudo usermod -aG docker $USER
-    
-    # Configurar permisos para el socket Docker
-    sudo chmod 666 /var/run/docker.sock
-      
 
-    # Contenedor story_bang_translator_qa
-    docker pull sebastianwebapp/story_bang_translator_qa:latest
-    
-    docker stop story_bang_translator_qa || true
-    docker rm story_bang_translator_qa || true
-    
-    docker run -d --name story_bang_translator_qa \
-        -p 4020:4020 \        
-        --restart always \
-        sebastianwebapp/story_bang_translator_qa:latest
+# Actualizar el sistema
+sudo apt update -y && sudo apt upgrade -y
+
+# Instalar Docker
+sudo apt install -y docker.io
+
+# Iniciar y habilitar Docker
+sudo systemctl start docker
+sudo systemctl enable docker
+
+# Agregar el usuario al grupo Docker para evitar usar sudo con cada comando Docker
+sudo usermod -aG docker $USER
+
+# Configurar permisos para el socket Docker
+sudo chmod 666 /var/run/docker.sock
+
+# Contenedor story_bang_translator_qa
+docker pull sebastianwebapp/story_bang_translator_qa:latest
+
+docker stop story_bang_translator_qa || true
+docker rm story_bang_translator_qa || true
+
+docker run -d --name story_bang_translator_qa \
+    -p 4020:4020 \
+    --restart always \
+    sebastianwebapp/story_bang_translator_qa:latest
 
       `,
     
@@ -757,7 +756,18 @@ EOF
           ResourceType: "instance",
           Tags: [{ Key: "Name", Value: this.Names[index] }]
         }
-      ],
+      ],      
+    BlockDeviceMappings: [
+      {
+        DeviceName: "/dev/sda1",  // o el device root que use tu AMI
+        Ebs: {
+          VolumeSize: 15,        // tamaño en GiB
+          VolumeType: "gp3",     // tipo de volumen
+          DeleteOnTermination: true,
+          Encrypted: false       // o true si quieres cifrar
+        }
+      }
+    ],
       UserData: Buffer.from(this.Scripts[index]).toString('base64')
     };
   }
