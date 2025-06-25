@@ -117,7 +117,12 @@ function Story_Create(Language){
 
 
 
-  Content_Story = Story[Posicion].Story.split(/\[Content(?: \d*)?\]:\s*/);
+  // Content_Story = Story[Posicion].Story.split(/\[Content(?: \d*)?\]:\s*/);
+
+  Content_Story = Story[Posicion].Story
+  .split(/\[Content(?: \d*)?\]:\s*/)
+  .filter(s => s.trim() !== "");
+
 
   if(Story[Posicion].Story.includes("[Title]: ")){ 
     index_n = 1;   
