@@ -48,7 +48,8 @@ def create_app():
     checkpoint_path = "./story_model"
   
 
-    url = 'https://drive.google.com/uc?id=1jcT9D-fFZfoubYm-h10jP6JJZZTXcoP8'
+    url = 'https://drive.google.com/uc?id=1aVHh8L0qTUaCBUoZ1QfUbyLnJPz6PNZY'
+    
     output = 'story_model_small.zip'
 
     if not os.path.exists(checkpoint_path):
