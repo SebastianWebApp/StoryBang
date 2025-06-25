@@ -22,11 +22,11 @@ class InstanceConfig {
       
      
     ];
-    this.Type = ["Elastic","Elastic","Elastic","Balancer","Balancer","Balancer","Balancer","Balancer","Elastic","Elastic"];
+    this.Type = ["Elastic","Elastic","Elastic","Balancer","Balancer","Balancer","Balancer","Balancer","Elastic","Elastic","Elastic"];
     this.Port_Target = [0, 0, 0, 4004, 4009, 80, 4016, 4022, 0, 0, 0];
     this.SecurityGroupIds = [
       "sg-07949c21821a92579","sg-07949c21821a92579","sg-07949c21821a92579","sg-07949c21821a92579","sg-07949c21821a92579","sg-07949c21821a92579","sg-07949c21821a92579","sg-07949c21821a92579"
-    ,"sg-07949c21821a92579","sg-0be93f17d1c27e213"
+    ,"sg-07949c21821a92579","sg-0be93f17d1c27e213","sg-0be93f17d1c27e213"
     
     ];
     this.Scripts = [
