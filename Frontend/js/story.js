@@ -128,6 +128,7 @@ function Story_Create(Language){
       Content.push(Content_Story[index]);  
   }
 
+  console.log(Content_Story)
   document.getElementById("content").innerText = Content_Story[index_n].replace("\n", "");
   document.getElementById("Image").src = Image[0];
 
