@@ -7,20 +7,21 @@ class InstanceConfig {
       "arn:aws:elasticloadbalancing:us-east-1:747763450211:targetgroup/Login1-Encriptacion/f6da01d9afe572ff",
       "arn:aws:elasticloadbalancing:us-east-1:747763450211:targetgroup/Login2-Desencriptado/5001e3484f83d872",
       "arn:aws:elasticloadbalancing:us-east-1:747763450211:targetgroup/Front/7b27eb79e59e40ae",
-      "arn:aws:elasticloadbalancing:us-east-1:747763450211:targetgroup/Personajes/6c94923d037ad31a"
+      "arn:aws:elasticloadbalancing:us-east-1:747763450211:targetgroup/Personajes/6c94923d037ad31a",
+      "arn:aws:elasticloadbalancing:us-east-1:747763450211:targetgroup/Story/16cb6d1ee15e3241"
 
     ];
-    this.Names = ["Base_Datos", "Mensajeria", "Seguridad", "Login1_Encriptacion", "Login2-Desencriptado", "Front-Grok", "Personajes"];
+    this.Names = ["Base_Datos", "Mensajeria", "Seguridad", "Login1_Encriptacion", "Login2-Desencriptado", "Front-Grok", "Personajes", "Story"];
     
     this.Instance = [
-      "t2.micro", "t2.micro", "t2.micro", "t2.micro", "t2.micro", "t2.micro", "t2.micro"
+      "t2.micro", "t2.micro", "t2.micro", "t2.micro", "t2.micro", "t2.micro", "t2.micro", "t2.micro"
       
      
     ];
-    this.Type = ["Elastic","Elastic","Elastic","Balancer","Balancer","Balancer","Balancer"];
-    this.Port_Target = [0, 0, 0, 4004, 4009, 80, 4016];
+    this.Type = ["Elastic","Elastic","Elastic","Balancer","Balancer","Balancer","Balancer","Balancer"];
+    this.Port_Target = [0, 0, 0, 4004, 4009, 80, 4016, 4022];
     this.SecurityGroupIds = [
-      "sg-07949c21821a92579","sg-07949c21821a92579","sg-07949c21821a92579","sg-07949c21821a92579","sg-07949c21821a92579","sg-07949c21821a92579","sg-07949c21821a92579"
+      "sg-07949c21821a92579","sg-07949c21821a92579","sg-07949c21821a92579","sg-07949c21821a92579","sg-07949c21821a92579","sg-07949c21821a92579","sg-07949c21821a92579","sg-07949c21821a92579"
   
     
     ];
@@ -534,6 +535,91 @@ EOF
         -p 4018:4018 \
         --restart always \
         sebastianwebapp/story_bang_read_character_qa:latest
+
+      `,
+
+
+      `#!/bin/bash
+    
+    # Actualizar el sistema
+    sudo apt update -y && sudo apt upgrade -y
+    
+    # Instalar Docker
+    sudo apt install -y docker.io
+    
+    # Iniciar y habilitar Docker
+    sudo systemctl start docker
+    sudo systemctl enable docker
+    
+    # Agregar el usuario al grupo Docker para evitar usar sudo con cada comando Docker
+    sudo usermod -aG docker $USER
+    
+    # Configurar permisos para el socket Docker
+    sudo chmod 666 /var/run/docker.sock
+      
+
+    # Contenedor story_bang_create_story_qa
+    docker pull sebastianwebapp/story_bang_create_story_qa:latest
+    
+    docker stop story_bang_create_story_qa || true
+    docker rm story_bang_create_story_qa || true
+    
+    docker run -d --name story_bang_create_story_qa \
+        -p 4022:4022 \
+        --restart always \
+        sebastianwebapp/story_bang_create_story_qa:latest
+
+
+
+    # Contenedor story_bang_delete_story_qa
+    docker pull sebastianwebapp/story_bang_delete_story_qa:latest
+    
+    docker stop story_bang_delete_story_qa || true
+    docker rm story_bang_delete_story_qa || true
+    
+    docker run -d --name story_bang_delete_story_qa \
+        -p 4025:4025 \
+        --restart always \
+        sebastianwebapp/story_bang_delete_story_qa:latest
+
+
+
+    # Contenedor story_bang_read_id_story_qa
+    docker pull sebastianwebapp/story_bang_read_id_story_qa:latest
+    
+    docker stop story_bang_read_id_story_qa || true
+    docker rm story_bang_read_id_story_qa || true
+    
+    docker run -d --name story_bang_read_id_story_qa \
+        -p 4023:4023 \
+        --restart always \
+        sebastianwebapp/story_bang_read_id_story_qa:latest
+
+
+    # Contenedor story_bang_read_story_qa
+    docker pull sebastianwebapp/story_bang_read_story_qa:latest
+    
+    docker stop story_bang_read_story_qa || true
+    docker rm story_bang_read_story_qa || true
+    
+    docker run -d --name story_bang_read_story_qa \
+        -p 4026:4026 \
+        --restart always \
+        sebastianwebapp/story_bang_read_story_qa:latest
+
+
+
+
+    # Contenedor story_bang_update_story_qa
+    docker pull sebastianwebapp/story_bang_update_story_qa:latest
+    
+    docker stop story_bang_update_story_qa || true
+    docker rm story_bang_update_story_qa || true
+    
+    docker run -d --name story_bang_update_story_qa \
+        -p 4024:4024 \
+        --restart always \
+        sebastianwebapp/story_bang_update_story_qa:latest
 
       `,
 
