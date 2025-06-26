@@ -115,10 +115,6 @@ function Story_Create(Language){
       }    
   }
 
-
-
-  // Content_Story = Story[Posicion].Story.split(/\[Content(?: \d*)?\]:\s*/);
-
   Content_Story = Story[Posicion].Story
   .split(/\[Content(?: \d*)?\]:\s*/)
   .filter(s => s.trim() !== "");
@@ -133,7 +129,6 @@ function Story_Create(Language){
       Content.push(Content_Story[index]);  
   }
 
-  console.log(Content_Story)
   document.getElementById("content").innerText = Content_Story[index_n].replace("\n", "");
   document.getElementById("Image").src = Image[0];
 
