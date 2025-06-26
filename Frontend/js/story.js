@@ -133,7 +133,7 @@ function Story_Create(Language){
   document.getElementById("Image").src = Image[0];
 
   Posicion_Story = index_n;
-  // Posicion_Image = 1;  
+  Posicion_Image = 0;  
   document.getElementById("back").style.display = "none";
   document.getElementById("next").style.display = "block";
 }
