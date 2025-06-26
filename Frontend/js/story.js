@@ -132,7 +132,7 @@ function Story_Create(Language){
   document.getElementById("content").innerText = Content_Story[index_n].replace("\n", "");
   document.getElementById("Image").src = Image[0];
 
-  // Posicion_Story = index_n + 1;
+  Posicion_Story = index_n;
   // Posicion_Image = 1;  
   document.getElementById("back").style.display = "none";
   document.getElementById("next").style.display = "block";
@@ -225,8 +225,6 @@ document.getElementById("next").addEventListener("click", async () => {
   Posicion_Story += 1;
   Posicion_Image += 1;
 
-  console.log(Posicion_Image)
-  console.log(Posicion_Story)
 
   if (Posicion_Story < Content_Story.length) {
     document.getElementById("content").innerText = Content_Story[Posicion_Story].replace("\n", "");
@@ -242,8 +240,7 @@ document.getElementById("back").addEventListener("click", async () => {
   Posicion_Story -= 1;
   Posicion_Image -= 1;
 
-  console.log(Posicion_Image)
-  console.log(Posicion_Story)
+
   if (Posicion_Story >= 0) {
     document.getElementById("content").innerText = Content_Story[Posicion_Story].replace("\n", "");
     document.getElementById("Image").src = Image[Posicion_Image];

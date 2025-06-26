@@ -7,35 +7,55 @@ class Deployer {
   constructor() {    
     this.config = new InstanceConfig();
   }
-
-  async waitForInstanceRunning(instanceId) {
+  
+  async waitForInstanceRunning(instanceId, ec2Manager) {
     let instanceRunning = false;
-    while (!instanceRunning) {
-      await new Promise(r => setTimeout(r, 5000));
-      const response = await this.ec2Manager.describeInstance(instanceId);
-      const state = response.Reservations?.[0]?.Instances?.[0]?.State?.Name;
-      console.log(`Estado actual: ${state}`);
-      if (state === 'running') instanceRunning = true;
+    let retryCount = 0;
+    const maxRetries = 10;
+
+    while (!instanceRunning && retryCount < maxRetries) {
+      try {
+        await new Promise(r => setTimeout(r, 5000));
+        const response = await ec2Manager.describeInstance(instanceId);
+        const state = response.Reservations?.[0]?.Instances?.[0]?.State?.Name;
+
+        console.log(`Estado actual de ${instanceId}: ${state}`);
+
+        if (state === 'running') {
+          instanceRunning = true;
+        }
+      } catch (err) {
+        if (err.Code === 'InvalidInstanceID.NotFound') {
+          console.log(`Instancia ${instanceId} aún no está disponible. Reintentando...`);
+          retryCount++;
+        } else {
+          throw err;
+        }
+      }
+    }
+
+    if (!instanceRunning) {
+      throw new Error(`La instancia ${instanceId} no se volvió visible después de ${maxRetries} intentos.`);
     }
   }
 
-  async deployInstance(index) {
+  async deployInstance(index, ec2Manager, elbManager) {
     console.log(`Creando instancia ${index + 1}...`);
     
     const params = this.config.getInstanceParams(index);
-    const response = await this.ec2Manager.createInstance(params);
+    const response = await ec2Manager.createInstance(params);
     const instanceId = response.Instances?.[0].InstanceId;
 
     if (!instanceId) {
       throw new Error("No se pudo obtener el ID de la instancia");
     }
 
-    await this.waitForInstanceRunning(instanceId);
+    await this.waitForInstanceRunning(instanceId, ec2Manager);
 
     if (this.config.Type[index] === "Elastic") {
-      await this.ec2Manager.associateElasticIP(instanceId, this.config.IPs[index]);
+      await ec2Manager.associateElasticIP(instanceId, this.config.IPs[index]);
     } else {
-      await this.elbManager.registerTarget(
+      await elbManager.registerTarget(
         this.config.IPs[index],
         instanceId,
         this.config.Port_Target[index]
@@ -44,51 +64,44 @@ class Deployer {
   }
 
   async deployAll() {
+    const List = [9, 2];
+    const baseIndex = [0];
 
-    var cont = 0;
-    var cont2 = 1;
-    var List = [8,8,8]
-    try {
-
-
-      for (let index = 0; index < List[0].length; index++) {
-          this.ec2Manager = new EC2Manager(Config.awsRegion, Config.credentials(1));
-          this.elbManager = new ELBManager(Config.awsRegion, Config.credentials(1));
-          await this.deployInstance(i); 
-      }
-
-      for (let index = 0; index < List[1].length; index++) {
-          this.ec2Manager = new EC2Manager(Config.awsRegion, Config.credentials(2));
-          this.elbManager = new ELBManager(Config.awsRegion, Config.credentials(2));
-          await this.deployInstance(List[0]+1+i); 
-      }
-
-      // for (let i = 0; i < this.config.Scripts.length; i++) {        
-        
-      //   if (cont == 0) {
-      //     this.ec2Manager = new EC2Manager(Config.awsRegion, Config.credentials(cont2));
-      //     this.elbManager = new ELBManager(Config.awsRegion, Config.credentials(cont2));          
-      //   }        
-
-      //   if (cont == List[cont2 - 1]) {
-      //     cont = 0;
-      //     cont2++;
-      //   }
-      //   else {
-      //     cont++;
-      //   }
-              
-      //   await this.deployInstance(i);       
-      // }
-
-
-      console.log("Instancias creadas y IPs asignadas.");
-    } catch (error) {
-      console.log(error);
-      console.log("Hubo un error creando las instancias.");
+    for (let i = 1; i < List.length; i++) {
+      baseIndex[i] = baseIndex[i - 1] + List[i - 1];
     }
+
+    const deployPerAccount = List.map((instanceCount, accountIdx) => {
+      return (async () => {
+        const accountNumber = accountIdx + 1;
+        const startIndex = baseIndex[accountIdx];
+
+        const ec2Manager = new EC2Manager(Config.awsRegion, Config.credentials(accountNumber));
+        const elbManager = new ELBManager(Config.awsRegion, Config.credentials(accountNumber));
+
+        for (let i = 0; i < instanceCount; i++) {
+          try {
+            console.log(`Cuenta ${accountNumber}: creando instancia ${i + 1}`);
+            await this.deployInstance(startIndex + i, ec2Manager, elbManager);
+            console.log(`Cuenta ${accountNumber}: instancia ${i + 1} completada`);
+          } catch (error) {
+            console.error(`Error en cuenta ${accountNumber}, instancia ${i + 1}:`, error);
+          }
+        }
+      })();
+    });
+
+    try {
+      await Promise.all(deployPerAccount);
+      console.log("Todas las instancias fueron creadas correctamente.");
+    } catch (err) {
+      console.error("Hubo un error en el despliegue general:", err);
+    }
+
     process.exit();
   }
+
+
 
 
 }
