@@ -50,23 +50,38 @@ class Deployer {
     var List = [8,8,8]
     try {
 
-      for (let i = 0; i < this.config.Scripts.length; i++) {        
-        
-        if (cont == 0) {
-          this.ec2Manager = new EC2Manager(Config.awsRegion, Config.credentials(cont2));
-          this.elbManager = new ELBManager(Config.awsRegion, Config.credentials(cont2));          
-        }        
 
-        if (cont == List[cont2 - 1]) {
-          cont = 0;
-          cont2++;
-        }
-        else {
-          cont++;
-        }
-              
-        await this.deployInstance(i);       
+      for (let index = 0; index < List[0].length; index++) {
+          this.ec2Manager = new EC2Manager(Config.awsRegion, Config.credentials(1));
+          this.elbManager = new ELBManager(Config.awsRegion, Config.credentials(1));
+          await this.deployInstance(i); 
       }
+
+      for (let index = 0; index < List[1].length; index++) {
+          this.ec2Manager = new EC2Manager(Config.awsRegion, Config.credentials(2));
+          this.elbManager = new ELBManager(Config.awsRegion, Config.credentials(2));
+          await this.deployInstance(List[0]+1+i); 
+      }
+
+      // for (let i = 0; i < this.config.Scripts.length; i++) {        
+        
+      //   if (cont == 0) {
+      //     this.ec2Manager = new EC2Manager(Config.awsRegion, Config.credentials(cont2));
+      //     this.elbManager = new ELBManager(Config.awsRegion, Config.credentials(cont2));          
+      //   }        
+
+      //   if (cont == List[cont2 - 1]) {
+      //     cont = 0;
+      //     cont2++;
+      //   }
+      //   else {
+      //     cont++;
+      //   }
+              
+      //   await this.deployInstance(i);       
+      // }
+
+
       console.log("Instancias creadas y IPs asignadas.");
     } catch (error) {
       console.log(error);
