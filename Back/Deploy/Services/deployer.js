@@ -43,70 +43,35 @@ class Deployer {
     }
   }
 
-  // async deployAll() {
-
-  //   var cont = 0;
-  //   var cont2 = 1;
-  //   var List = [8,8,8]
-  //   try {
-
-  //     for (let i = 0; i < this.config.Scripts.length; i++) {        
-        
-  //       if (cont == 0) {
-  //         this.ec2Manager = new EC2Manager(Config.awsRegion, Config.credentials(cont2));
-  //         this.elbManager = new ELBManager(Config.awsRegion, Config.credentials(cont2));          
-  //       }        
-
-  //       if (cont == List[cont2 - 1]) {
-  //         cont = 0;
-  //         cont2++;
-  //       }
-  //       else {
-  //         cont++;
-  //       }
-              
-  //       await this.deployInstance(i);       
-  //     }
-  //     console.log("Instancias creadas y IPs asignadas.");
-  //   } catch (error) {
-  //     console.log(error);
-  //     console.log("Hubo un error creando las instancias.");
-  //   }
-  //   process.exit();
-  // }
-
-
-  async deployGroup(startIndex, count, accountIndex) {
-    this.ec2Manager = new EC2Manager(Config.awsRegion, Config.credentials(accountIndex + 1));
-    this.elbManager = new ELBManager(Config.awsRegion, Config.credentials(accountIndex + 1));
-
-    const deployPromises = [];
-
-    for (let i = startIndex; i < startIndex + count; i++) {
-      deployPromises.push(this.deployInstance(i));
-    }
-
-    await Promise.all(deployPromises);
-  }
-
   async deployAll() {
-    const instanceCounts = [8, 8, 8]; // 3 cuentas, cada una crea 8
-    let startIndex = 0;
 
+    var cont = 0;
+    var cont2 = 1;
+    var List = [8,8,8]
     try {
-      const deployGroupPromises = instanceCounts.map((count, i) => {
-        const promise = this.deployGroup(startIndex, count, i);
-        startIndex += count;
-        return promise;
-      });
 
-      await Promise.all(deployGroupPromises);
+      for (let i = 0; i < this.config.Scripts.length; i++) {        
+        
+        if (cont == 0) {
+          this.ec2Manager = new EC2Manager(Config.awsRegion, Config.credentials(cont2));
+          this.elbManager = new ELBManager(Config.awsRegion, Config.credentials(cont2));          
+        }        
 
-      console.log("Todas las instancias fueron creadas y configuradas.");
+        if (cont == List[cont2 - 1]) {
+          cont = 0;
+          cont2++;
+        }
+        else {
+          cont++;
+        }
+              
+        await this.deployInstance(i);       
+      }
+      console.log("Instancias creadas y IPs asignadas.");
     } catch (error) {
-      console.error("Hubo un error creando las instancias:", error);
+      console.log(error);
+      console.log("Hubo un error creando las instancias.");
     }
-
     process.exit();
   }
 

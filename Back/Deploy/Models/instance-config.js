@@ -1,20 +1,20 @@
 class InstanceConfig {
   constructor() {
     this.IPs = [
-      "eipalloc-00e8e9dc4e1ed1202",
-      "eipalloc-0bd56900b37bf693b",
-      "eipalloc-05dac3d600bf28995",
-      "arn:aws:elasticloadbalancing:us-east-1:747763450211:targetgroup/Login1-Encriptacion/f6da01d9afe572ff",
-      "arn:aws:elasticloadbalancing:us-east-1:747763450211:targetgroup/Login2-Desencriptado/5001e3484f83d872",
-      "arn:aws:elasticloadbalancing:us-east-1:747763450211:targetgroup/Front/7b27eb79e59e40ae",
-      "arn:aws:elasticloadbalancing:us-east-1:747763450211:targetgroup/Personajes/6c94923d037ad31a",
-      "arn:aws:elasticloadbalancing:us-east-1:747763450211:targetgroup/Story/16cb6d1ee15e3241",
-      "eipalloc-03c15b52d8c875113",
+      "eipalloc-085234d31e72b6555",
+      "eipalloc-031d6d160cba99a34",
+      "eipalloc-09b0e6223b679c2f3",
+      "arn:aws:elasticloadbalancing:us-east-1:922508574576:targetgroup/Login1-Encriptacion/dd3bada8c31fe4f4",
+      "arn:aws:elasticloadbalancing:us-east-1:922508574576:targetgroup/Login2-Desencriptado/e66b020b0b79bc0f",
+      "arn:aws:elasticloadbalancing:us-east-1:922508574576:targetgroup/Front-Grok/1997ede6ceab911f",
+      "arn:aws:elasticloadbalancing:us-east-1:922508574576:targetgroup/Personajes/c62a123272b036ec",
+      "arn:aws:elasticloadbalancing:us-east-1:922508574576:targetgroup/Story/aefd2d0f1cb9d764",
+      "eipalloc-0bfdb80ef52332267",
       "eipalloc-0f4f05781df5b5867",
       "eipalloc-0dcf14a053f6faaef"
 
     ];
-    this.Names = ["Base_Datos", "Mensajeria", "Seguridad", "Login1_Encriptacion", "Login2-Desencriptado", "Front-Grok", "Personajes", "Story", "Gpt2-Medium", "Gpt2-Small", "Traductor"];
+    this.Names = ["Base_Datos", "Mensajeria", "Seguridad", "Login1-Encriptacion", "Login2-Desencriptado", "Front-Grok", "Personajes", "Story", "Gpt2-Medium", "Gpt2-Small", "Traductor"];
     
     this.Instance = [
       "t2.micro", "t2.micro", "t2.micro", "t2.micro", "t2.micro", "t2.micro", "t2.micro", "t2.micro", "t2.large", "t2.large"
@@ -25,8 +25,8 @@ class InstanceConfig {
     this.Type = ["Elastic","Elastic","Elastic","Balancer","Balancer","Balancer","Balancer","Balancer","Elastic","Elastic","Elastic"];
     this.Port_Target = [0, 0, 0, 4004, 4009, 80, 4016, 4022, 0, 0, 0];
     this.SecurityGroupIds = [
-      "sg-07949c21821a92579","sg-07949c21821a92579","sg-07949c21821a92579","sg-07949c21821a92579","sg-07949c21821a92579","sg-07949c21821a92579","sg-07949c21821a92579","sg-07949c21821a92579"
-    ,"sg-07949c21821a92579","sg-0be93f17d1c27e213","sg-0be93f17d1c27e213"
+      "sg-0d219f420a5dd84d4","sg-0d219f420a5dd84d4","sg-0d219f420a5dd84d4","sg-0d219f420a5dd84d4","sg-0d219f420a5dd84d4","sg-0d219f420a5dd84d4","sg-0d219f420a5dd84d4","sg-0d219f420a5dd84d4"
+    ,"sg-0d219f420a5dd84d4","sg-0be93f17d1c27e213","sg-0be93f17d1c27e213"
     
     ];
     this.Scripts = [
@@ -171,7 +171,7 @@ class InstanceConfig {
           - "9092:9092"
         environment:
           KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-          KAFKA_ADVERTISED_HOST_NAME: 54.82.185.50
+          KAFKA_ADVERTISED_HOST_NAME: 34.192.81.35
           KAFKA_ADVERTISED_PORT: 9092
           KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092
           KAFKA_BROKER_ID: 1
