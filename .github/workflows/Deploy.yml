@@ -5,7 +5,7 @@ on:
     branches:
       - QA  # Cambia según sea necesario
     paths:
-      - 'Back/Deploy/**'  # Solo activa el workflow si hay cambios en esta carpeta
+      - 'Back/Deployments/Deploy/**'  # Solo activa el workflow si hay cambios en esta carpeta
 
 jobs:
   build-and-push:
@@ -13,7 +13,7 @@ jobs:
 
     defaults:
       run:
-        working-directory: Back/Deploy  # Todos los comandos correrán desde esta carpeta
+        working-directory: Back/Deployments/Deploy  # Todos los comandos correrán desde esta carpeta
 
     steps:
       # Checkout the repository code

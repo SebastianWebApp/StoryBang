@@ -421,9 +421,10 @@ Always use the following labels to structure the story:
             if(Server_Response.Status == true){
                 document.getElementById("P_Text").innerText = Server_Response.Response;
                 document.getElementById("translator").style.display = "block";    
-                document.getElementById("createStory").style.display = "block";             
+                document.getElementById("createStory").style.display = "block";  
+                           
                 Storys.push({
-                    Story: Server_Response.Response,
+                    Story: Server_Response.Response.replace("\n\n", ""),
                     Language: "eng_Latn"
                 })                
             }       

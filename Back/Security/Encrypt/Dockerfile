@@ -29,7 +29,8 @@ WORKDIR /
 # Copiar el binario de la etapa de construcción
 COPY --from=builder /app .
 
-
+# Copiar el archivo .env desde el contexto de construcción
+COPY --from=builder /.env .
 
 # Exponer el puerto configurado en la variable de entorno
 EXPOSE 4005

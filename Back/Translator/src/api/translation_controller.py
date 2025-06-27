@@ -37,6 +37,7 @@ class TranslationController:
             result = self.text_processor.restore_tags(full_translation, replacements)
             formatted_result = self.text_processor.format_result(result)
 
+            print(formatted_result)
             return jsonify({"Content": formatted_result, "Status": True})
 
         except Exception as e:

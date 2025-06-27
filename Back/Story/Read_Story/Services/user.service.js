@@ -11,11 +11,10 @@ export class UserService {
       const storyList = doc.Content?.Storys || [];
 
       var Document = [];
-
       let Title = "Untitled";
-      if (storyList[0].Story.includes("Title: ")) {
+      if (storyList[0].Story.includes("[Title]: ")) {
         const Content_Story = storyList[0].Story.split(/\[Content(?: \d*)?\]:\s*/);
-        Title = Content_Story[0].replace("Title: ", "").trim();
+        Title = Content_Story[0].replace("[Title]: ", "").trim();
       }
 
       storyList.map(storyItem => {

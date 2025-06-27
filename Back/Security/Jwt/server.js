@@ -10,10 +10,6 @@ const app = express();
 const PORT = process.env.PORT;
 const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY;
 
-// app.use(cors({
-//     origin: process.env.CORS_ORIGIN,
-//     credentials: true
-// }));
 
 app.use(cors({
   origin: function (origin, callback) {
@@ -36,6 +32,9 @@ app.use(cors({
   },
   credentials: true
 }));
+
+
+
 
 
 app.use(express.json());
