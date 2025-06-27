@@ -151,7 +151,7 @@ class InstanceConfig {
     this.SecurityGroupIds = [
       "sg-0bed85e8e281baf86","sg-0bed85e8e281baf86","sg-0bed85e8e281baf86","sg-0bed85e8e281baf86","sg-0bed85e8e281baf86","sg-0bed85e8e281baf86","sg-0bed85e8e281baf86",
       "sg-0bc03e98cfd39bc25", "sg-0bc03e98cfd39bc25", "sg-0bc03e98cfd39bc25",
-      "", "", "", "", "", "", "", "",
+      "sg-0f61fe70fbd652b03", "sg-0f61fe70fbd652b03", "sg-0f61fe70fbd652b03", "sg-0f61fe70fbd652b03", "sg-0f61fe70fbd652b03", "sg-0f61fe70fbd652b03", "sg-0f61fe70fbd652b03", "sg-0f61fe70fbd652b03",
 
     ];
     this.Scripts = [
