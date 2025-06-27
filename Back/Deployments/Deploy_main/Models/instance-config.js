@@ -8,9 +8,9 @@ class InstanceConfig {
      "eipalloc-0eccc3ff59b18a231",
      "arn:aws:elasticloadbalancing:us-east-1:746051747874:targetgroup/Orchestrator/4f20e4452f2415f4",
      "arn:aws:elasticloadbalancing:us-east-1:746051747874:targetgroup/Front/bc89cf8d650e69a5",
-     "",
-     "",
-     "",
+     "arn:aws:elasticloadbalancing:us-east-1:057055484007:targetgroup/JWT/acb1470168326d93",
+     "arn:aws:elasticloadbalancing:us-east-1:057055484007:targetgroup/Encryption/fc04419b7f898ea7",
+     "arn:aws:elasticloadbalancing:us-east-1:057055484007:targetgroup/Decryption/da08888ce2f16571",
      "",
      "",
      "",
@@ -129,26 +129,29 @@ class InstanceConfig {
     ];
     this.Names = [
       "Bull User", "Mysql", "Bull Code", "Kafka", "Messaging", "Orchestrator", "Front",
+      "JWT", "Encryption", "Decryption",
     ];
     
     this.Instance = [
       "t2.large", "t2.large", "t2.large", "t2.large", "t2.large", "t2.large", "t2.large",
+      "t2.large", "t2.micro", "t2.micro"
     ];
     this.Type = [
       "Elastic","Elastic","Elastic","Elastic","Elastic","Balancer","Balancer",
-
+      "Balancer","Balancer","Balancer",
     ];
     this.Port_Target = [
       0, 0, 0, 0, 0, 4027, 80,
+      4012, 4005, 4006,
 
     ];
     this.SecurityGroupIds = [
       "sg-0bed85e8e281baf86","sg-0bed85e8e281baf86","sg-0bed85e8e281baf86","sg-0bed85e8e281baf86","sg-0bed85e8e281baf86","sg-0bed85e8e281baf86","sg-0bed85e8e281baf86",
+      "sg-0bc03e98cfd39bc25", "sg-0bc03e98cfd39bc25", "sg-0bc03e98cfd39bc25"
 
     ];
     this.Scripts = [
-      `
-    #!/bin/bash
+      `#!/bin/bash
     
     # Actualizar el sistema
     sudo apt update -y && sudo apt upgrade -y
@@ -180,8 +183,7 @@ class InstanceConfig {
         redis:latest
     
       `,
-       `
-    #!/bin/bash
+       `#!/bin/bash
     
     # Actualizar el sistema
     sudo apt update -y && sudo apt upgrade -y
@@ -228,8 +230,7 @@ class InstanceConfig {
         
 
       `,
-       `
-    #!/bin/bash
+       `#!/bin/bash
     
     # Actualizar el sistema
     sudo apt update -y && sudo apt upgrade -y
@@ -260,9 +261,8 @@ class InstanceConfig {
         --restart always \
         redis:latest
     
-      `
-      `
-      #!/bin/bash
+      `,
+      `#!/bin/bash
     
     # Exit on critical errors
     set -e
@@ -355,8 +355,7 @@ EOF
     echo "Iniciando el stack de Docker Compose..."
     sudo docker-compose -f /home/ubuntu/docker-compose.yml up -d
       `,
-       `
-    #!/bin/bash
+       `#!/bin/bash
     
     # Actualizar el sistema
     sudo apt update -y && sudo apt upgrade -y
@@ -388,8 +387,7 @@ EOF
 
     
       `,
-       `
-    #!/bin/bash
+       `#!/bin/bash
     
     # Actualizar el sistema
     sudo apt update -y && sudo apt upgrade -y
@@ -419,8 +417,7 @@ EOF
         sebastianwebapp/story_bang_orchestrator_main:latest
 
       `,
-       `
-    #!/bin/bash
+       `#!/bin/bash
     
     # Actualizar el sistema
     sudo apt update -y && sudo apt upgrade -y
@@ -451,8 +448,7 @@ EOF
 
 
       `,
-       `
-    #!/bin/bash
+       `#!/bin/bash
     
     # Actualizar el sistema
     sudo apt update -y && sudo apt upgrade -y
@@ -1394,11 +1390,12 @@ EOF
         --restart always \
         sebastianwebapp/story_bang_delete_story_main:latest
 
-      `
+      `,
     ];
   }
 
   getInstanceParams(index) {
+
     return {
       ImageId: "ami-0731becbf832f281e",
       InstanceType: this.Instance[index],
