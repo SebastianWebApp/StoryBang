@@ -11,14 +11,14 @@ class InstanceConfig {
      "arn:aws:elasticloadbalancing:us-east-1:057055484007:targetgroup/JWT/acb1470168326d93",
      "arn:aws:elasticloadbalancing:us-east-1:057055484007:targetgroup/Encryption/fc04419b7f898ea7",
      "arn:aws:elasticloadbalancing:us-east-1:057055484007:targetgroup/Decryption/da08888ce2f16571",
-     "",
-     "",
-     "",
-     "",
-     "",
-     "",
-     "",
-     "",
+     "arn:aws:elasticloadbalancing:us-east-1:359246703158:targetgroup/Recover-Password/1bcddb165b0648d9",
+     "arn:aws:elasticloadbalancing:us-east-1:359246703158:targetgroup/Delete/975bdc82f0396dff",
+     "arn:aws:elasticloadbalancing:us-east-1:359246703158:targetgroup/Update/cf218817661ec9fa",
+     "arn:aws:elasticloadbalancing:us-east-1:359246703158:targetgroup/Read/9a866f899a69f473",
+     "arn:aws:elasticloadbalancing:us-east-1:359246703158:targetgroup/Check/bf6f89da5a74abc2",
+     "arn:aws:elasticloadbalancing:us-east-1:359246703158:targetgroup/Create/0a52d240a771e32c",
+     "arn:aws:elasticloadbalancing:us-east-1:359246703158:targetgroup/Verify/4cceb987a3f91077",
+     "arn:aws:elasticloadbalancing:us-east-1:359246703158:targetgroup/Whatsapp/e47dc00e13a43485",
      "",
      "",
      "",
@@ -129,25 +129,29 @@ class InstanceConfig {
     ];
     this.Names = [
       "Bull User", "Mysql", "Bull Code", "Kafka", "Messaging", "Orchestrator", "Front",
-      "JWT", "Encryption", "Decryption",
+      "JWT", "Encryption", "Decryption", 
+      "Recover Password", "Delete", "Update", "Read", "Check", "Create", "Verify", "Whatsapp",
     ];
     
     this.Instance = [
       "t2.large", "t2.large", "t2.large", "t2.large", "t2.large", "t2.large", "t2.large",
-      "t2.large", "t2.micro", "t2.micro"
+      "t2.large", "t2.micro", "t2.micro",
+      "t2.micro", "t2.micro", "t2.micro", "t2.micro", "t2.micro", "t2.micro", "t2.micro", "t2.micro",
     ];
     this.Type = [
       "Elastic","Elastic","Elastic","Elastic","Elastic","Balancer","Balancer",
       "Balancer","Balancer","Balancer",
+      "Balancer","Balancer","Balancer","Balancer","Balancer","Balancer","Balancer","Balancer",
     ];
     this.Port_Target = [
       0, 0, 0, 0, 0, 4027, 80,
       4012, 4005, 4006,
-
+      4010, 4011, 4008, 4007, 4001, 4004, 4009, 4002,
     ];
     this.SecurityGroupIds = [
       "sg-0bed85e8e281baf86","sg-0bed85e8e281baf86","sg-0bed85e8e281baf86","sg-0bed85e8e281baf86","sg-0bed85e8e281baf86","sg-0bed85e8e281baf86","sg-0bed85e8e281baf86",
-      "sg-0bc03e98cfd39bc25", "sg-0bc03e98cfd39bc25", "sg-0bc03e98cfd39bc25"
+      "sg-0bc03e98cfd39bc25", "sg-0bc03e98cfd39bc25", "sg-0bc03e98cfd39bc25",
+      "", "", "", "", "", "", "", "",
 
     ];
     this.Scripts = [
@@ -1393,6 +1397,7 @@ EOF
       `,
     ];
   }
+
 
   getInstanceParams(index) {
 

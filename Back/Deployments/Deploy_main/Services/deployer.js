@@ -64,7 +64,7 @@ class Deployer {
   }
 
   async deployAll() {
-    const List = [7];
+    const List = [7,3,8];
     const baseIndex = [0];
 
     for (let i = 1; i < List.length; i++) {
