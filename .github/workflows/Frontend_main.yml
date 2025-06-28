@@ -40,7 +40,7 @@ jobs:
 
       - name: Reemplazar URL de mensajes_user en JS
         run: |
-          sed -i "s|__MESSAGES_USER__|${{ secrets.PORT_MESSAGES_USERS_QA }}|" js/messages_user.js
+          sed -i "s|__MESSAGES_USER__|${{ secrets.PORT_MESSAGES_USERS_MAIN }}|" js/messages_user.js
 
 
       # Install Docker and Docker Compose
