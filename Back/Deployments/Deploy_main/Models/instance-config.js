@@ -482,8 +482,7 @@ EOF
         sebastianwebapp/story_bang_jwt_main:latest
     
       `,
-       `
-    #!/bin/bash
+       `#!/bin/bash
     
     # Actualizar el sistema
     sudo apt update -y && sudo apt upgrade -y
@@ -512,8 +511,7 @@ EOF
         --restart always \
         sebastianwebapp/story_bang_encrypt_main:latest
       `,
-       `
-    #!/bin/bash
+       `#!/bin/bash
     
     # Actualizar el sistema
     sudo apt update -y && sudo apt upgrade -y
@@ -543,8 +541,7 @@ EOF
         -e RACK_ENV=production \
         sebastianwebapp/story_bang_decrypt_main:latest
       `,
-       `
-    #!/bin/bash
+       `#!/bin/bash
     
     # Actualizar el sistema
     sudo apt update -y && sudo apt upgrade -y
@@ -574,8 +571,7 @@ EOF
         sebastianwebapp/story_bang_password_recovery_main:latest
         
       `,
-       `
-    #!/bin/bash
+       `#!/bin/bash
     
     # Actualizar el sistema
     sudo apt update -y && sudo apt upgrade -y
@@ -605,8 +601,7 @@ EOF
         sebastianwebapp/story_bang_delete_user_main:latest
         
       `,
-       `
-    #!/bin/bash
+       `#!/bin/bash
     
     # Actualizar el sistema
     sudo apt update -y && sudo apt upgrade -y
@@ -637,8 +632,7 @@ EOF
         
     
       `,
-       `
-    #!/bin/bash
+       `#!/bin/bash
     
     # Actualizar el sistema
     sudo apt update -y && sudo apt upgrade -y
@@ -670,8 +664,7 @@ EOF
   
     
       `,
-       `
-    #!/bin/bash
+       `#!/bin/bash
     
     # Actualizar el sistema
     sudo apt update -y && sudo apt upgrade -y
@@ -701,8 +694,7 @@ EOF
         sebastianwebapp/story_bang_verification_main:latest
         
       `,
-       `
-    #!/bin/bash
+       `#!/bin/bash
     
     # Actualizar el sistema
     sudo apt update -y && sudo apt upgrade -y
@@ -733,8 +725,7 @@ EOF
        
     
       `,
-       `
-    #!/bin/bash
+       `#!/bin/bash
     
     # Actualizar el sistema
     sudo apt update -y && sudo apt upgrade -y
@@ -764,8 +755,7 @@ EOF
         sebastianwebapp/story_bang_verify_user_main:latest
         
       `,
-       `
-    #!/bin/bash
+       `#!/bin/bash
     
     # Actualizar el sistema
     sudo apt update -y && sudo apt upgrade -y
@@ -1396,13 +1386,19 @@ EOF
 
       `,
     ];
+
+    this.AMI = [
+      "ami-020cba7c55df1f615","ami-020cba7c55df1f615","ami-020cba7c55df1f615","ami-020cba7c55df1f615","ami-020cba7c55df1f615","ami-020cba7c55df1f615","ami-020cba7c55df1f615",
+      "ami-020cba7c55df1f615","ami-020cba7c55df1f615","ami-020cba7c55df1f615",
+      "ami-020cba7c55df1f615","ami-020cba7c55df1f615","ami-020cba7c55df1f615","ami-020cba7c55df1f615","ami-020cba7c55df1f615","ami-020cba7c55df1f615","ami-020cba7c55df1f615","ami-020cba7c55df1f615"
+    ]
   }
 
 
   getInstanceParams(index) {
 
     return {
-      ImageId: "ami-0731becbf832f281e",
+      ImageId: this.AMI[index],
       InstanceType: this.Instance[index],
       MinCount: 1,
       MaxCount: 1,
