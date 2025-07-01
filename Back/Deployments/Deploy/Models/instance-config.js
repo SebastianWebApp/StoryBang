@@ -215,7 +215,13 @@ EOF
 
     # Step 11: Verify containers are running
     echo "Verificando contenedores en ejecución..."
-    docker ps`,
+    docker ps
+    
+    
+    # Tunel
+    ssh -p 443 -R0:127.0.0.1:4003 -L4300:127.0.0.1:4300 -o StrictHostKeyChecking=no -o ServerAliveInterval=30 1X2D07XMxcU@pro.pinggy.io
+
+    `,
 
      `#!/bin/bash
     
@@ -411,6 +417,9 @@ EOF
         --restart always \
         sebastianwebapp/story_bang_whatsapp_qa:latest
         
+
+    # Tunel
+    ssh -p 443 -R0:127.0.0.1:4002 -L4300:127.0.0.1:4300 -o StrictHostKeyChecking=no -o ServerAliveInterval=30 86ySMQc3n7w@pro.pinggy.io
       `,
 
 
