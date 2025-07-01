@@ -1,0 +1,5 @@
+require 'dotenv/load'
+
+KEY = ENV['AES_KEY'] || "12345678901234567890123456789012"
+IV  = ENV['AES_IV']  || "1234567890123456"
+ALLOWED_ORIGINS = (ENV['CORS_ORIGIN'] || "*").split(',')
