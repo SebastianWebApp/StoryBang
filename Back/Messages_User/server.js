@@ -25,6 +25,6 @@ const io = new Server(server, {
  });
 
  server.listen(process.env.PORT, () => {
-    logger.info(`Server Active http://localhost:${PORT}`);
+    logger.info(`Server Active http://localhost:${process.env.PORT}`);
     console.log(`Server running at http://localhost:${process.env.PORT}`);
 });
