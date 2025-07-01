@@ -30,7 +30,7 @@ class Deployer {
           console.log(`Instancia ${instanceId} aún no está disponible. Reintentando...`);
           retryCount++;
         } else {
-          console.log("Estado: "+ err)
+          console.log("Estado: "+ err+ "  "+ Name_Instance)          
           throw err;
         }
       }
