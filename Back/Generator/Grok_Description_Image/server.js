@@ -25,7 +25,7 @@ const Description_ImageQueue = new Queue("Grok_Description_Image", { redis: redi
 
 Description_ImageQueue.process(5, async (job) => {
     try {    
-        logger.info(`Processing job: ${job.data}`);
+        logger.info(`Processing job: ${JSON.stringify(job.data)}`);
         // Verify JWT Token        
         const isValidToken = await jwtService.verifyToken(job.data.Token);
         if (!isValidToken) {

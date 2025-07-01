@@ -28,7 +28,7 @@ const Process_Queue = new Queue("Delete_Story", { redis: redisOptions });
 Process_Queue.process(async (job) => {
     try {    
         // Verify JWT Token       
-        logger.info(`Processing job: ${job.data}`); 
+        logger.info(`Processing job: ${JSON.stringify(job.data)}`); 
         const isValidToken = await jwtService.verifyToken(job.data.Token);
         if (!isValidToken) {
             logger.warn(`Invalid token for user ID: ${job.data.Id}`);

@@ -44,7 +44,7 @@ export const Recover_Password = async (req, res) => {
         );
 
 
-        logger.info(`Recover_Password: ${job}`);
+        logger.info(`Recover_Password: ${JSON.stringify(job)}`);
 
         res.status(200).json({
             Response: "Please wait a moment",
