@@ -27,7 +27,7 @@ const Process_Queue = new Queue("Create_Character", { redis: redisOptions });
 Process_Queue.process(5, async (job) => {
 
     try {    
-        logger.info(`Processing job: ${job.data}`);
+        logger.info(`Processing job: ${JSON.stringify(job.data)}`);
         // Verify JWT Token        
         const isValidToken = await jwtService.verifyToken(job.data.Token);
         if (!isValidToken) {

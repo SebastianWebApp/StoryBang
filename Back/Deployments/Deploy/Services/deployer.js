@@ -100,7 +100,7 @@ class Deployer {
       console.error("Hubo un error en el despliegue general:", err);
     }
 
-    process.exit();
+    // process.exit();
   }
 
 

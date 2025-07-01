@@ -27,7 +27,7 @@ const DeleteUserQueue = new Queue("Delete_User", { redis: redisOptions });
 
 DeleteUserQueue.process(5, async (job) => {
     try {    
-        logger.info(`Processing job: ${job.data}`);
+        logger.info(`Processing job: ${JSON.stringify(job.data)}`);
         // Verify JWT Token        
         const isValidToken = await jwtService.verifyToken(job.data.Token);
         if (!isValidToken) {

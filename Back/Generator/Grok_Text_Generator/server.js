@@ -27,7 +27,7 @@ const Text_GeneratorQueue = new Queue("Grok_Text_Generator", { redis: redisOptio
 Text_GeneratorQueue.process(5, async (job) => {
     try {    
         // Verify JWT Token  
-        logger.info(`Processing job: ${job.data}`);      
+        logger.info(`Processing job: ${JSON.stringify(job.data)}`);      
         const isValidToken = await jwtService.verifyToken(job.data.Token);
         if (!isValidToken) {
             logger.warn(`Invalid token for user ID: ${job.data.Id}`);
