@@ -35,7 +35,7 @@ Process_Queue.process(async (job) => {
             return;
         }
         const result = await userService.character_process(job.data.Id_Story);
-        ogger.info(`Read_Id_Story: ${job.data.Id, true, result}`);
+        logger.info(`Read_Id_Story: ${job.data.Id, true, result}`);
         await notificationService.notify(job.data.Id, true, result);    
     } catch (error) {
         logger.error(`Unhandled error processing job for user ID ${job.data.Id}: ${error.message}`);
