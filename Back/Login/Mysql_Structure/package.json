@@ -19,7 +19,8 @@
     "cors": "2.8.5",
     "dotenv": "16.4.7",
     "express": "4.21.2",
-    "mysql2": "3.11.5"
+    "mysql2": "3.11.5",
+    "winston": "^3.17.0"
   },
   "devDependencies": {
     "@babel/core": "^7.27.4",

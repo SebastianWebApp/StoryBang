@@ -31,6 +31,8 @@ jobs:
           sed -i "s|^PORT_DB_CODE=.*|PORT_DB_CODE=${{ secrets.PORT_DB_CODE_QA }}|" .env
           sed -i "s|^WEBHOOK=.*|WEBHOOK=${{ secrets.WEBHOOK_QA }}|" .env
           sed -i "s|^PORT_MESSAGES_USERS=.*|PORT_MESSAGES_USERS=${{ secrets.PORT_MESSAGES_USERS_QA }}|" .env
+          sed -i "s|^TWILIO_ACCOUNT_SID=.*|TWILIO_ACCOUNT_SID=${{ secrets.TWILIO_ACCOUNT_SID_QA }}|" .env
+          sed -i "s|^TWILIO_AUTH_TOKEN=.*|TWILIO_AUTH_TOKEN=${{ secrets.TWILIO_AUTH_TOKEN_QA }}|" .env
 
 
 

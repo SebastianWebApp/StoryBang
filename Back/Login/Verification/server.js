@@ -8,6 +8,7 @@ import { KafkaService } from "./Services/kafka.service.js";
 import { VerificationService } from "./Services/verification.service.js";
 import {JWTService} from "./Services/jwt.service.js";
 import { NotificationService } from "./Services/notification.service.js";
+import logger from "./Services/logs.service.js";
 
 dotenv.config();
 const PORT = process.env.PORT;
@@ -26,14 +27,18 @@ const verificationQueue = new Queue("Verification", { redis: redisConfig });
 // Process verification jobs
 verificationQueue.process(5, async (job) => {
     // Verify JWT Token        
+    logger.info(`Processing job: ${JSON.stringify(job.data)}`);
         const isValidToken = await jwtService.verifyToken(job.data.Token);
         if (!isValidToken) {
+            logger.warn(`Invalid token for user ID: ${job.data.Id}`);
             await NotificationService.sendNotification(job.data.Id, false, "Session expired. Please log in again.");
             return;
         }
+    logger.info(`Verification: ${job.data}`);
     await VerificationService.processVerification(job.data);
 });
 
 app.listen(PORT, () => {
+    logger.info(`Server Active http://localhost:${PORT}`);
     console.log(`Server Active http://localhost:${PORT}`);
 });
