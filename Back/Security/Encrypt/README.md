@@ -1,45 +1,7 @@
+```markdown
 # Encrypt Microservice
 
 A SOAP-based microservice for encrypting sensitive data using AES-256-CFB encryption algorithm, implemented in Go using the Command pattern.
-
-## SOAP Encryption Flow - Go HTTP Server
-
-```mermaid
-flowchart TD
-    %% Inicio del flujo
-    A[User sends SOAP POST request with phone and password XML] --> B[Go HTTP server main go]
-
-    %% Middleware y configuración
-    B --> C[withCORS middleware using CORS ORIGIN from env]
-    C --> D[soapHandler]
-
-    %% Extracción y cifrado
-    D --> E[extractValue xml phone]
-    D --> F[extractValue xml password]
-    E --> G[Encryptor Encrypt phone]
-    F --> H[Encryptor Encrypt password]
-
-    %% Command Pattern
-    G --> I[EncryptCommand Execute AES256CFB Base64]
-    H --> J[EncryptCommand Execute AES256CFB Base64]
-
-    %% Construcción de respuesta
-    I --> K[Build SOAP XML response with EncryptedPhone and EncryptedPassword]
-    J --> K
-
-    %% Respuesta al usuario
-    K --> L[Return SOAP XML response with encrypted values]
-
-    %% Leyenda de clases y archivos
-    subgraph Legend
-        direction LR
-        L1[main go HTTP server CORS SOAP handler Command pattern]
-        L2[Encryptor Invoker manages key and IV calls EncryptCommand]
-        L3[EncryptCommand Command performs AES encryption]
-        L4[extractValue Helper for XML parsing]
-        L5[env PORT and CORS ORIGIN]
-    end
-```
 
 ## Features
 

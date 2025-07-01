@@ -1,5 +1,6 @@
 import connectToDB from "../Database/connect.js";
 import { InitializeDatabase } from "../Modules/structure.js";
+import logger from "../Services/logs.service.js";
 
 async function Test_Connection() {
     try {
@@ -7,11 +8,12 @@ async function Test_Connection() {
 
         console.log("Successful database connection");
         connection.release(); // Release the connection after use
-
+        logger.info(`Successful database connection`);
         InitializeDatabase();
+        logger.info(`Stored procedures created successfully.`);
     } catch (error) {
         console.log("Retrying database connection...");
-
+        logger.error(`Retrying database connection...`);
         // Add a 10-second delay before attempting further action
         await new Promise(resolve => setTimeout(resolve, 10000));
 

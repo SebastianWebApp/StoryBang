@@ -19,3 +19,5 @@ El patrón Command es un patrón de diseño de comportamiento que encapsula
 una petición (comando) como un objeto, permitiendo parametrizar clientes 
 con diferentes solicitudes, desencadenarlas, deshacerlas o almacenarlas 
 para su ejecución posterior.
+
+

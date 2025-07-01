@@ -1,7 +1,7 @@
 import request from 'supertest';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
-import app from '../server.js';  // Importamos app desde server.js
+import app from '../src/app.js';
 
 dotenv.config();
 

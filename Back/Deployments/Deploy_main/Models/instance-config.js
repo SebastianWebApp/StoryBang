@@ -19,140 +19,71 @@ class InstanceConfig {
      "arn:aws:elasticloadbalancing:us-east-1:359246703158:targetgroup/Create/0a52d240a771e32c",
      "arn:aws:elasticloadbalancing:us-east-1:359246703158:targetgroup/Verify/4cceb987a3f91077",
      "arn:aws:elasticloadbalancing:us-east-1:359246703158:targetgroup/Whatsapp/e47dc00e13a43485",
-     "",
-     "",
-     "",
-     "",
-     "",
-     "",
-     "",
-     "",
-     "",
-     "",
-     "",
-     "",
-     "",
-     "",
-     "",
-     "",
-     "",
-     "",
-     "",
-     "",
-     "",
-     "",
-     "",
-     "",
-     "",
-     "",
-     "",
-     "",
-     "",
-     "",
-     "",
-     "",
-     "",
-     "",
-     "",
-     "",
-     "",
-     "",
-     "",
-     "",
-     "",
-     "",
-     "",
-     "",
-     "",
-     "",
-     "",
-     "",
-     "",
-     "",
-     "",
-     "",
-     "",
-     "",
-     "",
-     "",
-     "",
-     "",
-     "",
-     "",
-     "",
-     "",
-     "",
-     "",
-     "",
-     "",
-     "",
-     "",
-     "",
-     "",
-     "",
-     "",
-     "",
-     "",
-     "",
-     "",
-     "",
-     "",
-     "",
-     "",
-     "",
-     "",
-     "",
-     "",
-     "",
-     "",
-     "",
-     "",
-     "",
-     "",
-     "",
-     "",
-     "",
-     "",
-     "",
-     "",
-     "",
-     "",
-     "",
-     "",
-     "",
-     "",
-     "",
-     "",
-     "",
-     "",
-     ""
+     "arn:aws:elasticloadbalancing:us-east-1:259723601489:targetgroup/Create/163a28659b60155e",
+     "arn:aws:elasticloadbalancing:us-east-1:259723601489:targetgroup/Read/dad937ce33b9e422",
+     "arn:aws:elasticloadbalancing:us-east-1:259723601489:targetgroup/Delete/507afb2b5ba599a3",
+     "eipalloc-070395176d3456429",
+     "eipalloc-02c769e67e8c1d2d8",
+     "arn:aws:elasticloadbalancing:us-east-1:139424542086:targetgroup/Grok-Imagen/bda7a61e3cc49dd1",
+     "arn:aws:elasticloadbalancing:us-east-1:139424542086:targetgroup/Grok-Descripcion/6e901c9bf444e2dd",
+     "arn:aws:elasticloadbalancing:us-east-1:139424542086:targetgroup/Grok-Texto/6be8c1f28be1b73b",
+     "eipalloc-0832622b6eaf5307f",
+     "eipalloc-09aa5938c1f0439c8",
+     "arn:aws:elasticloadbalancing:us-east-1:784664661569:targetgroup/Traductor/41409aa75c026282",
+     "arn:aws:elasticloadbalancing:us-east-1:784664661569:targetgroup/GPT-Small/da9ccbc81453c731",
+     "arn:aws:elasticloadbalancing:us-east-1:784664661569:targetgroup/GPT-Medium/eb0c46bfd8ba9db9",
+     "eipalloc-0540791a0e19798cd",
+     "arn:aws:elasticloadbalancing:us-east-1:816637959722:targetgroup/Create/2ab8450847673a79",
+     "arn:aws:elasticloadbalancing:us-east-1:816637959722:targetgroup/Update/b5fa9d38fdbd82ef",
+     "arn:aws:elasticloadbalancing:us-east-1:816637959722:targetgroup/Read/44590440173108f2",
+     "arn:aws:elasticloadbalancing:us-east-1:816637959722:targetgroup/Read-Id/c7f508ff548f795d",
+     "arn:aws:elasticloadbalancing:us-east-1:816637959722:targetgroup/Delete/3dda6993f81ce158"
     ];
     this.Names = [
       "Bull User", "Mysql", "Bull Code", "Kafka", "Messaging", "Orchestrator", "Front",
       "JWT", "Encryption", "Decryption", 
       "Recover Password", "Delete", "Update", "Read", "Check", "Create", "Verify", "Whatsapp",
+      "Create", "Read", "Delete", "Bull Character", "MongoDB Character",
+      "Grok-Image", "Grok-Description", "Grok-Text", "Bull Generator", "Bull Story",
+      "Traductor", "GPT Small", "GPT Medium", "MongoDB Story",
+      "Create", "Update", "Read", "Read-Id", "Delete"
     ];
     
     this.Instance = [
       "t2.large", "t2.large", "t2.large", "t2.large", "t2.large", "t2.large", "t2.large",
       "t2.large", "t2.micro", "t2.micro",
       "t2.micro", "t2.micro", "t2.micro", "t2.micro", "t2.micro", "t2.micro", "t2.micro", "t2.micro",
+      "t2.micro", "t2.micro", "t2.micro", "t2.micro", "t2.micro",
+      "t2.micro", "t2.micro", "t2.micro", "t2.micro", "t2.micro",
+      "t2.large", "t2.large", "t2.large", "t2.large",
+      "t2.micro", "t2.micro", "t2.micro", "t2.micro", "t2.micro"
     ];
     this.Type = [
       "Elastic","Elastic","Elastic","Elastic","Elastic","Balancer","Balancer",
       "Balancer","Balancer","Balancer",
       "Balancer","Balancer","Balancer","Balancer","Balancer","Balancer","Balancer","Balancer",
+      "Balancer","Balancer","Balancer","Elastic","Elastic",
+      "Balancer","Balancer","Balancer","Elastic","Elastic",
+      "Balancer","Balancer","Balancer","Elastic",
+      "Balancer","Balancer","Balancer","Balancer","Balancer"
     ];
     this.Port_Target = [
       0, 0, 0, 0, 0, 4027, 80,
       4012, 4005, 4006,
       4010, 4011, 4008, 4007, 4001, 4004, 4009, 4002,
+      4016, 4018, 4017, 0, 0,
+      4013, 4015, 4014, 0, 0,
+      4020, 4019, 4021, 0,
+      4022, 4024, 4026, 4023, 4025
     ];
     this.SecurityGroupIds = [
       "sg-0bed85e8e281baf86","sg-0bed85e8e281baf86","sg-0bed85e8e281baf86","sg-0bed85e8e281baf86","sg-0bed85e8e281baf86","sg-0bed85e8e281baf86","sg-0bed85e8e281baf86",
       "sg-0bc03e98cfd39bc25", "sg-0bc03e98cfd39bc25", "sg-0bc03e98cfd39bc25",
       "sg-0f61fe70fbd652b03", "sg-0f61fe70fbd652b03", "sg-0f61fe70fbd652b03", "sg-0f61fe70fbd652b03", "sg-0f61fe70fbd652b03", "sg-0f61fe70fbd652b03", "sg-0f61fe70fbd652b03", "sg-0f61fe70fbd652b03",
-
+      "sg-0e1c7b3d450914b50", "sg-0e1c7b3d450914b50", "sg-0e1c7b3d450914b50", "sg-0e1c7b3d450914b50", "sg-0e1c7b3d450914b50", 
+      "sg-057a019caa7fbcb25", "sg-057a019caa7fbcb25", "sg-057a019caa7fbcb25", "sg-057a019caa7fbcb25", "sg-057a019caa7fbcb25", 
+      "sg-055305fa9925064bd", "sg-055305fa9925064bd", "sg-055305fa9925064bd", "sg-055305fa9925064bd", 
+      "sg-0cc8ed99ed8a40cb8", "sg-0cc8ed99ed8a40cb8", "sg-0cc8ed99ed8a40cb8", "sg-0cc8ed99ed8a40cb8", "sg-0cc8ed99ed8a40cb8"
     ];
     this.Scripts = [
       `#!/bin/bash
@@ -786,8 +717,7 @@ EOF
         sebastianwebapp/story_bang_whatsapp_main:latest
         
       `,
-       `
-    #!/bin/bash
+       `#!/bin/bash
     
     # Actualizar el sistema
     sudo apt update -y && sudo apt upgrade -y
@@ -817,8 +747,7 @@ EOF
         sebastianwebapp/story_bang_create_character_main:latest
 
       `,
-       `
-    #!/bin/bash
+       `#!/bin/bash
     
     # Actualizar el sistema
     sudo apt update -y && sudo apt upgrade -y
@@ -848,8 +777,7 @@ EOF
         sebastianwebapp/story_bang_read_character_main:latest
 
       `,
-       `
-    #!/bin/bash
+       `#!/bin/bash
     
     # Actualizar el sistema
     sudo apt update -y && sudo apt upgrade -y
@@ -879,8 +807,7 @@ EOF
         sebastianwebapp/story_bang_delete_character_main:latest
 
       `,
-       `
-    #!/bin/bash
+       `#!/bin/bash
     
     # Actualizar el sistema
     sudo apt update -y && sudo apt upgrade -y
@@ -911,8 +838,7 @@ EOF
         --restart always \
         redis:latest
       `,
-       `
-    #!/bin/bash
+       `#!/bin/bash
     
     # Actualizar el sistema
     sudo apt update -y && sudo apt upgrade -y
@@ -943,8 +869,7 @@ EOF
         --restart always \
         mongo:latest
       `,
-       `
-    #!/bin/bash
+       `#!/bin/bash
     
     # Actualizar el sistema
     sudo apt update -y && sudo apt upgrade -y
@@ -975,8 +900,7 @@ EOF
 
     
       `,
-       `
-    #!/bin/bash
+       `#!/bin/bash
     
     # Actualizar el sistema
     sudo apt update -y && sudo apt upgrade -y
@@ -1007,8 +931,7 @@ EOF
 
     
       `,
-       `
-    #!/bin/bash
+       `#!/bin/bash
     
     # Actualizar el sistema
     sudo apt update -y && sudo apt upgrade -y
@@ -1038,8 +961,7 @@ EOF
         sebastianwebapp/story_bang_grok_text_generator_main:latest
       
       `,
-       `
-    #!/bin/bash
+       `#!/bin/bash
     
     # Actualizar el sistema
     sudo apt update -y && sudo apt upgrade -y
@@ -1070,8 +992,7 @@ EOF
         --restart always \
         redis:latest
       `,
-       `
-    #!/bin/bash
+       `#!/bin/bash
     
     # Actualizar el sistema
     sudo apt update -y && sudo apt upgrade -y
@@ -1102,8 +1023,7 @@ EOF
         --restart always \
         redis:latest
       `,
-       `
-    #!/bin/bash
+       `#!/bin/bash
     
     # Actualizar el sistema
     sudo apt update -y && sudo apt upgrade -y
@@ -1133,8 +1053,7 @@ EOF
         sebastianwebapp/story_bang_translator_main:latest
 
       `,
-       `
-    #!/bin/bash
+       `#!/bin/bash
     
     # Actualizar el sistema
     sudo apt update -y && sudo apt upgrade -y
@@ -1165,8 +1084,7 @@ EOF
         sebastianwebapp/story_bang_gpt2_text_generator_main:latest
 
       `,
-       `
-    #!/bin/bash
+       `#!/bin/bash
     
     # Actualizar el sistema
     sudo apt update -y && sudo apt upgrade -y
@@ -1197,8 +1115,7 @@ EOF
         sebastianwebapp/story_bang_gpt2medium_text_generator_main:latest
 
       `,
-       `
-    #!/bin/bash
+       `#!/bin/bash
     
     # Actualizar el sistema
     sudo apt update -y && sudo apt upgrade -y
@@ -1230,8 +1147,7 @@ EOF
         mongo:latest
     
       `,
-       `
-    #!/bin/bash
+       `#!/bin/bash
     
     # Actualizar el sistema
     sudo apt update -y && sudo apt upgrade -y
@@ -1261,8 +1177,7 @@ EOF
         sebastianwebapp/story_bang_create_story_main:latest
 
       `,
-       `
-    #!/bin/bash
+       `#!/bin/bash
     
     # Actualizar el sistema
     sudo apt update -y && sudo apt upgrade -y
@@ -1292,8 +1207,7 @@ EOF
         sebastianwebapp/story_bang_update_story_main:latest
 
       `,
-       `
-    #!/bin/bash
+       `#!/bin/bash
     
     # Actualizar el sistema
     sudo apt update -y && sudo apt upgrade -y
@@ -1323,8 +1237,7 @@ EOF
         sebastianwebapp/story_bang_read_story_main:latest
 
       `,
-       `
-    #!/bin/bash
+       `#!/bin/bash
     
     # Actualizar el sistema
     sudo apt update -y && sudo apt upgrade -y
@@ -1354,8 +1267,7 @@ EOF
         sebastianwebapp/story_bang_read_id_story_main:latest
 
       `,
-       `
-    #!/bin/bash
+       `#!/bin/bash
     
     # Actualizar el sistema
     sudo apt update -y && sudo apt upgrade -y
@@ -1386,19 +1298,14 @@ EOF
 
       `,
     ];
-
-    this.AMI = [
-      "ami-020cba7c55df1f615","ami-020cba7c55df1f615","ami-020cba7c55df1f615","ami-020cba7c55df1f615","ami-020cba7c55df1f615","ami-020cba7c55df1f615","ami-020cba7c55df1f615",
-      "ami-020cba7c55df1f615","ami-020cba7c55df1f615","ami-020cba7c55df1f615",
-      "ami-020cba7c55df1f615","ami-020cba7c55df1f615","ami-020cba7c55df1f615","ami-020cba7c55df1f615","ami-020cba7c55df1f615","ami-020cba7c55df1f615","ami-020cba7c55df1f615","ami-020cba7c55df1f615"
-    ]
+   
   }
 
 
   getInstanceParams(index) {
 
     return {
-      ImageId: this.AMI[index],
+      ImageId: "ami-020cba7c55df1f615",
       InstanceType: this.Instance[index],
       MinCount: 1,
       MaxCount: 1,

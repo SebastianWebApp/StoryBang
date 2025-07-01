@@ -8,7 +8,7 @@ class Deployer {
     this.config = new InstanceConfig();
   }
   
-  async waitForInstanceRunning(instanceId, ec2Manager) {
+  async waitForInstanceRunning(instanceId, ec2Manager, Name_Instance) {
     let instanceRunning = false;
     let retryCount = 0;
     const maxRetries = 10;
@@ -23,13 +23,15 @@ class Deployer {
 
         if (state === 'running') {
           instanceRunning = true;
+          console.log(Name_Instance)
         }
       } catch (err) {
         if (err.Code === 'InvalidInstanceID.NotFound') {
           console.log(`Instancia ${instanceId} aún no está disponible. Reintentando...`);
           retryCount++;
         } else {
-          throw err;
+          console.log("Estado: "+ err)
+          throw err;          
         }
       }
     }
@@ -50,7 +52,7 @@ class Deployer {
       throw new Error("No se pudo obtener el ID de la instancia");
     }
 
-    await this.waitForInstanceRunning(instanceId, ec2Manager);
+    await this.waitForInstanceRunning(instanceId, ec2Manager, this.config.Names[index]);
 
     if (this.config.Type[index] === "Elastic") {
       await ec2Manager.associateElasticIP(instanceId, this.config.IPs[index]);
@@ -64,7 +66,7 @@ class Deployer {
   }
 
   async deployAll() {
-    const List = [7,3,8];
+    const List = [7,3,8,5,5,4,5];
     const baseIndex = [0];
 
     for (let i = 1; i < List.length; i++) {
