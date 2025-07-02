@@ -22,7 +22,6 @@ class Deployer {
         console.log(`Estado actual de ${instanceId}: ${state}`);
 
         if (state === 'running') {
-          console.log(Name_Instance)
           instanceRunning = true;
         }
       } catch (err) {
@@ -100,9 +99,10 @@ class Deployer {
       console.error("Hubo un error en el despliegue general:", err);
     }
 
-    // process.exit();
+    process.exit();
   }
 
+  
 
 
 
