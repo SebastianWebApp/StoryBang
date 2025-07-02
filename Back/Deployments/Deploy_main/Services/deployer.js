@@ -3,9 +3,14 @@ import InstanceConfig from '../Models/instance-config.js';
 import EC2Manager from './Aws/ec2-manager.js';
 import ELBManager from './Aws/elb-manager.js';
 import logger from "./logs.service.js";
+import { WhatsappService } from "./whatsapp.service.js";
+import { twilioConfig, createTwilioClient } from "../Config/twilio.config.js";
+
 
 class Deployer {
   constructor() {    
+    this.twilioClient = createTwilioClient();
+    this.whatsappService = new WhatsappService(this.twilioClient, twilioConfig.whatsappFrom);
     this.config = new InstanceConfig();
     this.instanceIds = [];
   }
@@ -25,7 +30,7 @@ class Deployer {
 
         if (state === 'running') {
           instanceRunning = true;
-          console.log(Name_Instance)
+          await this.whatsappService.sendMessage(`The instance ${Name_Instance} (${instanceId}) is still "running"`,twilioConfig.phone);
         }
       } catch (err) {
         if (err.Code === 'InvalidInstanceID.NotFound') {
@@ -56,7 +61,7 @@ class Deployer {
       throw new Error("Could not retrieve the instance ID");
     }
 
-    this.instanceIds.push({ instanceId, index }); // Guardar para monitoreo
+    this.instanceIds.push({ instanceId, index });
     await this.waitForInstanceRunning(instanceId, ec2Manager, this.config.Names[index]);
 
     if (this.config.Type[index] === "Elastic") {
@@ -71,7 +76,7 @@ class Deployer {
   }
 
   async deployAll() {
-    const List = [7,3,8,5,5,4,5];
+    const List = [3];
     const baseIndex = [0];
 
     for (let i = 1; i < List.length; i++) {
@@ -113,7 +118,7 @@ class Deployer {
 
   async monitorInstances() {
     const checkInterval = 60 * 1000; 
-    const List = [7,3,8,5,5,4,5]; 
+    const List = [3]; 
     const baseIndex = [0];
 
     for (let i = 1; i < List.length; i++) {
@@ -150,9 +155,10 @@ class Deployer {
           const name = this.config.Names[index];
 
           if (state !== 'running') {
+            await this.whatsappService.sendMessage(`⚠️ ALERT: Instance ${name} (${instanceId}) is in state "${state}"`,twilioConfig.phone);
             logger.error(`⚠️ ALERT: Instance ${name} (${instanceId}) is in state "${state}"`);
           } else {
-            console.log(`✅ Monitoreo: La instancia ${name} (${instanceId}) sigue "running"`);
+            logger.info(`✅ Monitoring: The instance ${name} (${instanceId}) is still "running"`);
           }
         } catch (err) {
           logger.error(`❌ Error monitoring instance ${instanceId}: ${err.message}`, { error: err });

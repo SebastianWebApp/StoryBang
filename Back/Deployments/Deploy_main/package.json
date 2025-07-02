@@ -17,6 +17,7 @@
     "@aws-sdk/client-s3": "^3.812.0",
     "dotenv": "^16.5.0",
     "express": "^5.1.0",
+    "twilio": "^5.7.1",
     "winston": "^3.17.0"
   }
 }
