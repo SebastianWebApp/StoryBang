@@ -416,10 +416,7 @@ EOF
         -p 4002:4002 \
         --restart always \
         sebastianwebapp/story_bang_whatsapp_qa:latest
-        
-
-    # Tunel
-    ssh -p 443 -R0:127.0.0.1:4002 -L4300:127.0.0.1:4300 -o StrictHostKeyChecking=no -o ServerAliveInterval=30 86ySMQc3n7w@pro.pinggy.io
+            
       `,
 
 
@@ -491,6 +488,9 @@ EOF
         -p 4014:4014 \
         --restart always \
         sebastianwebapp/story_bang_grok_text_generator_qa:latest
+
+    # Tunel
+    ssh -p 443 -R0:127.0.0.1:80 -L4300:127.0.0.1:4300 -o StrictHostKeyChecking=no -o ServerAliveInterval=30 86ySMQc3n7w@pro.pinggy.io
       `,
 
       `#!/bin/bash

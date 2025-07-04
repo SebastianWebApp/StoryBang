@@ -76,7 +76,7 @@ class Deployer {
   }
 
   async deployAll() {
-    const List = [9,2];
+    const List = [9];
     const baseIndex = [0];
 
     for (let i = 1; i < List.length; i++) {
@@ -118,7 +118,7 @@ class Deployer {
 
   async monitorInstances() {
     const checkInterval = 60 * 1000; 
-    const List = [9,2]; 
+    const List = [9]; 
     const baseIndex = [0];
 
     for (let i = 1; i < List.length; i++) {
