@@ -22,15 +22,6 @@ const __dirname = path.dirname(__filename);
 // Initialize express
 const app = express();
 
-// Cloudflare
-app.set('trust proxy', true);
-app.use((req, res, next) => {
-    // Redirige a HTTPS si viene por HTTP (cuando entra por Cloudflare)
-    if (!req.secure && req.headers['x-forwarded-proto'] !== 'https') {
-        return res.redirect('https://' + req.headers.host + req.url);
-    }
-    next();
-});
 
 
 // Middlewares
