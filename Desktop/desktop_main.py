@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import messagebox
 import requests
 
+
 # Función que se llama al presionar el botón
 def send_data():
     text = entry.get()
