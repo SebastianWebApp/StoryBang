@@ -1,0 +1,133 @@
+[2025-07-08T11:20:48.621Z] INFO: Account 1: creating instance 1
+[2025-07-08T11:20:48.624Z] INFO: Creating instance 1...
+[2025-07-08T11:20:48.626Z] INFO: Account 2: creating instance 1
+[2025-07-08T11:20:48.626Z] INFO: Creating instance 6...
+[2025-07-08T11:20:48.627Z] INFO: Account 3: creating instance 1
+[2025-07-08T11:20:48.627Z] INFO: Creating instance 10...
+[2025-07-08T11:20:48.631Z] INFO: Server Active http://localhost:3000
+[2025-07-08T11:20:49.526Z] INFO: Account 1: creating instance 1
+[2025-07-08T11:20:49.528Z] INFO: Creating instance 1...
+[2025-07-08T11:20:49.531Z] INFO: Account 2: creating instance 1
+[2025-07-08T11:20:49.531Z] INFO: Creating instance 6...
+[2025-07-08T11:20:49.532Z] INFO: Account 3: creating instance 1
+[2025-07-08T11:20:49.532Z] INFO: Creating instance 10...
+[2025-07-08T11:20:49.535Z] INFO: Server Active http://localhost:3000
+[2025-07-08T11:20:56.475Z] INFO: Current status of i-02683b15c9155215f: pending
+[2025-07-08T11:20:56.478Z] INFO: Current status of i-0755ae9abc72f9e2b: pending
+[2025-07-08T11:20:56.534Z] INFO: Current status of i-0eaa1e9157789378d: pending
+[2025-07-08T11:21:01.669Z] INFO: Current status of i-02683b15c9155215f: pending
+[2025-07-08T11:21:01.689Z] INFO: Current status of i-0755ae9abc72f9e2b: pending
+[2025-07-08T11:21:01.751Z] INFO: Current status of i-0eaa1e9157789378d: pending
+[2025-07-08T11:21:06.846Z] INFO: Current status of i-02683b15c9155215f: pending
+[2025-07-08T11:21:06.873Z] INFO: Current status of i-0755ae9abc72f9e2b: pending
+[2025-07-08T11:21:06.933Z] INFO: Current status of i-0eaa1e9157789378d: pending
+[2025-07-08T11:21:12.080Z] INFO: Current status of i-0755ae9abc72f9e2b: pending
+[2025-07-08T11:21:12.283Z] INFO: Current status of i-02683b15c9155215f: running
+[2025-07-08T11:21:12.967Z] INFO: Current status of i-0eaa1e9157789378d: pending
+[2025-07-08T11:21:13.831Z] INFO: Account 1: creating instance 1
+[2025-07-08T11:21:13.833Z] INFO: Creating instance 1...
+[2025-07-08T11:21:13.839Z] INFO: Account 2: creating instance 1
+[2025-07-08T11:21:13.839Z] INFO: Creating instance 6...
+[2025-07-08T11:21:13.840Z] INFO: Account 3: creating instance 1
+[2025-07-08T11:21:13.840Z] INFO: Creating instance 10...
+[2025-07-08T11:21:13.842Z] INFO: Server Active http://localhost:3000
+[2025-07-08T11:21:20.672Z] INFO: Current status of i-0b6c79e050fa6c760: pending
+[2025-07-08T11:21:20.715Z] INFO: Current status of i-097514e93d2d9afd8: pending
+[2025-07-08T11:21:20.770Z] INFO: Current status of i-05f29f33a2b67c4f6: pending
+[2025-07-08T11:21:25.854Z] INFO: Current status of i-0b6c79e050fa6c760: pending
+[2025-07-08T11:21:25.930Z] INFO: Current status of i-097514e93d2d9afd8: pending
+[2025-07-08T11:21:25.959Z] INFO: Current status of i-05f29f33a2b67c4f6: pending
+[2025-07-08T11:21:31.265Z] INFO: Current status of i-05f29f33a2b67c4f6: pending
+[2025-07-08T11:21:31.347Z] INFO: Current status of i-097514e93d2d9afd8: pending
+[2025-07-08T11:21:31.425Z] INFO: Current status of i-0b6c79e050fa6c760: pending
+[2025-07-08T11:21:36.443Z] INFO: Current status of i-05f29f33a2b67c4f6: pending
+[2025-07-08T11:21:36.708Z] INFO: Current status of i-0b6c79e050fa6c760: running
+[2025-07-08T11:21:36.893Z] INFO: Current status of i-097514e93d2d9afd8: pending
+[2025-07-08T11:21:37.388Z] ERROR: Status: Error: Authentication Error - invalid username
+[2025-07-08T11:21:37.389Z] ERROR: Error in account 3, instance 1: Authentication Error - invalid username
+[2025-07-08T11:21:37.390Z] INFO: Account 3: creating instance 2
+[2025-07-08T11:21:37.391Z] INFO: Creating instance 11...
+[2025-07-08T11:21:41.707Z] INFO: Current status of i-05f29f33a2b67c4f6: running
+[2025-07-08T11:21:41.822Z] ERROR: Status: Error: Authentication Error - invalid username
+[2025-07-08T11:21:41.823Z] ERROR: Error in account 1, instance 1: Authentication Error - invalid username
+[2025-07-08T11:21:41.824Z] INFO: Account 1: creating instance 2
+[2025-07-08T11:21:41.824Z] INFO: Creating instance 2...
+[2025-07-08T11:21:42.110Z] INFO: Current status of i-097514e93d2d9afd8: pending
+[2025-07-08T11:21:44.006Z] INFO: Current status of i-0784c77ac40906ada: pending
+[2025-07-08T11:21:47.344Z] INFO: Current status of i-097514e93d2d9afd8: running
+[2025-07-08T11:21:47.450Z] ERROR: Status: Error: Authentication Error - invalid username
+[2025-07-08T11:21:47.451Z] ERROR: Error in account 2, instance 1: Authentication Error - invalid username
+[2025-07-08T11:21:47.451Z] INFO: Account 2: creating instance 2
+[2025-07-08T11:21:47.452Z] INFO: Creating instance 7...
+[2025-07-08T11:21:48.455Z] INFO: Current status of i-00bf4aa7d6629b37b: pending
+[2025-07-08T11:21:49.185Z] INFO: Current status of i-0784c77ac40906ada: pending
+[2025-07-08T11:21:53.649Z] INFO: Current status of i-00bf4aa7d6629b37b: pending
+[2025-07-08T11:21:53.937Z] INFO: Current status of i-0cdffbf49921fbe10: pending
+[2025-07-08T11:21:54.368Z] INFO: Current status of i-0784c77ac40906ada: pending
+[2025-07-08T11:21:58.940Z] INFO: Current status of i-00bf4aa7d6629b37b: pending
+[2025-07-08T11:21:59.131Z] INFO: Current status of i-0cdffbf49921fbe10: pending
+[2025-07-08T11:21:59.638Z] INFO: Current status of i-0784c77ac40906ada: pending
+[2025-07-08T11:22:04.504Z] INFO: Current status of i-0cdffbf49921fbe10: pending
+[2025-07-08T11:22:04.643Z] INFO: Current status of i-00bf4aa7d6629b37b: pending
+[2025-07-08T11:22:04.883Z] INFO: Current status of i-0784c77ac40906ada: running
+[2025-07-08T11:22:05.033Z] ERROR: Status: Error: Authentication Error - invalid username
+[2025-07-08T11:22:05.034Z] ERROR: Error in account 3, instance 2: Authentication Error - invalid username
+[2025-07-08T11:22:05.035Z] INFO: Account 3: creating instance 3
+[2025-07-08T11:22:05.035Z] INFO: Creating instance 12...
+[2025-07-08T11:22:09.708Z] INFO: Current status of i-0cdffbf49921fbe10: pending
+[2025-07-08T11:22:09.903Z] INFO: Current status of i-00bf4aa7d6629b37b: running
+[2025-07-08T11:22:10.018Z] ERROR: Status: Error: Authentication Error - invalid username
+[2025-07-08T11:22:10.019Z] ERROR: Error in account 1, instance 2: Authentication Error - invalid username
+[2025-07-08T11:22:10.020Z] INFO: Account 1: creating instance 3
+[2025-07-08T11:22:10.021Z] INFO: Creating instance 3...
+[2025-07-08T11:22:11.641Z] INFO: Current status of i-04bca4b2a9406c877: pending
+[2025-07-08T11:22:19.913Z] INFO: Current status of i-0ac099272f3820fe4: pending
+[2025-07-08T11:22:19.996Z] INFO: Current status of i-04bca4b2a9406c877: pending
+[2025-07-08T11:22:22.841Z] INFO: Current status of i-0cdffbf49921fbe10: running
+[2025-07-08T11:22:22.966Z] ERROR: Status: Error: Authentication Error - invalid username
+[2025-07-08T11:22:22.967Z] ERROR: Error in account 2, instance 2: Authentication Error - invalid username
+[2025-07-08T11:22:22.968Z] INFO: Account 2: creating instance 3
+[2025-07-08T11:22:22.968Z] INFO: Creating instance 8...
+[2025-07-08T11:22:25.328Z] INFO: Current status of i-0ac099272f3820fe4: pending
+[2025-07-08T11:22:25.355Z] INFO: Current status of i-04bca4b2a9406c877: pending
+[2025-07-08T11:22:29.900Z] INFO: Current status of i-0a5a9116a8aed605b: pending
+[2025-07-08T11:22:30.634Z] INFO: Current status of i-0ac099272f3820fe4: pending
+[2025-07-08T11:22:30.660Z] INFO: Current status of i-04bca4b2a9406c877: pending
+[2025-07-08T11:22:35.141Z] INFO: Current status of i-0a5a9116a8aed605b: pending
+[2025-07-08T11:22:37.802Z] INFO: Current status of i-0ac099272f3820fe4: running
+[2025-07-08T11:22:37.883Z] INFO: Current status of i-04bca4b2a9406c877: running
+[2025-07-08T11:22:37.914Z] ERROR: Status: Error: Authentication Error - invalid username
+[2025-07-08T11:22:37.915Z] ERROR: Error in account 1, instance 3: Authentication Error - invalid username
+[2025-07-08T11:22:37.916Z] INFO: Account 1: creating instance 4
+[2025-07-08T11:22:37.916Z] INFO: Creating instance 4...
+[2025-07-08T11:22:38.462Z] ERROR: Status: Error: Authentication Error - invalid username
+[2025-07-08T11:22:38.463Z] ERROR: Error in account 3, instance 3: Authentication Error - invalid username
+[2025-07-08T11:22:40.415Z] INFO: Current status of i-0a5a9116a8aed605b: pending
+[2025-07-08T11:22:44.628Z] INFO: Current status of i-0ba7d8d8c89de9f3e: pending
+[2025-07-08T11:22:45.668Z] INFO: Current status of i-0a5a9116a8aed605b: pending
+[2025-07-08T11:22:50.022Z] INFO: Current status of i-0ba7d8d8c89de9f3e: pending
+[2025-07-08T11:22:51.110Z] INFO: Current status of i-0a5a9116a8aed605b: running
+[2025-07-08T11:22:51.231Z] ERROR: Status: Error: Authentication Error - invalid username
+[2025-07-08T11:22:51.233Z] ERROR: Error in account 2, instance 3: Authentication Error - invalid username
+[2025-07-08T11:22:51.234Z] INFO: Account 2: creating instance 4
+[2025-07-08T11:22:51.234Z] INFO: Creating instance 9...
+[2025-07-08T11:22:55.215Z] INFO: Current status of i-0ba7d8d8c89de9f3e: pending
+[2025-07-08T11:22:57.773Z] INFO: Current status of i-0098e1e12693d467d: pending
+[2025-07-08T11:23:00.551Z] INFO: Current status of i-0ba7d8d8c89de9f3e: pending
+[2025-07-08T11:23:03.258Z] INFO: Current status of i-0098e1e12693d467d: pending
+[2025-07-08T11:23:05.790Z] INFO: Current status of i-0ba7d8d8c89de9f3e: pending
+[2025-07-08T11:23:08.667Z] INFO: Current status of i-0098e1e12693d467d: pending
+[2025-07-08T11:23:10.979Z] INFO: Current status of i-0ba7d8d8c89de9f3e: running
+[2025-07-08T11:23:11.083Z] ERROR: Status: Error: Authentication Error - invalid username
+[2025-07-08T11:23:11.084Z] ERROR: Error in account 1, instance 4: Authentication Error - invalid username
+[2025-07-08T11:23:11.084Z] INFO: Account 1: creating instance 5
+[2025-07-08T11:23:11.085Z] INFO: Creating instance 5...
+[2025-07-08T11:23:13.868Z] INFO: Current status of i-0098e1e12693d467d: pending
+[2025-07-08T11:23:17.857Z] INFO: Current status of i-031546a67e5388a98: pending
+[2025-07-08T11:23:23.053Z] INFO: Current status of i-031546a67e5388a98: pending
+[2025-07-08T11:23:24.808Z] INFO: Current status of i-0098e1e12693d467d: running
+[2025-07-08T11:23:24.918Z] ERROR: Status: Error: Authentication Error - invalid username
+[2025-07-08T11:23:24.919Z] ERROR: Error in account 2, instance 4: Authentication Error - invalid username
+[2025-07-08T11:23:28.253Z] INFO: Current status of i-031546a67e5388a98: pending
+[2025-07-08T11:23:33.436Z] INFO: Current status of i-031546a67e5388a98: pending
+[2025-07-08T11:23:38.845Z] INFO: Current status of i-031546a67e5388a98: running

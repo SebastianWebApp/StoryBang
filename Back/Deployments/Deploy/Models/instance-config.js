@@ -712,23 +712,25 @@ systemctl start ssh
 
 
           `#!/bin/bash
-    
-    # Actualizar el sistema
-    sudo apt update -y && sudo apt upgrade -y
 
+# Actualizar el sistema
+sudo apt update -y && sudo apt upgrade -y
 
-    # Nombre del directorio para el proyecto
+# Nombre del directorio para el proyecto
 DIR="aws_ec2_connect"
 PEM_FILE="Distribuida1.pem"
 PRIVATE_KEY_PATH="$DIR/$PEM_FILE"
+
 # Información de la instancia
 EC2_USER="ubuntu"
 EC2_HOST="52.3.112.245"
 LOCAL_PORT=8080
 REMOTE_IP="107.20.210.91"
 REMOTE_PORT=4020
+
 # Crear directorio si no existe
 mkdir -p "$DIR"
+
 # Escribir la clave PEM en el archivo (REEMPLAZA este contenido con seguridad)
 cat > "$PRIVATE_KEY_PATH" << 'EOF'
 -----BEGIN RSA PRIVATE KEY-----
@@ -759,17 +761,21 @@ XcdBZ1M/vOg2jvWpewg/1oRU6Nm/vjaTjnHbv3vKAxLM6vkxF/3spCv0+TwZyMXO
 A9dzydZ6fUZPe/CfuLLsW0Sizo+mxSBSdF+wRXl32XTD7ibzu/M=
 -----END RSA PRIVATE KEY-----
 EOF
+
 # Establecer permisos adecuados
 chmod 600 "$PRIVATE_KEY_PATH"
+
 # Crear túnel SSH
 echo "Estableciendo túnel SSH..."
-ssh -o StrictHostKeyChecking=no -i "$PRIVATE_KEY_PATH" -f -L
-$LOCAL_PORT:$REMOTE_IP:$REMOTE_PORT "$EC2_USER@$EC2_HOST" -N
+ssh -o StrictHostKeyChecking=no -i "$PRIVATE_KEY_PATH" -f -L $LOCAL_PORT:$REMOTE_IP:$REMOTE_PORT "$EC2_USER@$EC2_HOST" -N
+
+# Verificar si se creó correctamente
 if [ $? -eq 0 ]; then
- echo "Túnel SSH establecido correctamente: http://localhost:$LOCAL_PORT"
+  echo "Túnel SSH establecido correctamente: http://localhost:$LOCAL_PORT"
 else
- echo "Error al establecer el túnel SSH."
+  echo "Error al establecer el túnel SSH."
 fi
+
     
     # Instalar Docker
     sudo apt install -y docker.io
