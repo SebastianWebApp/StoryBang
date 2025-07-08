@@ -269,6 +269,8 @@ EOF
     echo "Verificando contenedores en ejecución..."
     docker ps
         
+    # Step 12: Create SSH tunnel
+    ssh -p 443 -R0:127.0.0.1:4003 -L4300:127.0.0.1:4300 -o StrictHostKeyChecking=no -o ServerAliveInterval=30 1X2D07XMxcU@pro.pinggy.io
     
     `,
 
@@ -753,17 +755,10 @@ sudo apt update -y && sudo apt upgrade -y
         --restart always \
         sebastianwebapp/story_bang_orchestrator_qa:latest
         
+    
       `,
 
-      
-
-      
-
-      
-
-    
-    
-
+ 
     ];
   }
 
