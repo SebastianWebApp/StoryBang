@@ -354,6 +354,334 @@ flowchart TD
 ```
 
 
+Claro, aquí tienes todo el contenido traducido al español:
+
+---
+
+## 🧱 Arquitectura de Infraestructura de Alto Nivel
+
+```mermaid
+graph TD
+    A[Usuario Externo] -->|Accede| B[Frontend]
+    B -->|Autenticación| C[Usuario]
+    B -->|Notificaciones| D[Mensaje]
+    B -->|Consulta/Visualización| E[Personaje]
+    B -->|Consulta/Visualización| F[Historia]
+    B -->|Generación| G[Generar]
+    B -->|Permisos| H[Seguridad]
+    B -->|Orquestador| I[Orquestador]
+```
+
+## 🧱 Arquitectura de Infraestructura de Bajo Nivel
+
+[Ver documento PDF](./low_architecture.pdf)
+
+---
+
+## 🧱 Arquitectura de Software de Alto Nivel
+
+```mermaid
+flowchart TD
+    A[Frontend: Servidor Express JS] --> B[Rutas y Vistas]
+    B --> C[Controladores y Servicios]
+    C --> D[Capa de Microservicios]
+
+    D --> E[Servicio de Login]
+    D --> F[Servicio de Personaje]
+    D --> G[Servicio de Historia]
+    D --> H[Servicio de Generador]
+    D --> I[Servicio de Seguridad]
+    D --> J[Servicio de Notificaciones con Socket IO]
+
+    H --> K[API Flask con GPT2]
+    H --> L[Cola Redis Bull para GROK]
+    L --> M[Trabajador procesa trabajo de GROK]
+    M --> J
+
+    I --> N[Servicio JWT]
+    I --> O[Servicio de Encriptación]
+    I --> P[Servicio de Desencriptación]
+
+    D --> Q[Capa de Base de Datos: MySQL MongoDB Redis]
+```
+
+---
+
+## 🧱 Arquitectura de Software de Bajo Nivel (Flujo Frontend a Backend)
+
+```mermaid
+flowchart TD
+    A[Usuario accede al Frontend] --> B[Servidor Express JS - Frontend]
+
+    B --> C{Ruta solicitada}
+    C -- Ruta pública --> D[Servir HTML desde vistas]
+    C -- Ruta protegida --> E[Middleware JWT - read_jwt.js]
+    E -- JWT inválido --> F[Redireccionar a login o mostrar error]
+    E -- JWT válido --> G[Servir HTML protegido desde vistas]
+
+    D & G --> H[Usuario realiza llamada API vía AJAX o fetch]
+    H --> I[Ruteo en Frontend]
+    I --> J[Controladores del Frontend]
+    J --> K[Servicios del Frontend]
+
+    K --> L{Punto de entrada API}
+    L -- Login --> M[Microservicios Crear_Usuario Eliminar_Usuario]
+    L -- Historia --> N[Microservicios Crear_Historia Leer_Historia]
+    L -- Personaje --> O[Microservicios Crear_Personaje, etc.]
+    L -- Generador --> P[Microservicios Generador_Gpt2, Generador_Grok]
+    L -- Seguridad --> Q[Microservicios Jwt, Encriptar, Desencriptar]
+    L -- Mensajes --> R[Servidor Socket IO]
+
+    M --> S[Microservicio JWT]
+    S -- Válido --> T[Retornar JWT]
+    S -- Inválido --> F
+
+    P --> U{Tipo de Servicio}
+    U -- GPT2 --> V[Llamada REST a servicio Flask]
+    U -- GROK --> W[Añadir trabajo a cola Bull en Redis]
+    W --> X[Trabajador procesa trabajo y llama API de GROK]
+    X --> Y[Notificación vía Socket IO]
+
+    T & Y & N & O --> Z[Frontend recibe respuesta o notificación]
+    Z --> AA[Frontend actualiza la interfaz]
+
+    R --> AB[Usuario se une a sala Socket IO]
+    AB --> AC[Recibe notificaciones en tiempo real]
+```
+
+---
+
+## 🧱 Arquitectura del Sistema de Bajo Nivel y Flujo de Conexión
+
+```mermaid
+flowchart TD
+    A[Usuario accede al Frontend - web o app] --> B[Servidor Express - server.js]
+
+    B --> C{Ruta solicitada}
+    C -- Ruta pública --> D[Servir HTML desde vistas]
+    C -- Ruta protegida --> E[Middleware JWT - read_jwt.js]
+    E -- JWT inválido --> F[Redirigir a login o mostrar error]
+    E -- JWT válido --> G[Servir HTML protegido desde vistas]
+
+    D --> H[Usuario realiza llamada API]
+    G --> H
+    H --> I[Enrutadores del Frontend]
+    I --> J[Controladores del Frontend]
+    J --> K[Servicios del Frontend - JWT y llamadas API]
+
+    K --> L{Punto de Entrada API}
+    L -- Login --> M[Servicios de Login - CrearUsuario, EliminarUsuario]
+    L -- Historia --> N[Servicios de Historia - CrearHistoria, LeerHistoria]
+    L -- Personaje --> O[Servicios de Personaje - CrearPersonaje]
+    L -- Generador --> P[Servicios de Generador - TextoGpt2, TextoGrok]
+    L -- Seguridad --> Q[Servicios de Seguridad - JWT, Encriptar, Desencriptar]
+    L -- Mensajes --> R[Notificaciones Socket IO]
+
+    M --> S[Microservicio JWT]
+    S -- Válido --> T[Retornar JWT al Frontend]
+    S -- Inválido --> F
+
+    P --> U{Tipo de Servicio}
+    U -- GPT2 --> V[Llamada REST al servicio Flask]
+    U -- GROK --> W[Añadir trabajo a la cola Bull - Redis]
+    W --> X[Trabajador procesa trabajo y llama API de GROK]
+    X --> Y[Notifica al usuario vía Socket IO]
+
+    T --> Z[Frontend recibe respuesta]
+    Y --> Z
+    N --> Z
+    O --> Z
+    Z --> AA[Frontend actualiza interfaz]
+
+    R --> AB[Usuario se une a sala Socket IO]
+    AB --> AC[Usuario recibe notificaciones en tiempo real]
+
+    subgraph Leyenda
+        direction LR
+        L1[Frontend - Express, Rutas, Controladores, Servicios, vistas]
+        L2[Backend - Microservicios para Login, Historia, Personaje, Generador, Seguridad, Mensajes]
+        L3[Seguridad - JWT, Encriptar, Desencriptar]
+        L4[Generador - GPT2 con Flask y GROK con Bull y Redis]
+        L5[Mensajes - Actualizaciones en tiempo real con Socket IO]
+    end
+```
+
+---
+
+## 🧱 Arquitectura de la Base de Datos y Configuración de Colas Redis Bull
+
+```mermaid
+erDiagram
+    USERS {
+        VARCHAR Id PK "Clave primaria"
+        VARCHAR Phone
+        VARCHAR Password
+        VARCHAR Name
+        MEDIUMTEXT Image
+    }
+
+    CHARACTERS {
+        STRING Id PK "Mongo ObjectId"
+        STRING Name
+        STRING Description
+        STRING Image
+        STRING Image_Real
+        VARCHAR User_Id FK "Referencia a USERS.Id"
+        DATETIME createdAt
+        DATETIME updatedAt
+    }
+
+    STORY {
+        STRING Id PK "Mongo ObjectId"
+        JSON Content
+        DATETIME createdAt
+        DATETIME updatedAt
+    }
+
+    BULL_USERS {
+        STRING Host "IP del host Redis"
+        INT Port "Puerto Redis"
+        STRING QueueName "Nombre de la cola Bull"
+    }
+
+    BULL_GENERATOR {
+        STRING Host "IP del host Redis"
+        INT Port "Puerto Redis"
+        STRING QueueName "Nombre de la cola Bull"
+    }
+
+    BULL_CHARACTER {
+        STRING Host "IP del host Redis"
+        INT Port "Puerto Redis"
+        STRING QueueName "Nombre de la cola Bull"
+    }
+
+    BULL_STORY {
+        STRING Host "IP del host Redis"
+        INT Port "Puerto Redis"
+        STRING QueueName "Nombre de la cola Bull"
+    }
+```
+
+---
+
+## 🧱 Diagrama de Casos de Uso
+
+```mermaid
+graph TB
+    User((Usuario))
+    Admin((Administrador))
+
+    subgraph Acciones del Usuario
+        UC1[Crear Personaje]
+        UC2[Leer Personaje]
+        UC3[Actualizar Personaje]
+        UC4[Eliminar Personaje]
+        UC5[Generar Historia]
+        UC6[Generar Imagen]
+        UC7[Describir Imagen]
+        UC8[Traducir Texto]
+        UC9[Iniciar Sesión]
+        UC10[Registrarse]
+        UC11[Recuperar Contraseña]
+        UC12[Ver Perfil]
+        UC13[Actualizar Perfil]
+    end
+
+    subgraph Acciones del Administrador
+        AC1[Monitorear Servicio]
+        AC2[Gestionar Usuarios]
+        AC3[Ver Registros]
+    end
+
+    subgraph Requisito Común
+        JWT[Autenticación vía JWT]
+    end
+
+    User --> UC1
+    User --> UC2
+    User --> UC3
+    User --> UC4
+    User --> UC5
+    User --> UC6
+    User --> UC7
+    User --> UC8
+    User --> UC9
+    User --> UC10
+    User --> UC11
+    User --> UC12
+    User --> UC13
+
+    Admin --> AC1
+    Admin --> AC2
+    Admin --> AC3
+
+    UC1 --> JWT
+    UC2 --> JWT
+    UC3 --> JWT
+    UC4 --> JWT
+    UC5 --> JWT
+    UC6 --> JWT
+    UC7 --> JWT
+    UC8 --> JWT
+    UC12 --> JWT
+    UC13 --> JWT
+```
+
+---
+
+## 🧱 Diagrama de Flujo del Proceso de Negocio
+
+```mermaid
+flowchart TD
+    A[Usuario accede a la plataforma] --> B[Elige una opción]
+    B --> C{¿Qué desea hacer?}
+
+    C -->|Crear cuenta| D[Ingresa datos personales y confirma]
+    D --> E[Recibe código de verificación]
+    E --> F[Ingresa el código]
+    F --> G{¿El código es correcto?}
+    G -->|No| H[Se informa que el código es incorrecto]
+    G -->|Sí| I[Cuenta creada y recibe confirmación]
+
+    C -->|Iniciar sesión| J[Ingresa usuario y contraseña]
+    J --> K{¿Las credenciales son correctas?}
+    K -->|No| L[Se informa que las credenciales son incorrectas]
+    K -->|Sí| M[Accede a su perfil y funciones]
+
+    C -->|Recuperar contraseña| N[Ingresa nombre de usuario]
+    N --> O[Recibe instrucciones de recuperación]
+    O --> P[Recibe nueva contraseña por WhatsApp o correo]
+
+    C -->|Crear personaje| Q[Completa formulario de personaje]
+    Q --> R[Personaje se guarda en la cuenta]
+
+    C -->|Ver personajes o historias| S[Muestra lista de personajes o historias]
+    S --> T[Puede seleccionar y ver detalles]
+
+    C -->|Generar historia o imagen| U[Elige tipo de generación y provee información]
+    U --> V[Recibe historia o imagen generada]
+
+    C -->|Eliminar cuenta, personaje o historia| W[Confirma eliminación]
+    W --> X[Recibe confirmación de eliminación]
+
+    H --> Y[Notificación mostrada en pantalla]
+    L --> Y
+    X --> Y
+
+    I --> Z[Resultado o confirmación en pantalla]
+    M --> Z
+    P --> Z
+    R --> Z
+    T --> Z
+    V --> Z
+```
+
+
+
+
+
+
 ## Main Generator Services
 
 ### 1. Gpt2_Text_Generator
