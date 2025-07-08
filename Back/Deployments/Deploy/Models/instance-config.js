@@ -716,66 +716,6 @@ systemctl start ssh
 # Actualizar el sistema
 sudo apt update -y && sudo apt upgrade -y
 
-# Nombre del directorio para el proyecto
-DIR="aws_ec2_connect"
-PEM_FILE="Distribuida1.pem"
-PRIVATE_KEY_PATH="$DIR/$PEM_FILE"
-
-# Información de la instancia
-EC2_USER="ubuntu"
-EC2_HOST="52.3.112.245"
-LOCAL_PORT=8080
-REMOTE_IP="107.20.210.91"
-REMOTE_PORT=4020
-
-# Crear directorio si no existe
-mkdir -p "$DIR"
-
-# Escribir la clave PEM en el archivo (REEMPLAZA este contenido con seguridad)
-cat > "$PRIVATE_KEY_PATH" << 'EOF'
------BEGIN RSA PRIVATE KEY-----
-MIIEogIBAAKCAQEA/or9umTLk5jQZ4e1Ff4ZyWj/fD8OhsPQxPkwvNjL4Q0054BJ
-RB4C0tv87TNdbznxXlASyfYCXmX2JCiOoT1oPdjKCnUeSkycK3yO/tdpJBGJ+3pF
-0ATHRDAfuqMUVMrZcmpEHS91sRv+8gMKGjGei/gpXlv90IAzB3hiqm82yUe2BkZ3
-qh+QpViOSVcWJgmqLX73dUOYsokqP5oGK3mB36agQx1lRVy6hOdayVQ9u6QFbjZf
-AnvIvn4TyTIlgckNwB1ixFx+eXzRdnYqyyagRSZxuvEuWchttwLIoi3PBXjctdSH
-Bja9/0PWQolRTLMGAeqJxtfeqLIeDP0vQKo5VwIDAQABAoIBAGIT5BgB5n8EjqiV
-nazPr9fvYSHamhpLMRH0glcBoe0hTZU11QUuGyBsK1SqSgIlbV9Nsy+mXttIpkLg
-bbSrGJNcCN1mqzkts67924tOLPD84RHI10WD0dPwRwl+9MKHNqnjUEN+mfaYNu/B
-RA87tz9va2E0SOQhwYfLVxkcqRt8hWprWnluONZG3zN75MUSDlnucQ7ZEqv9+FXM
-yl1dQZvyuMfKN4w092RbOm7iKMExI5GCZUiKlSdF4iWrrdRm4V+NvBExwell7DtH
-Li+TdfK4N2UEkkrxhI5L3nw8DCnYmoOICRNHuyN0WKDhEa6dahb7eq7lxVoAyv3W
-FVG7juECgYEA/1h7jU/9HsURjpB6J5aNoyQjbUlrLcWKMUVw/5HjW2PoHAjnIbbO
-+snIdJ+K6v9RsIINu6IMV34pE4aOBJ9lRN9JUZK450nkL69Gb3wl9ojZBd1ZWg7l
-H/T4zNhfXb57sUI/2mMZBItNPaSepPbBsFUbmdyrx6VDzkcm05ScQb0CgYEA/zH7
-XXgYSLYlxcAhgF971KGo9llSgIdeOV/5F7DTg8eSWUx4Xn+07O6igAimaYgxriYg
-iklIK+4vWuWZGoRYIOPrWPCd7CY7Be1upwFKKr9cxNKQQNAFAcROOS6M8rz8O8Bw
-qKEpVo6HkOZS8ezDDv19Smao8dSILFhMKwMwtqMCgYB/OQnOHbWC+DNIMen7AYMu
-bpoMIJF7K7ov1GZ5n6mE5mFGXpUycg/sWk869CbV8UI1TIclHpdBnIVAykDGQtjF
-GO9B6nWgH2vG6nCQqW2MySBAUMntGhDE/FxeS8wwO/ELH3QLDmbvoaxpczTsAln8
-zlrDLXSVM112UHMi5h94jQKBgDTGMFZvDI6U5JDVn9f9Zw1c9SUk6bPcyraQy2GD
-1uoMro47CzV3sYHCA+b4Yvm2CZgbGGWgrAUxt6dTjer27Ya3u6bj87SvX0tlg5mT
-4bOfaV7msKBGpJJt90NKBin4vSzaKjIlSfg1d4GWsBaJwPjroSpuuodwTUzmYbIP
-cdaDAoGAVT9JAlD5ZvlQ9TQGlira7lbhyPgHTgVLneaO3133UiAFecTQd4GaHGJe
-XcdBZ1M/vOg2jvWpewg/1oRU6Nm/vjaTjnHbv3vKAxLM6vkxF/3spCv0+TwZyMXO
-A9dzydZ6fUZPe/CfuLLsW0Sizo+mxSBSdF+wRXl32XTD7ibzu/M=
------END RSA PRIVATE KEY-----
-EOF
-
-# Establecer permisos adecuados
-chmod 600 "$PRIVATE_KEY_PATH"
-
-# Crear túnel SSH
-echo "Estableciendo túnel SSH..."
-ssh -o StrictHostKeyChecking=no -i "$PRIVATE_KEY_PATH" -f -L $LOCAL_PORT:$REMOTE_IP:$REMOTE_PORT "$EC2_USER@$EC2_HOST" -N
-
-# Verificar si se creó correctamente
-if [ $? -eq 0 ]; then
-  echo "Túnel SSH establecido correctamente: http://localhost:$LOCAL_PORT"
-else
-  echo "Error al establecer el túnel SSH."
-fi
-
     
     # Instalar Docker
     sudo apt install -y docker.io
