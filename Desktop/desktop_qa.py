@@ -12,7 +12,7 @@ def send_data():
     try:
         # Simula un "fetch" con requests
         response = requests.post(
-            "http://54.147.172.52:4027/api/create_account/Recover_Password",
+            "http://52.45.238.66:4027/api/create_account/Recover_Password",
             json={"Id": text}
         )
 

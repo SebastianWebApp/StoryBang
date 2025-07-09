@@ -806,7 +806,7 @@ export default InstanceConfig;
 // EC2_USER="ubuntu"
 // EC2_HOST="ec2-52-3-112-245.compute-1.amazonaws.com"
 // LOCAL_PORT=8080
-// REMOTE_IP="172.31.87.103"
+// REMOTE_IP="172.31.82.147"
 // REMOTE_PORT=4020
 
 // # ----------------------------
