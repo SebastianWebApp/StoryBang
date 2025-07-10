@@ -381,13 +381,11 @@ EOF
     docker rm story_bang_frontend_main || true
     
     docker run -d --name story_bang_frontend_main \
-        -p 80:80 \
+        -p 443:443 \
         --restart always \
         sebastianwebapp/story_bang_frontend_main:latest
-
-    # Tunel
-    ssh -p 443 -R0:127.0.0.1:80 -L4300:127.0.0.1:4300 -o StrictHostKeyChecking=no -o ServerAliveInterval=30 86ySMQc3n7w@pro.pinggy.io
     
+
       `,
        `#!/bin/bash
     
@@ -722,6 +720,9 @@ EOF
         --restart always \
         sebastianwebapp/story_bang_whatsapp_main:latest
         
+
+    # Tunel
+    ssh -p 443 -R0:127.0.0.1:4002 -L4300:127.0.0.1:4300 -o StrictHostKeyChecking=no -o ServerAliveInterval=30 86ySMQc3n7w@pro.pinggy.io
 
       `,
        `#!/bin/bash

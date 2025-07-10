@@ -269,7 +269,7 @@ EOF
     echo "Verificando contenedores en ejecución..."
     docker ps
         
-    # Step 12: Create SSH tunnel
+    # Step 12: Create SSH tunel
     ssh -p 443 -R0:127.0.0.1:4003 -L4300:127.0.0.1:4300 -o StrictHostKeyChecking=no -o ServerAliveInterval=30 1X2D07XMxcU@pro.pinggy.io
     
     `,
@@ -740,7 +740,7 @@ sudo apt update -y && sudo apt upgrade -y
     docker rm story_bang_frontend_qa || true
     
     docker run -d --name story_bang_frontend_qa \
-        -p 80:80 \
+        -p 443:443 \
         --restart always \
         sebastianwebapp/story_bang_frontend_qa:latest
 
@@ -806,7 +806,7 @@ export default InstanceConfig;
 // EC2_USER="ubuntu"
 // EC2_HOST="ec2-52-3-112-245.compute-1.amazonaws.com"
 // LOCAL_PORT=8080
-// REMOTE_IP="172.31.82.147"
+// REMOTE_IP="172.31.84.81"
 // REMOTE_PORT=4020
 
 // # ----------------------------
