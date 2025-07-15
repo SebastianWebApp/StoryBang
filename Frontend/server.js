@@ -11,6 +11,10 @@ import router_generator from "./Routers/routers_generator.js";
 import router_character from "./Routers/routers_character.js";
 import router_story from "./Routers/routers_story.js";
 
+import https from "https";
+import fs from "fs";
+
+
 // Enable connection with the .env file
 dotenv.config();
 const PORT = process.env.PORT;
@@ -19,8 +23,16 @@ const PORT = process.env.PORT;
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+
+const privateKey = fs.readFileSync(path.join(__dirname, "private.pem"), "utf8");
+const certificate = fs.readFileSync(path.join(__dirname, "public.pem"), "utf8");
+const credentials = { key: privateKey, cert: certificate };
+
+
 // Initialize express
 const app = express();
+
+
 
 // Middlewares
 app.use(cors()); // Allows connection between Front and Backend
@@ -106,7 +118,12 @@ app.use((req, res) => {
     }
 });
 
-// Start Server
-app.listen(PORT, () => {
-    console.log(`Server Active http://localhost:${PORT}`);
+// // Start Server
+// app.listen(PORT, () => {
+//     console.log(`Server Active http://localhost:${PORT}`);
+// });
+
+// Start HTTPS Server
+https.createServer(credentials, app).listen(PORT, () => {
+    console.log(`HTTPS Server Active at https://localhost:${PORT}`);
 });

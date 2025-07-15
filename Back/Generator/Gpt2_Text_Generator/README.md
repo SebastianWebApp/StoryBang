@@ -61,8 +61,8 @@ flowchart TD
     end
 
 ```
----
 
+---
 ## Table of Contents
 
 - [Project Structure](#project-structure)

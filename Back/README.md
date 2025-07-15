@@ -1,8 +1,19 @@
-# Character Microservices
+## 🛠️ Backend Structure
 
-This module is part of the Proyecto Octavo platform and provides microservices for character management: creation, reading, and deletion. Each service is containerized, uses Bull queues for asynchronous processing, JWT for authentication, MongoDB for persistence, and Socket.IO for real-time notifications.
+The backend is organized into multiple business domains, each responsible for a specific part of the system's functionality. This modular structure improves maintainability and scalability.
 
----
+### 📦 Main Domains
+
+- **🧙 Character_Creator**: Manages character creation and customization.
+- **🚀 Deployments**: Handles deployment-related operations and infrastructure setup.
+- **🤖 Generator**: Core module responsible for generating content using AI (e.g., stories or images).
+- **🔐 Login**: Handles user authentication and session management.
+- **💬 Messages_User**: Manages notifications, messages, and user communication.
+- **🎯 Orchestrator**: Coordinates interactions between different services and domains.
+- **🛡️ Security**: Controls access, roles, and authorization.
+- **📖 Story**: Responsible for story creation, editing, and storage.
+- **🌍 Translator**: Provides language translation features for multilingual support.
+
 
 ## Process Flow (Mermaid)
 

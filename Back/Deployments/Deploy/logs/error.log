@@ -1,0 +1,22 @@
+[2025-07-08T11:21:37.388Z] ERROR: Status: Error: Authentication Error - invalid username
+[2025-07-08T11:21:37.389Z] ERROR: Error in account 3, instance 1: Authentication Error - invalid username
+[2025-07-08T11:21:41.822Z] ERROR: Status: Error: Authentication Error - invalid username
+[2025-07-08T11:21:41.823Z] ERROR: Error in account 1, instance 1: Authentication Error - invalid username
+[2025-07-08T11:21:47.450Z] ERROR: Status: Error: Authentication Error - invalid username
+[2025-07-08T11:21:47.451Z] ERROR: Error in account 2, instance 1: Authentication Error - invalid username
+[2025-07-08T11:22:05.033Z] ERROR: Status: Error: Authentication Error - invalid username
+[2025-07-08T11:22:05.034Z] ERROR: Error in account 3, instance 2: Authentication Error - invalid username
+[2025-07-08T11:22:10.018Z] ERROR: Status: Error: Authentication Error - invalid username
+[2025-07-08T11:22:10.019Z] ERROR: Error in account 1, instance 2: Authentication Error - invalid username
+[2025-07-08T11:22:22.966Z] ERROR: Status: Error: Authentication Error - invalid username
+[2025-07-08T11:22:22.967Z] ERROR: Error in account 2, instance 2: Authentication Error - invalid username
+[2025-07-08T11:22:37.914Z] ERROR: Status: Error: Authentication Error - invalid username
+[2025-07-08T11:22:37.915Z] ERROR: Error in account 1, instance 3: Authentication Error - invalid username
+[2025-07-08T11:22:38.462Z] ERROR: Status: Error: Authentication Error - invalid username
+[2025-07-08T11:22:38.463Z] ERROR: Error in account 3, instance 3: Authentication Error - invalid username
+[2025-07-08T11:22:51.231Z] ERROR: Status: Error: Authentication Error - invalid username
+[2025-07-08T11:22:51.233Z] ERROR: Error in account 2, instance 3: Authentication Error - invalid username
+[2025-07-08T11:23:11.083Z] ERROR: Status: Error: Authentication Error - invalid username
+[2025-07-08T11:23:11.084Z] ERROR: Error in account 1, instance 4: Authentication Error - invalid username
+[2025-07-08T11:23:24.918Z] ERROR: Status: Error: Authentication Error - invalid username
+[2025-07-08T11:23:24.919Z] ERROR: Error in account 2, instance 4: Authentication Error - invalid username

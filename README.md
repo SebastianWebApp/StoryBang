@@ -305,6 +305,63 @@ graph TB
     UC13 --> JWT
 
 ```
+## Business process flowchart 
+```mermaid
+flowchart TD
+    A[User accesses the platform] --> B[Chooses an option]
+    B --> C{What do they want to do?}
+
+    C -->|Create account| D[Enter personal data and confirm]
+    D --> E[Receives a verification code]
+    E --> F[Enter the code]
+    F --> G{Is the code correct?}
+    G -->|No| H[Informed that the code is incorrect]
+    G -->|Yes| I[Account is created and receives confirmation]
+
+    C -->|Log in| J[Enter username and password]
+    J --> K{Are the credentials correct?}
+    K -->|No| L[Informed that the credentials are incorrect]
+    K -->|Yes| M[Accesses their profile and features]
+
+    C -->|Recover password| N[Enter username]
+    N --> O[Receives recovery instructions]
+    O --> P[Receives new password via WhatsApp or email]
+
+    C -->|Create character| Q[Complete character form]
+    Q --> R[Character is saved to the account]
+
+    C -->|View characters or stories| S[Displays the list of characters or stories]
+    S --> T[Can select and view details]
+
+    C -->|Generate story or image| U[Choose type of generation and provide info]
+    U --> V[Receives generated story or image]
+
+    C -->|Delete account, character or story| W[Confirm deletion]
+    W --> X[Receives confirmation of deletion]
+
+    %% Notifications and errors
+    H --> Y[Notification displayed on screen]
+    L --> Y
+    X --> Y
+
+    I --> Z[Confirmation or result displayed on screen]
+    M --> Z
+    P --> Z
+    R --> Z
+    T --> Z
+    V --> Z
+
+```
+
+
+Claro, aquí tienes todo el contenido traducido al español:
+
+---
+
+
+
+
+
 
 ## Main Generator Services
 
@@ -397,6 +454,19 @@ sequenceDiagram
 ---
 
 ## Project Structure
+
+The project is divided into two main parts:
+
+### 🖥️ Frontend
+The user interface that allows users to interact with the platform in an intuitive and user-friendly way.
+
+### 🛠️ Backend
+Handles the business logic, organized into specific modules or domains. Each domain is responsible for a specific functionality:
+
+- **🔐 Security**: Manages authentication, authorization, and access control.
+- **🤖 AI Generator**: Responsible for generating stories or images using artificial intelligence.
+- **📚 Stories**: Manages the creation, editing, and storage of characters and stories.
+- etc
 
 ```
 Back/Generator/
