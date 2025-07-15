@@ -1,89 +1,100 @@
 class InstanceConfig {
   constructor() {
     this.IPs = [
-     "eipalloc-01d6b636d13c8c318",
-     "eipalloc-0930e112bef84fd6b",
-     "eipalloc-0f95740dcafa85b4c",
-     "eipalloc-0f1be2bd760753a49",
-     "eipalloc-0eccc3ff59b18a231",
-     "arn:aws:elasticloadbalancing:us-east-1:746051747874:targetgroup/Orchestrator/4f20e4452f2415f4",
-     "arn:aws:elasticloadbalancing:us-east-1:746051747874:targetgroup/Front/bc89cf8d650e69a5",
-     "arn:aws:elasticloadbalancing:us-east-1:057055484007:targetgroup/JWT/acb1470168326d93",
-     "arn:aws:elasticloadbalancing:us-east-1:057055484007:targetgroup/Encryption/fc04419b7f898ea7",
-     "arn:aws:elasticloadbalancing:us-east-1:057055484007:targetgroup/Decryption/da08888ce2f16571",
-     "arn:aws:elasticloadbalancing:us-east-1:359246703158:targetgroup/Recover-Password/1bcddb165b0648d9",
-     "arn:aws:elasticloadbalancing:us-east-1:359246703158:targetgroup/Delete/975bdc82f0396dff",
-     "arn:aws:elasticloadbalancing:us-east-1:359246703158:targetgroup/Update/cf218817661ec9fa",
-     "arn:aws:elasticloadbalancing:us-east-1:359246703158:targetgroup/Read/9a866f899a69f473",
-     "arn:aws:elasticloadbalancing:us-east-1:359246703158:targetgroup/Check/bf6f89da5a74abc2",
-     "arn:aws:elasticloadbalancing:us-east-1:359246703158:targetgroup/Create/0a52d240a771e32c",
-     "arn:aws:elasticloadbalancing:us-east-1:359246703158:targetgroup/Verify/4cceb987a3f91077",
-     "arn:aws:elasticloadbalancing:us-east-1:359246703158:targetgroup/Whatsapp/e47dc00e13a43485",
-     "arn:aws:elasticloadbalancing:us-east-1:259723601489:targetgroup/Create/163a28659b60155e",
-     "arn:aws:elasticloadbalancing:us-east-1:259723601489:targetgroup/Read/dad937ce33b9e422",
-     "arn:aws:elasticloadbalancing:us-east-1:259723601489:targetgroup/Delete/507afb2b5ba599a3",
-     "eipalloc-070395176d3456429",
-     "eipalloc-02c769e67e8c1d2d8",
-     "arn:aws:elasticloadbalancing:us-east-1:139424542086:targetgroup/Grok-Imagen/bda7a61e3cc49dd1",
-     "arn:aws:elasticloadbalancing:us-east-1:139424542086:targetgroup/Grok-Descripcion/6e901c9bf444e2dd",
-     "arn:aws:elasticloadbalancing:us-east-1:139424542086:targetgroup/Grok-Texto/6be8c1f28be1b73b",
-     "eipalloc-0832622b6eaf5307f",
-     "eipalloc-09aa5938c1f0439c8",
-     "arn:aws:elasticloadbalancing:us-east-1:784664661569:targetgroup/Traductor/41409aa75c026282",
-     "arn:aws:elasticloadbalancing:us-east-1:784664661569:targetgroup/GPT-Small/da9ccbc81453c731",
-     "arn:aws:elasticloadbalancing:us-east-1:784664661569:targetgroup/GPT-Medium/eb0c46bfd8ba9db9",
-     "eipalloc-0540791a0e19798cd",
-     "arn:aws:elasticloadbalancing:us-east-1:816637959722:targetgroup/Create/2ab8450847673a79",
-     "arn:aws:elasticloadbalancing:us-east-1:816637959722:targetgroup/Update/b5fa9d38fdbd82ef",
-     "arn:aws:elasticloadbalancing:us-east-1:816637959722:targetgroup/Read/44590440173108f2",
-     "arn:aws:elasticloadbalancing:us-east-1:816637959722:targetgroup/Read-Id/c7f508ff548f795d",
-     "arn:aws:elasticloadbalancing:us-east-1:816637959722:targetgroup/Delete/3dda6993f81ce158"
+     "eipalloc-0fbaa0ccfae536985", 
+     "eipalloc-0af7d3f6436450020",
+     "eipalloc-06fb5b302d7491e2e",
+     "eipalloc-0657fc4f31816850c",
+     "eipalloc-0687fbf3b2e140243",
+     "eipalloc-0c88e4ba5c1670516",
+     "eipalloc-048619058a8f99976",
+     "eipalloc-0c2aec24c2c5345b8",
+     "eipalloc-0be12ae113c0d1d2e",
+     "eipalloc-0664edc6eb22e14c7",
+     "eipalloc-05ce00aa44d873039",
+     "eipalloc-09c0a9db90d3d525d",
+     "eipalloc-0c045e2356f56ddab",
+     "eipalloc-0fa668ac1278b23dc", 
+     "eipalloc-06fa348a7e67e16d0",
+     "eipalloc-013a0431ffb3a5e7a",
+     "eipalloc-0d2f25919f3ed6883",
+     "eipalloc-0120c243a973ead73",
+     "eipalloc-01d239811816dcc03",
+     "eipalloc-01a283c63ffd1d31d",
+     "eipalloc-0039bc9a608297529",
+     "eipalloc-0b7f0257e8130312e",
+     "eipalloc-089ae73671934ff97",
+     "eipalloc-02c65872c1bc19a33",
+     "eipalloc-09cf9f338746b5687",
+     "eipalloc-0308a3343ef1cf3ba",
+     "eipalloc-0f81eda5950e061ae",
+     "eipalloc-0164e34981fc5163e",
+     "eipalloc-0552bb9c4d896753b",
+     "eipalloc-06d230d22efe1f87d",
+     "eipalloc-0fe3f364d34600855",
+     "eipalloc-0c06f802cabaf2d67",
+     "eipalloc-0612c60cee6fce251",
+     "eipalloc-062e8358ad9022844",
+     "eipalloc-0061ab2f051e3054a",
+     "eipalloc-0577566aec5de0394",
+     "eipalloc-085a6b34e1331843f",
+     "eipalloc-0210d96a3916cf4d2"
     ];
     this.Names = [
-      "Bull User", "Mysql", "Bull Code", "Kafka", "Messaging", "Orchestrator", "Front",
+      "Bull User", "Mysql", "Bull Code", "Kafka", "Messaging",
       "JWT", "Encryption", "Decryption", 
-      "Recover Password", "Delete", "Update", "Read", "Check", "Create", "Verify", "Whatsapp",
+      "Recover Password", "Delete", "Update", "Read",
+      "Check", "Create", "Verify", "Whatsapp",
       "Create", "Read", "Delete", "Bull Character", "MongoDB Character",
       "Grok-Image", "Grok-Description", "Grok-Text", "Bull Generator", "Bull Story",
-      "Traductor", "GPT Small", "GPT Medium", "MongoDB Story",
-      "Create", "Update", "Read", "Read-Id", "Delete"
+      "GPT Small", "GPT Medium", "MongoDB Story",
+      "Create", "Update", "Read", "Read-Id", "Delete",
+      "Orchestrator", "Front", "Bastion", "Traductor"
     ];
     
     this.Instance = [
-      "t2.large", "t2.large", "t2.large", "t2.large", "t2.large", "t2.large", "t2.large",
+      "t2.large", "t2.large", "t2.large", "t2.large", "t2.large",
       "t2.large", "t2.micro", "t2.micro",
-      "t2.micro", "t2.micro", "t2.micro", "t2.micro", "t2.micro", "t2.micro", "t2.micro", "t2.micro",
+      "t2.micro", "t2.micro", "t2.micro", "t2.micro",  
+      "t2.micro", "t2.micro", "t2.micro", "t2.micro",  
+      "t2.micro", "t2.micro", "t2.micro", "t2.large", "t2.large", 
+      "t2.micro", "t2.micro", "t2.micro", "t2.large", "t2.large",  
+      "t2.large", "t2.large", "t2.large",
       "t2.micro", "t2.micro", "t2.micro", "t2.micro", "t2.micro",
-      "t2.micro", "t2.micro", "t2.micro", "t2.micro", "t2.micro",
-      "t2.large", "t2.large", "t2.large", "t2.large",
-      "t2.micro", "t2.micro", "t2.micro", "t2.micro", "t2.micro"
+      "t2.micro", "t2.micro", "t2.large", "t2.large"
     ];
     this.Type = [
-      "Elastic","Elastic","Elastic","Elastic","Elastic","Balancer","Balancer",
-      "Balancer","Balancer","Balancer",
-      "Balancer","Balancer","Balancer","Balancer","Balancer","Balancer","Balancer","Balancer",
-      "Balancer","Balancer","Balancer","Elastic","Elastic",
-      "Balancer","Balancer","Balancer","Elastic","Elastic",
-      "Balancer","Balancer","Balancer","Elastic",
-      "Balancer","Balancer","Balancer","Balancer","Balancer"
+      "Elastic", "Elastic", "Elastic", "Elastic", "Elastic",
+      "Elastic", "Elastic", "Elastic",
+      "Elastic", "Elastic", "Elastic", "Elastic",
+      "Elastic", "Elastic", "Elastic", "Elastic",
+      "Elastic", "Elastic", "Elastic", "Elastic", "Elastic",
+      "Elastic", "Elastic", "Elastic", "Elastic", "Elastic",
+      "Elastic", "Elastic", "Elastic",
+      "Elastic", "Elastic", "Elastic", "Elastic", "Elastic",
+      "Elastic", "Elastic", "Elastic", "Elastic"
     ];
     this.Port_Target = [
-      0, 0, 0, 0, 0, 4027, 80,
-      4012, 4005, 4006,
-      4010, 4011, 4008, 4007, 4001, 4004, 4009, 4002,
-      4016, 4018, 4017, 0, 0,
-      4013, 4015, 4014, 0, 0,
-      4020, 4019, 4021, 0,
-      4022, 4024, 4026, 4023, 4025
+      0, 0, 0, 0, 0, 
+      0, 0, 0,
+      0, 0, 0, 0,
+      0, 0, 0, 0,
+      0, 0, 0, 0, 0,
+      0, 0, 0, 0, 0,
+      0, 0, 0,
+      0, 0, 0, 0, 0,
+      0, 0, 0, 0
     ];
     this.SecurityGroupIds = [
-      "sg-0bed85e8e281baf86","sg-0bed85e8e281baf86","sg-0bed85e8e281baf86","sg-0bed85e8e281baf86","sg-0bed85e8e281baf86","sg-0bed85e8e281baf86","sg-0bed85e8e281baf86",
-      "sg-0bc03e98cfd39bc25", "sg-0bc03e98cfd39bc25", "sg-0bc03e98cfd39bc25",
-      "sg-0f61fe70fbd652b03", "sg-0f61fe70fbd652b03", "sg-0f61fe70fbd652b03", "sg-0f61fe70fbd652b03", "sg-0f61fe70fbd652b03", "sg-0f61fe70fbd652b03", "sg-0f61fe70fbd652b03", "sg-0f61fe70fbd652b03",
-      "sg-0e1c7b3d450914b50", "sg-0e1c7b3d450914b50", "sg-0e1c7b3d450914b50", "sg-0e1c7b3d450914b50", "sg-0e1c7b3d450914b50", 
-      "sg-057a019caa7fbcb25", "sg-057a019caa7fbcb25", "sg-057a019caa7fbcb25", "sg-057a019caa7fbcb25", "sg-057a019caa7fbcb25", 
-      "sg-055305fa9925064bd", "sg-055305fa9925064bd", "sg-055305fa9925064bd", "sg-055305fa9925064bd", 
-      "sg-0cc8ed99ed8a40cb8", "sg-0cc8ed99ed8a40cb8", "sg-0cc8ed99ed8a40cb8", "sg-0cc8ed99ed8a40cb8", "sg-0cc8ed99ed8a40cb8"
+      "sg-0901366025d04deab", "sg-0901366025d04deab", "sg-0901366025d04deab", "sg-0901366025d04deab", "sg-0901366025d04deab",
+      "sg-07e97e405bf36d606", "sg-07e97e405bf36d606", "sg-07e97e405bf36d606",
+      "sg-0dbdc458fe390ed0b", "sg-0dbdc458fe390ed0b", "sg-0dbdc458fe390ed0b", "sg-0dbdc458fe390ed0b", 
+      "sg-04c39548af5ceb2b2", "sg-04c39548af5ceb2b2", "sg-04c39548af5ceb2b2", "sg-04c39548af5ceb2b2", 
+      "sg-0db25a3ebc23e755a", "sg-0db25a3ebc23e755a", "sg-0db25a3ebc23e755a", "sg-0db25a3ebc23e755a", "sg-0db25a3ebc23e755a", 
+      "sg-0eb87ff8c1ab1b741", "sg-0eb87ff8c1ab1b741", "sg-0eb87ff8c1ab1b741", "sg-0eb87ff8c1ab1b741", "sg-0eb87ff8c1ab1b741", 
+      "sg-0648bf7257a21f404", "sg-0648bf7257a21f404", "sg-0648bf7257a21f404", 
+      "sg-06151e20ed185242a", "sg-06151e20ed185242a", "sg-06151e20ed185242a", "sg-06151e20ed185242a", "sg-06151e20ed185242a", 
+      "sg-0550a5d0b521c9691", "sg-0550a5d0b521c9691", "sg-08b44f38efd556fd8", "sg-0a9aeff8e57ea07c2"
     ];
     this.Scripts = [
       `#!/bin/bash
@@ -261,7 +272,7 @@ class InstanceConfig {
           - "9092:9092"
         environment:
           KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-          KAFKA_ADVERTISED_HOST_NAME: 52.7.153.157
+          KAFKA_ADVERTISED_HOST_NAME: 54.208.122.80
           KAFKA_ADVERTISED_PORT: 9092
           KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092
           KAFKA_BROKER_ID: 1
@@ -325,68 +336,7 @@ EOF
     
 
 
-      `,
-       `#!/bin/bash
-    
-    # Actualizar el sistema
-    sudo apt update -y && sudo apt upgrade -y
-    
-    # Instalar Docker
-    sudo apt install -y docker.io
-    
-    # Iniciar y habilitar Docker
-    sudo systemctl start docker
-    sudo systemctl enable docker
-    
-    # Agregar el usuario al grupo Docker para evitar usar sudo con cada comando Docker
-    sudo usermod -aG docker $USER
-    
-    # Configurar permisos para el socket Docker
-    sudo chmod 666 /var/run/docker.sock
-
-    # Contenedor story_bang_orchestrator_main
-    docker pull sebastianwebapp/story_bang_orchestrator_main:latest
-    
-    docker stop story_bang_orchestrator_main || true
-    docker rm story_bang_orchestrator_main || true
-    
-    docker run -d --name story_bang_orchestrator_main \
-        -p 4027:4027 \
-        --restart always \
-        sebastianwebapp/story_bang_orchestrator_main:latest
-
-      `,
-       `#!/bin/bash
-    
-    # Actualizar el sistema
-    sudo apt update -y && sudo apt upgrade -y
-    
-    # Instalar Docker
-    sudo apt install -y docker.io
-    
-    # Iniciar y habilitar Docker
-    sudo systemctl start docker
-    sudo systemctl enable docker
-    
-    # Agregar el usuario al grupo Docker para evitar usar sudo con cada comando Docker
-    sudo usermod -aG docker $USER
-    
-    # Configurar permisos para el socket Docker
-    sudo chmod 666 /var/run/docker.sock
-
-    # Contenedor story_bang_frontend_main
-    docker pull sebastianwebapp/story_bang_frontend_main:latest
-    
-    docker stop story_bang_frontend_main || true
-    docker rm story_bang_frontend_main || true
-    
-    docker run -d --name story_bang_frontend_main \
-        -p 443:443 \
-        --restart always \
-        sebastianwebapp/story_bang_frontend_main:latest
-    
-
-      `,
+      `,       
        `#!/bin/bash
     
     # Actualizar el sistema
@@ -1030,37 +980,7 @@ EOF
         -p 6379:6379 \
         --restart always \
         redis:latest
-      `,
-       `#!/bin/bash
-    
-    # Actualizar el sistema
-    sudo apt update -y && sudo apt upgrade -y
-    
-    # Instalar Docker
-    sudo apt install -y docker.io
-    
-    # Iniciar y habilitar Docker
-    sudo systemctl start docker
-    sudo systemctl enable docker
-    
-    # Agregar el usuario al grupo Docker para evitar usar sudo con cada comando Docker
-    sudo usermod -aG docker $USER
-    
-    # Configurar permisos para el socket Docker
-    sudo chmod 666 /var/run/docker.sock
-
-    # Contenedor story_bang_translator_main
-    docker pull sebastianwebapp/story_bang_translator_main:latest
-
-    docker stop story_bang_translator_main || true
-    docker rm story_bang_translator_main || true
-
-    docker run -d --name story_bang_translator_main \
-        -p 4020:4020 \
-        --restart always \
-        sebastianwebapp/story_bang_translator_main:latest
-
-      `,
+      `,      
        `#!/bin/bash
     
     # Actualizar el sistema
@@ -1305,6 +1225,111 @@ EOF
         sebastianwebapp/story_bang_delete_story_main:latest
 
       `,
+      `#!/bin/bash
+    
+    # Actualizar el sistema
+    sudo apt update -y && sudo apt upgrade -y
+    
+    # Instalar Docker
+    sudo apt install -y docker.io
+    
+    # Iniciar y habilitar Docker
+    sudo systemctl start docker
+    sudo systemctl enable docker
+    
+    # Agregar el usuario al grupo Docker para evitar usar sudo con cada comando Docker
+    sudo usermod -aG docker $USER
+    
+    # Configurar permisos para el socket Docker
+    sudo chmod 666 /var/run/docker.sock
+
+    # Contenedor story_bang_orchestrator_main
+    docker pull sebastianwebapp/story_bang_orchestrator_main:latest
+    
+    docker stop story_bang_orchestrator_main || true
+    docker rm story_bang_orchestrator_main || true
+    
+    docker run -d --name story_bang_orchestrator_main \
+        -p 4027:4027 \
+        --restart always \
+        sebastianwebapp/story_bang_orchestrator_main:latest
+
+      `,
+       `#!/bin/bash
+    
+    # Actualizar el sistema
+    sudo apt update -y && sudo apt upgrade -y
+    
+    # Instalar Docker
+    sudo apt install -y docker.io
+    
+    # Iniciar y habilitar Docker
+    sudo systemctl start docker
+    sudo systemctl enable docker
+    
+    # Agregar el usuario al grupo Docker para evitar usar sudo con cada comando Docker
+    sudo usermod -aG docker $USER
+    
+    # Configurar permisos para el socket Docker
+    sudo chmod 666 /var/run/docker.sock
+
+    # Contenedor story_bang_frontend_main
+    docker pull sebastianwebapp/story_bang_frontend_main:latest
+    
+    docker stop story_bang_frontend_main || true
+    docker rm story_bang_frontend_main || true
+    
+    docker run -d --name story_bang_frontend_main \
+        -p 443:443 \
+        --restart always \
+        sebastianwebapp/story_bang_frontend_main:latest
+    
+
+      `,
+      `#!/bin/bash
+# Actualiza los paquetes
+apt update && apt upgrade -y
+# Instala OpenSSH (ya viene en Ubuntu normalmente)
+apt install -y openssh-server
+# Asegura que el servicio SSH esté activo
+systemctl enable ssh
+systemctl start ssh
+# (Opcional) Crea un usuario si no vas a usar 'ubuntu'
+# useradd -m -s /bin/bash bastionuser
+# mkdir /home/bastionuser/.ssh
+# chown bastionuser:bastionuser /home/bastionuser/.ssh
+# El script no necesita más porque el reenvío se hace desde el cliente (tu PC)
+`,
+       `#!/bin/bash
+    
+    # Actualizar el sistema
+    sudo apt update -y && sudo apt upgrade -y
+    
+    # Instalar Docker
+    sudo apt install -y docker.io
+    
+    # Iniciar y habilitar Docker
+    sudo systemctl start docker
+    sudo systemctl enable docker
+    
+    # Agregar el usuario al grupo Docker para evitar usar sudo con cada comando Docker
+    sudo usermod -aG docker $USER
+    
+    # Configurar permisos para el socket Docker
+    sudo chmod 666 /var/run/docker.sock
+
+    # Contenedor story_bang_translator_main
+    docker pull sebastianwebapp/story_bang_translator_main:latest
+
+    docker stop story_bang_translator_main || true
+    docker rm story_bang_translator_main || true
+
+    docker run -d --name story_bang_translator_main \
+        -p 4020:4020 \
+        --restart always \
+        sebastianwebapp/story_bang_translator_main:latest
+
+      `
     ];
    
   }
@@ -1342,3 +1367,82 @@ EOF
 }
 
 export default InstanceConfig;
+
+
+
+
+
+// # ----------------------------
+// # Variables del proyecto
+// # ----------------------------
+// DIR="$HOME/aws_ec2_connect"
+// PEM_FILE="Distribuida1.pem"
+// PRIVATE_KEY_PATH="$DIR/$PEM_FILE"
+
+// EC2_USER="ubuntu"
+// EC2_HOST="ec2-52-3-112-245.compute-1.amazonaws.com"
+// LOCAL_PORT=8080
+// REMOTE_IP="172.31.89.25"
+// REMOTE_PORT=4020
+
+// # ----------------------------
+// # Crear directorio si no existe
+// # ----------------------------
+// mkdir -p "$DIR"
+
+// # ----------------------------
+// # Guardar clave PEM (¡IMPORTANTE: asegúrate de no compartir esto!)
+// # ----------------------------
+// cat > "$PRIVATE_KEY_PATH" << 'EOF'
+// -----BEGIN RSA PRIVATE KEY-----
+// MIIEpAIBAAKCAQEAwbP5rG4PTb0V135uLjlNPCWsDXTczHA0W8UxIk7mevV7Az4D
+// 2yz7v+DnvmRvQF4/MuBtJ0GAqCNpCOwl0Npp8iW+eKqot42P26cdZ2Jw3Yeds7FL
+// KXD2BGlaGowBZVnKaRnPPdayTmthsza9eWqJUlLhq+J9R/chUXYQIr8tVNUL/hGj
+// AzNynWV+A4NNCQXWvxdjZGveAcvlADPAoARCMX0Vrnvh3UNKkim842KQA50teIaa
+// 7oNhUQQ66sny+1v2GOqhcBo3V6JuW47qvjAx54FOKauYYzw/lbN1tEU/bqsPwKOe
+// xiERroGc1Q0Za9B7H5k7g4u18lOTaplmQyeiewIDAQABAoIBAQCHxpHyLcuIYEwZ
+// G0Q8HmpnCLkLTakfnF73HMgOFmQ0ODIb2bJ2RZfJreqDaH8bDXUbQnkAlUeLlBah
+// 7HWtagvtckuK5YUR9Kar/v37Y+NdRRxjwpi+2bF48if4h77Kvh/FgBPmcsHVeiun
+// pW022FidXf9VrpLGiRHPugQhdwRdeyg8R5lJnoXQED+S/znnbr65649p/X2ISmeH
+// I/LPLUUX3tCbIM+FYcC/GGBQ1wNYT+XRikU5BXSzAsmFYpa/OKp6AQ2q/d2KikeB
+// Z/oKXtVaK46T3jezeMOcuY4ItrLa4+arhZFA8F/M/oH6pxHVw08Cb44rroYJXLoI
+// bZ1nK9ZxAoGBAOmZBwS6LSlZjetfnoRAFC0cksWDAMg/aYK0iNo7/h3UyDCupY0u
+// +iCv/Hv8N9JyL0u6IFxZxijt1vd3v5g7J2+Bpt2phBrtGagWEVv6sh2xyLJqlhyx
+// xhA8C1hh+NWwTovoEicbl9kHfJuMPzgKea/RTkY33speFZRPXvI0YnX/AoGBANRH
+// gcbb7DhapTVhFVcNkvhOkaCO1il87RnxGj5MwHhkfJXEQcIbF3+tL10BS695DBRn
+// KdTyxQMy3Ta+Gr+siWZr3e43pgM5o+FHVRSYqrIc82s2DqdGD7rZf+5R0K241xWF
+// MuqM+ve70LSCDXZmyGU/kQa7OfqMTWckjEMO0auFAoGAOekE82gQQBsCcuJ+krys
+// A878l9h1Pi9yQcPt1WRgCBczFdaGFi0aNzZJupb5Y8OI9BYNZbefx4/G5gyaw+uO
+// SDd1HaijpmU3IhNudEX/GBt17L09v5lWx7mK+ns3TApsPoTm0yklCNmxS4KGPadj
+// KXITHJdHNRYD9YODvzm7WxMCgYBQvLmxRqf7bw5y1O/m4jTJ2CgvJuRxdyA+w6K1
+// mz+BCscPt0tDZkZzuwzOlNWScbmUcQBKC+O+qbPVREysJhVELTaFigjMJTodTqIf
+// aUlS4Qv79N1x5YXKDTtJCzkROcIkXzrUVraFTpu8a9Ju+/yv9ZNVOhR9JKuz1QS7
+// 5ID+eQKBgQDKxnHuIdB8oxkA+qwdsL4u9FyVZ+xL0xWNNm+/R5aBl9+flIrE5Rk6
+// RL9lJKxwYlwGcp98YQlYgOsDMHY2zhRyRSGJeFsQErYj2o9ZibJdPLvgWjtwpbGf
+// aA3ep9o+Uz3gmY4FbkJyOmoBEbpKeBp54XqjpYSktxixR3z2o0/0cA==
+// -----END RSA PRIVATE KEY-----
+// EOF
+
+// # ----------------------------
+// # Establecer permisos
+// # ----------------------------
+// chmod 600 "$PRIVATE_KEY_PATH"
+
+// # ----------------------------
+// # Crear túnel SSH
+// # ----------------------------
+// echo "Estableciendo túnel SSH..."
+
+// ssh -o StrictHostKeyChecking=no -i "$PRIVATE_KEY_PATH" -f -L 0.0.0.0:$LOCAL_PORT:$REMOTE_IP:$REMOTE_PORT "$EC2_USER@$EC2_HOST" -N
+
+// # ----------------------------
+// # Verificar resultado
+// # ----------------------------
+// if [ $? -eq 0 ]; then
+//   echo "✅ Túnel SSH establecido correctamente: http://localhost:$LOCAL_PORT"
+// else
+//   echo "❌ Error al establecer el túnel SSH."
+// fi
+
+// curl -X POST http://172.17.0.1:8080/translate -H "Content-Type: application/json" -d '{"Text": " Hello, how are you? My name is Mateo.", "Tgt_lang": "spa_Latn"}'
+// curl -X POST http://localhost:8080/translate -H "Content-Type: application/json" -d '{"Text": " Hello, how are you? My name is Mateo.", "Tgt_lang": "spa_Latn"}'

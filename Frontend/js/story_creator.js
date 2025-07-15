@@ -99,18 +99,21 @@ modelButtons.forEach(button => {
             document.getElementById("interactive_option").style.display = "block";  
             document.getElementById("gender_selection").style.display = "block"; 
             document.getElementById("interactive_option").style.display = "none";  
+            document.getElementById("storyPromptSection").style.display = "block";
         }
         else if(selectedModel == "gpt2"){
             document.getElementById("lenght_selection").style.display = "none";
             document.getElementById("learning_values").style.display = "none";       
             document.getElementById("interactive_option").style.display = "none";  
             document.getElementById("gender_selection").style.display = "none"; 
+            document.getElementById("storyPromptSection").style.display = "none";
         }
         else{
             document.getElementById("gender_selection").style.display = "block"; 
-              document.getElementById("lenght_selection").style.display = "none";
+            document.getElementById("lenght_selection").style.display = "none";
             document.getElementById("learning_values").style.display = "none";       
             document.getElementById("interactive_option").style.display = "none";  
+            document.getElementById("storyPromptSection").style.display = "none";
         }
 
     });
@@ -154,15 +157,20 @@ function addToGallery(imageSrc, name, Character, Description) {
             }
             else{
 
-                if(List_Selected.length == 2){
-                    Notification("You can only select up to 2 characters");                    
-                }
-                else{
-                    List_Selected.push(Character);
-                    List_Description.push(Description);
-                    List_Name.push(name);
-                    item.classList.toggle('selected');            
-                }                
+                // if(List_Selected.length == 2){
+                //     Notification("You can only select up to 2 characters");                    
+                // }
+                // else{
+                //     List_Selected.push(Character);
+                //     List_Description.push(Description);
+                //     List_Name.push(name);
+                //     item.classList.toggle('selected');            
+                // }  
+                
+                List_Selected.push(Character);
+                List_Description.push(Description);
+                List_Name.push(name);
+                item.classList.toggle('selected');    
             }
 
         });
@@ -242,6 +250,7 @@ document.getElementById("generateHistory").addEventListener('click', async() => 
     var genre = document.getElementById("genre").value;
     var lenght_story = document.getElementById("lenght_story").value;
     var gender = document.getElementById("gender").value;
+    var storyPrompt = document.getElementById("storyPrompt").value;
     const isInteractiveSelected = document.getElementById('interactive').checked;
     const selectedValues = getSelectedValues();
     var Prompt = "";
@@ -281,68 +290,27 @@ document.getElementById("generateHistory").addEventListener('click', async() => 
 
         if(isInteractiveSelected){
 
-        Prompt = `Create a complete and finished story for ${audience} with the following conditions:
-
-Main characters:
-${List_Name}
-
-Story genre: ${genre}
-
-Values to learn: ${selectedValues}
-
-What genre is the content aimed at? ${gender}
-
-Additional instructions: ${Textarea_Promt}
-
-Each paragraph should be a coherent reading block or "chunk".
-
-The story should consist of ${lenght_story} paragraphs, each approximately 100 tokens in length.
-
-At certain points in the story, important decisions must be made. When a decision is presented:
-
-You must show both options with their corresponding labels:
-[Option 1]: The protagonist's first decision with its consequence.
-[Option 2]: The protagonist's second decision with its consequence.
-
-After showing both options, you must generate two separate paragraphs, one for each decision:
-[Option 1 Content]: Paragraph that continues if option 1 is chosen.
-[Option 2 Content]: Paragraph that continues if option 2 is chosen.
-
-You must not show both branches at the same time later in the story.
-Once a decision is made, the story must continue only with the chosen option and leave the other option unfinished.
-
-Always use the following labels to structure the story:
-[Title]: General title of the story.
-[Content]: Before each paragraph in the story.
-[Option 1] and [Option 2]: Only where there are decisions, before each possible path.
-[Option 1 Content]: Before the following paragraph if Option 1 is chosen.
-[Option 2 Content]: Before the following paragraph if Option 2 is chosen. `;
+        Prompt = ``;
 
 
         }
         else{
 
-            Prompt = `Create a complete and finished story for ${audience} with the following conditions:
+            Prompt = `Create a complete and finished story for the following audience: ${audience}
 
-    Main characters:
-    ${List_Name}
+Conditions:
+- Main characters: ${List_Name}
+- Story genre: ${genre}
+- Values to convey: ${selectedValues}
+- Target gender of the content: ${gender}
+- Additional instructions: ${storyPrompt+ " "+Textarea_Promt}
+- Number of paragraphs: ${lenght_story}
 
-    Story genre: ${genre}
-
-    Values to learn: ${selectedValues}
-
-    What genre is the content aimed at? ${gender}
-
-    Additional instructions: ${Textarea_Promt}
-
-    Each paragraph should be a coherent reading block or "chunk".
-
-    The story should consist of ${lenght_story} paragraphs, each approximately 100 tokens in length.
-
-    The story must have a well-defined beginning, middle, and end.  
-    Use the following tags to structure the story:  
-    [Title]: General title of the story.  
-    [Content]: Before each paragraph of the story.`;
+Remember:
+- Each paragraph should begin with the [Content] tag.
+- The story title should begin with the [Title] tag.
+- The story must have a clear beginning, middle, and end.
+`;
         
         }
 

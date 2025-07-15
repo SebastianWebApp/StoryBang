@@ -1,0 +1,9 @@
+[2025-07-13T19:01:53.336Z] INFO: Server Active http://localhost:4001
+[2025-07-13T19:05:33.100Z] INFO: Processing job: {"Id":"1111111111","Phone":"0987579898","Token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJZCI6IjExMTExMTExMTEiLCJpYXQiOjE3NTI0MzM1MzMsImV4cCI6MTc1MjQzNzEzM30.it7BiiYoq0197C0ZGwZ1F_zwnsBI1C56ctoShqq5B8w"}
+[2025-07-13T19:05:33.121Z] INFO: Verification: [object Object]
+[2025-07-13T19:05:34.331Z] INFO: Server Active http://localhost:4001
+[2025-07-13T19:06:22.348Z] INFO: Processing job: {"Id":"1111111111","Phone":"0987579898","Token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJZCI6IjExMTExMTExMTEiLCJpYXQiOjE3NTI0MzM1ODIsImV4cCI6MTc1MjQzNzE4Mn0.L4frf-Sy4Q-Fj9HkqVTEptBCJtwZ_deR6fQnaubqbkw"}
+[2025-07-13T19:06:22.382Z] INFO: Verification: [object Object]
+[2025-07-15T11:48:16.241Z] INFO: Server Active http://localhost:4001
+[2025-07-15T11:48:17.227Z] INFO: Server Active http://localhost:4001
+[2025-07-15T12:33:17.535Z] INFO: Server Active http://localhost:4001

@@ -15,6 +15,7 @@ export class GROKService {
         });
         
         const messages = [
+            
             {
                 role: "user",
                 content: [
