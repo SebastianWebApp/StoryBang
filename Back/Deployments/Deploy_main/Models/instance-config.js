@@ -1380,9 +1380,9 @@ export default InstanceConfig;
 // PRIVATE_KEY_PATH="$DIR/$PEM_FILE"
 
 // EC2_USER="ubuntu"
-// EC2_HOST="ec2-52-3-112-245.compute-1.amazonaws.com"
+// EC2_HOST="ec2-54-235-74-45.compute-1.amazonaws.com"
 // LOCAL_PORT=8080
-// REMOTE_IP="172.31.89.25"
+// REMOTE_IP="172.31.87.246"
 // REMOTE_PORT=4020
 
 // # ----------------------------
