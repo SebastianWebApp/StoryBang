@@ -1382,7 +1382,7 @@ export default InstanceConfig;
 // EC2_USER="ubuntu"
 // EC2_HOST="ec2-54-235-74-45.compute-1.amazonaws.com"
 // LOCAL_PORT=8080
-// REMOTE_IP="172.31.91.34"
+// REMOTE_IP="172.31.95.6"
 // REMOTE_PORT=4020
 
 // # ----------------------------
@@ -1444,5 +1444,5 @@ export default InstanceConfig;
 //   echo "❌ Error al establecer el túnel SSH."
 // fi
 
-// curl -X POST http://172.17.0.1:8080/translate -H "Content-Type: application/json" -d '{"Text": " Hello, how are you? My name is Mateo.", "Tgt_lang": "spa_Latn"}'
-// curl -X POST http://localhost:8080/translate -H "Content-Type: application/json" -d '{"Text": " Hello, how are you? My name is Mateo.", "Tgt_lang": "spa_Latn"}'
+// // curl -X POST http://172.17.0.1:8080/translate -H "Content-Type: application/json" -d '{"Text": " Hello, how are you? My name is Mateo.", "Tgt_lang": "spa_Latn"}'
+// // curl -X POST http://localhost:8080/translate -H "Content-Type: application/json" -d '{"Text": " Hello, how are you? My name is Mateo.", "Tgt_lang": "spa_Latn"}'
