@@ -31,3 +31,11 @@
 [2025-07-15T17:59:16.145Z] INFO: Read_Story: [object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object]
 [2025-07-15T18:23:17.923Z] INFO: Processing job: {"Id":"1111111111","Token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJZCI6IjExMTExMTExMTEiLCJpYXQiOjE3NTI2MDM3OTcsImV4cCI6MTc1MjYwNzM5N30.7UqFoQO2_r8SIt6JqnQU7957YRLXnHhpxHdvgJtdDfM","Filter":{"Id":"1111111111"}}
 [2025-07-15T18:23:17.979Z] INFO: Read_Story: [object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object]
+[2025-07-20T15:02:10.009Z] INFO: Server Active http://localhost:4026
+[2025-07-20T15:02:11.106Z] INFO: Server Active http://localhost:4026
+[2025-07-20T15:29:12.711Z] INFO: Processing job: {"Id":"1111111111","Token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJZCI6IjExMTExMTExMTEiLCJpYXQiOjE3NTMwMjUzNTIsImV4cCI6MTc1MzAyODk1Mn0.0CMUh4PLHywQMlClV3TIMPz0HgZCnco5YDIE4MG8WQ4","Filter":{"Id":"1111111111"}}
+[2025-07-20T15:29:12.870Z] INFO: Read_Story: [object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object]
+[2025-07-20T15:33:02.583Z] INFO: Processing job: {"Id":"1111111111","Token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJZCI6IjExMTExMTExMTEiLCJpYXQiOjE3NTMwMjU1ODIsImV4cCI6MTc1MzAyOTE4Mn0.NbFabv4QYz3uXP_mT0dRLf3xq27Jcx0SWNctOMBPck0","Filter":{"Id":"1111111111"}}
+[2025-07-20T15:33:02.662Z] INFO: Read_Story: [object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object]
+[2025-07-20T15:33:17.488Z] INFO: Processing job: {"Id":"1111111111","Token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJZCI6IjExMTExMTExMTEiLCJpYXQiOjE3NTMwMjU1OTcsImV4cCI6MTc1MzAyOTE5N30.wTCJUozBfe-dMlFvux_rhf8IrUO9M6NRDzG0q7-wsnU","Filter":{"Id":"1111111111"}}
+[2025-07-20T15:33:17.561Z] INFO: Read_Story: [object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object]

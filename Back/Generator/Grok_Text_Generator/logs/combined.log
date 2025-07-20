@@ -169,3 +169,59 @@
 [Content]: Luis stepped forward, his voice shaky but kind. “I’m sorry, little owl. I won’t throw things at you again.” Ana and Juan helped by making a soft nest of leaves for the bird. The mist faded, and the owl hooted happily, as if forgiving them. The forest grew calm, and the spooky whispers turned into a gentle breeze. Kindness had broken the curse!
 
 [Content]: The three friends made a pact that night to always treat animals with love and care. Ana smiled at Juan, saying, “Kindness is stronger than any ghost!” They walked home, feeling brave and happy, knowing they had learned a big lesson. From then on, they protected every creature, big or small, and the Haunted Forest never scared them again.
+[2025-07-20T14:59:40.093Z] INFO: Server Active http://localhost:4014
+[2025-07-20T14:59:40.833Z] INFO: Server Active http://localhost:4014
+[2025-07-20T15:25:11.113Z] INFO: Processing job: {"Id":"1111111111","Prompt":"Create a complete and finished story for the following audience: children\n\nConditions:\n- Main characters: Ana\n- Story genre: fantasy\n- Values to convey: respect,friendship\n- Target gender of the content: Male\n- Additional instructions: El cuento sea ambientado en el ecuador y muestra algun plato tipico Audience: Children aged 7 to 9\n- Number of paragraphs: 5\n\nRemember:\n- Each paragraph should begin with the [Content] tag.\n- The story title should begin with the [Title] tag.\n- The story must have a clear beginning, middle, and end.\n","Token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJZCI6IjExMTExMTExMTEiLCJpYXQiOjE3NTMwMjUxMTEsImV4cCI6MTc1MzAyODcxMX0.gpCzp4jZNLMdY4rexzKVU0Nn_sYUhgH8RekqL1TCHIk","Audience":"children"}
+[2025-07-20T15:25:18.612Z] INFO: Grok_Text_Generator: [Title]: Ana and the Magic of the Ecuadorian Forest
+
+[Content]: In the heart of Ecuador, where tall mountains touch the sky and green forests whisper secrets, lived a brave boy named Ana. Ana wasn’t like other kids in his village; he loved exploring the wild jungle near his home in the Andes. One sunny morning, with his little backpack, he set off to find a hidden waterfall he’d heard about. The air smelled of fresh cocoa as he walked past banana trees.
+
+[Content]: As Ana trekked deeper, he met a talking parrot named Pica with bright red and blue feathers. Pica fluttered down and squawked, “Hey, kid, respect the forest, or you’ll get lost!” Ana laughed and promised to be careful, picking up litter he saw on the ground. They became fast friends, and Pica guided him through twisting vines toward the magical waterfall.
+
+[Content]: At the waterfall, sparkling like a thousand diamonds, Ana and Pica found a glowing stone. But a loud rumble shook the ground! Pica warned, “That stone protects the forest. Don’t take it!” Ana nodded, understanding he must respect nature’s treasures. Instead, they sat by the water, sharing a yummy plate of llapingachos—crispy potato cakes Ana’s grandma made.
+
+[Content]: Suddenly, a storm brewed, and Ana worried they’d be stuck. Pica flapped his wings and showed Ana a shortcut back to the village. They worked together, helping each other over muddy paths. Ana learned that true friendship means listening and caring, just like he did with Pica. The forest seemed to smile as they hurried home.
+
+[Content]: Safe in his village, Ana told everyone about Pica and their adventure. He promised to always respect the forest and protect its magic. That night, as he ate more llapingachos with his family, Pica perched on his window, singing a happy tune. Ana knew he’d found a friend forever in the magical Ecuadorian forest.
+[2025-07-20T15:25:25.253Z] INFO: Processing job: {"Id":"1111111111","Prompt":"Create a complete and finished story for the following audience: children\n\nConditions:\n- Main characters: Ana\n- Story genre: fantasy\n- Values to convey: respect,friendship\n- Target gender of the content: Male\n- Additional instructions: El cuento sea ambientado en el ecuador y muestra algun plato tipico Audience: Children aged 7 to 9\n- Number of paragraphs: 20\n\nRemember:\n- Each paragraph should begin with the [Content] tag.\n- The story title should begin with the [Title] tag.\n- The story must have a clear beginning, middle, and end.\n","Token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJZCI6IjExMTExMTExMTEiLCJpYXQiOjE3NTMwMjUxMjUsImV4cCI6MTc1MzAyODcyNX0.5wlhUoHudzTjNjxbJjzo8pSEl_qMGbtMM7SjOjCk_To","Audience":"children"}
+[2025-07-20T15:25:45.236Z] INFO: Grok_Text_Generator: [Title]: Ana and the Magic of the Ecuadorian Forest
+
+[Content]: In the lush, green forests of Ecuador, a brave boy named Ana lived in a small village near the Amazon. Ana had curly black hair and eyes full of curiosity. He loved exploring the jungle, listening to the chirps of colorful birds and the rustle of leaves. One day, he heard a strange whisper in the wind calling his name. It was a magical sound, pulling him deeper into the forest.
+
+[Content]: Ana packed his little backpack with water and a snack of delicious humitas, a traditional Ecuadorian dish made of corn wrapped in leaves. He loved the sweet, steamy taste! With a big smile, he told his mom he’d be back soon and ran toward the whispering sound. The trees seemed taller today, and the air felt sparkly with magic.
+
+[Content]: As Ana walked, he saw glowing footprints on the mossy ground. They shimmered like tiny stars! He followed them, excited but careful. Suddenly, he tripped over a root and tumbled into a hidden clearing. There, a tiny glowing creature floated in front of him—a forest sprite with wings like butterfly petals!
+
+[Content]: The sprite giggled and said, “I’m Lila, guardian of this forest. I called you, Ana, to help me!” Ana scratched his head, surprised. Lila explained that some animals were fighting and making the forest sad. She needed a kind heart to bring peace. Ana felt nervous but wanted to help.
+
+[Content]: Lila led Ana to a noisy spot where a parrot and a monkey were arguing loudly. The parrot squawked, “You took my fruit!” The monkey chattered, “I found it first!” Ana watched them, thinking hard. He remembered how his friends at school sometimes fought too.
+
+[Content]: Ana stepped forward and said, “Hey, let’s talk instead of fight. Maybe we can share?” The parrot tilted its head, and the monkey stopped jumping. Lila winked at Ana, proud of his idea. Sharing was something Ana learned from his family when they ate humitas together.
+
+[Content]: The parrot and monkey looked grumpy but listened to Ana. He suggested they split the fruit and eat together. Lila clapped her tiny hands as the animals agreed. Ana smiled big—he was helping! The forest felt a little happier already with this small act of respect.
+
+[Content]: But then, Lila pointed to another problem deeper in the jungle. A big jaguar was roaring at a tiny turtle near a river. Ana gulped; the jaguar looked scary! Lila floated beside him, whispering, “Be brave, use kind words.” Ana took a deep breath and stepped closer.
+
+[Content]: “Hello, Mr. Jaguar,” Ana said politely. “Why are you so mad?” The jaguar growled, “This turtle is too slow and blocking my path!” Ana saw the turtle hiding in its shell, scared. He knew he had to show respect to both, even if one was big and loud.
+
+[Content]: Ana knelt down and said, “Mr. Jaguar, maybe we can help the turtle move? Then you both can use the path.” The jaguar huffed but nodded. Lila helped Ana gently lift the turtle to a safe spot. The jaguar’s eyes softened a little, seeing Ana’s kindness.
+
+[Content]: The turtle peeked out and mumbled, “Thank you!” Ana grinned and waved. Lila cheered, “You’re teaching respect, Ana!” The forest hummed with a happy buzz now. The animals started to watch Ana, curious about this friendly boy who spoke so nicely.
+
+[Content]: Next, Lila showed Ana a group of birds who wouldn’t share their tree with new visitors. The old birds chirped angrily at the young ones. Ana remembered how his village welcomed everyone during festivals. He wanted these birds to be friends, just like his village pals.
+
+[Content]: “Hey, birds,” Ana called up. “There’s space for everyone if we move a little!” Lila floated near him, nodding. The birds flapped their wings but listened. Slowly, they made room, and soon they were singing together. Ana clapped, happy to see new friendships.
+
+[Content]: As the day went on, Ana and Lila visited more animals, solving little fights with kind words and respect. A sloth learned to wait for its turn on a branch. Two lizards shared a sunny rock. Each time, Ana felt prouder, and the forest glowed brighter.
+
+[Content]: But then, Lila looked worried. “There’s one last big fight,” she said. A giant anaconda was hissing at a family of capybaras over a water spot. Ana’s heart raced. This snake looked huge! Still, Lila trusted him, and he didn’t want to let her down.
+
+[Content]: Ana stood tall and said, “Mr. Anaconda, let’s share the water. There’s enough for all!” The snake hissed but saw Ana’s honest face. Lila sprinkled some magic dust to calm everyone. Slowly, the anaconda moved aside, and the capybaras squeaked in thanks.
+
+[Content]: The forest suddenly sparkled with golden light! Lila danced around Ana, saying, “You did it! The animals are friends again because of your respect!” Ana blushed, feeling happy. He learned that being kind and fair made everyone get along better.
+
+[Content]: Lila gave Ana a tiny leaf charm as a gift. “This will remind you of today,” she said. Ana held it tight, promising to always respect others. The forest whispered a happy goodbye as he started walking home, tired but full of joy.
+
+[Content]: When Ana got back to his village, he told his mom everything while eating more humitas. She hugged him and said, “I’m proud of you for being kind.” The village felt just like the forest—full of friendship when everyone cared for each other.
+
+[Content]: That night, Ana looked at the leaf charm and smiled. He knew respect and friendship could fix anything, even in a magical forest. From then on, he treated everyone kindly, whether they were people or animals. And sometimes, he swore he heard Lila’s giggle in the wind.

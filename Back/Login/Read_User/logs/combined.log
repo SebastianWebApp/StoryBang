@@ -13,3 +13,7 @@
 [2025-07-15T11:47:29.934Z] INFO: Server Active http://localhost:4007
 [2025-07-15T11:47:30.759Z] INFO: Server Active http://localhost:4007
 [2025-07-15T12:33:04.607Z] INFO: Server Active http://localhost:4007
+[2025-07-20T15:00:14.553Z] INFO: Server Active http://localhost:4007
+[2025-07-20T15:00:15.401Z] INFO: Server Active http://localhost:4007
+[2025-07-20T15:13:53.413Z] INFO: Processing job: {"Id":"1111111111","Token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJZCI6IjExMTExMTExMTEiLCJpYXQiOjE3NTMwMjQ0MzMsImV4cCI6MTc1MzAyODAzM30.zfD96apwoypikNLc7C_cXtR4osONTgR-wMIqz6Wu1e4"}
+[2025-07-20T15:13:53.491Z] INFO: Read_User [object Object]
