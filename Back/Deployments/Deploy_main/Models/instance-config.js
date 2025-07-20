@@ -1444,5 +1444,5 @@ export default InstanceConfig;
 //   echo "❌ Error al establecer el túnel SSH."
 // fi
 
-// curl -X POST http://172.17.0.1:8080/translate -H "Content-Type: application/json" -d '{"Text": " Hello, how are you? My name is Mateo.", "Tgt_lang": "spa_Latn"}'
-// curl -X POST http://localhost:8080/translate -H "Content-Type: application/json" -d '{"Text": " Hello, how are you? My name is Mateo.", "Tgt_lang": "spa_Latn"}'
+// // curl -X POST http://172.17.0.1:8080/translate -H "Content-Type: application/json" -d '{"Text": " Hello, how are you? My name is Mateo.", "Tgt_lang": "spa_Latn"}'
+// // curl -X POST http://localhost:8080/translate -H "Content-Type: application/json" -d '{"Text": " Hello, how are you? My name is Mateo.", "Tgt_lang": "spa_Latn"}'
