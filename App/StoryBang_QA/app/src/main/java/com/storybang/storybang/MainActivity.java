@@ -1,7 +1,12 @@
 package com.storybang.storybang;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.webkit.WebChromeClient;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -20,8 +25,7 @@ import java.net.URL;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button Send;
-    private EditText ID;
+    private WebView web ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,61 +38,35 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
-        ID = findViewById(R.id.ID);
-        Send = findViewById(R.id.Send);
+        web = findViewById(R.id.web);
 
-        Send.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        // Hacer que el WebView maneje la navegación
+        web.setWebViewClient(new WebViewClient());
+        web.setWebChromeClient(new WebChromeClient());
 
-                String idValue = ID.getText().toString();
+        WebSettings settings = web.getSettings();
+        settings.setJavaScriptEnabled(true);
+        settings.setDomStorageEnabled(true);
+        settings.setAllowFileAccess(true);
+        settings.setJavaScriptCanOpenWindowsAutomatically(true);
+        settings.setBuiltInZoomControls(true);
+        settings.setDisplayZoomControls(false);
 
-                if (idValue.isEmpty()) {
-                    Toast.makeText(MainActivity.this, "Please enter an ID", Toast.LENGTH_SHORT).show();
-                    return;
-                }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            settings.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
+        }
 
-                new Thread(() -> {
-                    try {
-                        URL url = new URL("http://ec2-34-229-125-142.compute-1.amazonaws.com:4027/api/create_account/Recover_Password"); // Replace with your actual endpoint
-                        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-                        connection.setRequestMethod("POST");
-                        connection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
-                        connection.setDoOutput(true);
+        // Cargar la URL
+        web.loadUrl("https://prod2_mateo_espinoza.distribuidauce.org");
 
-                        String jsonInput = "{\"Id\": \"" + idValue + "\"}";
-
-                        try (OutputStream os = connection.getOutputStream()) {
-                            byte[] input = jsonInput.getBytes("utf-8");
-                            os.write(input, 0, input.length);
-                        }
-
-                        BufferedReader reader = new BufferedReader(
-                                new InputStreamReader(connection.getInputStream(), "utf-8")
-                        );
-                        StringBuilder response = new StringBuilder();
-                        String line;
-
-                        while ((line = reader.readLine()) != null) {
-                            response.append(line.trim());
-                        }
-
-                        runOnUiThread(() ->
-                                Toast.makeText(MainActivity.this, "Sent successfully!", Toast.LENGTH_SHORT).show()
-                        );
-
-                    } catch (Exception e) {
-                        e.printStackTrace();  // Esto imprime el error completo en Logcat
-
-                        runOnUiThread(() ->
-
-                                Toast.makeText(MainActivity.this, "Failed to send", Toast.LENGTH_SHORT).show()
-                        );
-                    }
-                }).start();
-
-            }
-        });
-
+    }
+    // Si quieres que el botón "atrás" del teléfono funcione dentro del WebView
+    @Override
+    public void onBackPressed() {
+        if (web.canGoBack()) {
+            web.goBack();
+        } else {
+            super.onBackPressed();
+        }
     }
 }
